@@ -546,8 +546,20 @@
   /* Footer */
   .footer {
     border-top: 1px solid rgba(0,0,0,0.08);
-    padding: 32px 0;
+    padding: 48px 0 32px 0;
     text-align: center;
+  }
+  
+  .mission-statement {
+    max-width: 800px;
+    margin: 0 auto 32px auto;
+    font-size: 17px;
+    line-height: 1.8;
+    color: #d1d5db;
+    font-weight: 500;
+  }
+  
+  .copyright {
     color: #6b7280;
     font-size: 14px;
   }
@@ -658,6 +670,11 @@
     
     .feature-card {
       padding: 24px;
+    }
+    
+    .mission-statement {
+      font-size: 15px;
+      padding: 0 16px;
     }
   }
 </style>
@@ -925,7 +942,10 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p>&copy; 2025 TrueMile.AI. Built for carriers who want predictable profit.</p>
+      <div class="mission-statement">
+        We're building the financial and operational infrastructure for modern trucking — a system where every mile, load, and dollar is measured, optimized, and intelligently directed. Our mission is to give every carrier the clarity, control, and precision of a world-class financial institution.
+      </div>
+      <p class="copyright">&copy; 2025 TrueMile.AI. Built for carriers who want predictable profit.</p>
     </footer>
   </div>
 </body>
