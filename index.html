@@ -7,8 +7,8 @@
 <meta name="description" content="TrueMile.AI combines automation and intelligence to optimize carrier operations, financials, and dispatching — turning every mile into predictable profit. Meet Rigby, your AI co-pilot guiding every decision in real time." />
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="/favicon?v=1.png" />
-<link rel="apple-touch-icon" href="/favicon?v=1.png" />
+<link rel="icon" type="image/png" href="/favicon.png?v=2" />
+<link rel="apple-touch-icon" href="/favicon.png?v=2" />
 
 <!-- Open Graph / Social Media Preview -->
 <meta property="og:type" content="website" />
@@ -110,6 +110,7 @@
     position: relative;
     width: 36px;
     height: 36px;
+    flex-shrink: 0;
   }
   
   .logo {
@@ -124,12 +125,24 @@
     filter: drop-shadow(0 0 20px rgba(59,130,246,0.5));
   }
   
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .brand-name {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
+  
   .tagline {
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    margin-left: 4px;
-    opacity: 0.95;
+    opacity: 0.9;
+    line-height: 1.2;
   }
   
   .cta-button {
@@ -143,6 +156,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+    white-space: nowrap;
   }
   
   .cta-button:hover {
@@ -564,12 +578,58 @@
   }
   
   @media (max-width: 640px) {
+    .container {
+      padding: 0 16px;
+    }
+    
+    .nav {
+      padding: 16px 0;
+      margin-bottom: 32px;
+    }
+    
+    .brand {
+      flex: 1;
+      justify-content: center;
+      gap: 12px;
+    }
+    
+    .logo-wrapper {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .logo {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .brand-name {
+      font-size: 18px;
+    }
+    
+    .tagline {
+      font-size: 12px;
+    }
+    
+    .cta-button {
+      padding: 10px 20px;
+      font-size: 14px;
+    }
+    
     .hero-content h1 {
       font-size: 36px;
+      text-align: center;
     }
     
     .hero-content .subtitle {
       font-size: 18px;
+      text-align: center;
+    }
+    
+    .hero-content .subline {
+      font-size: 16px;
+      justify-content: center;
+      text-align: center;
     }
     
     .form-row {
@@ -580,14 +640,24 @@
       grid-template-columns: 1fr;
     }
     
-    .nav {
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
-    }
-    
     .social-proof {
       grid-template-columns: 1fr;
+    }
+    
+    .demo-panel {
+      padding: 24px;
+    }
+    
+    .results-panel {
+      padding: 24px;
+    }
+    
+    .kpi-value {
+      font-size: 28px;
+    }
+    
+    .feature-card {
+      padding: 24px;
     }
   }
 </style>
@@ -625,13 +695,13 @@
             </svg>
           </div>
         </div>
-        <div>
-          TrueMile.AI
+        <div class="brand-text">
+          <div class="brand-name">TrueMile.AI</div>
           <div class="tagline">See the truth behind every mile.</div>
         </div>
       </div>
       <button class="cta-button" onclick="document.getElementById('demo-form').scrollIntoView({behavior: 'smooth'})">
-        Book a Demo
+        Book a Free Demo
       </button>
     </nav>
 
@@ -668,7 +738,7 @@
       </div>
       
       <div class="demo-panel" id="demo-form">
-        <h3>Book Your Demo</h3>
+        <h3>Book your Free Demo</h3>
         <p class="helper">See TrueMile.AI in action with your fleet data.</p>
         
         <form action="https://formspree.io/f/mjkjbeal" method="POST">
@@ -695,7 +765,7 @@
           <input type="hidden" name="_subject" value="New Demo Request - TrueMile.AI" />
           <input type="hidden" name="_next" value="https://truemile.ai/thank-you" />
           
-          <button type="submit" class="submit-button">Book a Demo</button>
+          <button type="submit" class="submit-button">Book a Free Demo</button>
         </form>
         
         <p class="pricing-badge">Early access pricing: $149.99/month (limited beta)</p>
@@ -706,7 +776,7 @@
       </div>
     </section>
 
-    <!-- Results Panel - Moved up for instant ROI visibility -->
+    <!-- Results Panel -->
     <section class="results-panel">
       <div class="results-header">
         <div class="pulse-dot"></div>
@@ -828,7 +898,7 @@
         <div class="feature-icon">📊</div>
         <h3>Profit Engine</h3>
         <p>
-          Ingests rate cons, fuel, and bank/credit card data, automatically categorizing every expense. Calculates true CPM and profit per load, then sets revenue targets and forecasts margins — simulating the impact of fuel costs or deadhead miles in real time.
+          Ingests rate cons, fuel, and bank/credit card statements, automatically categorizing every expense. Calculates true CPM and profit per load, then sets revenue targets and forecasts margins — simulating the impact of fuel costs or deadhead miles in real time.
         </p>
       </div>
       
