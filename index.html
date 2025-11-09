@@ -27,6 +27,10 @@
 <meta name="twitter:image" content="https://truemile.ai/og-image.png" />
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Vercel Analytics -->
+<script defer src="https://cdn.vercel-analytics.com/v1/script.js"></script>
+
 <style>
   :root {
     --bg: #0f1419;
@@ -200,8 +204,8 @@
   .time-savings-callout {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 20px 24px;
+    justify-content: center;
+    padding: 24px 32px;
     background: linear-gradient(135deg, rgba(74, 179, 255, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%);
     border: 2px solid #4AB3FF;
     border-radius: 12px;
@@ -209,16 +213,12 @@
     box-shadow: 0 0 24px rgba(74, 179, 255, 0.15);
   }
   
-  .callout-icon {
-    font-size: 28px;
-    flex-shrink: 0;
-    filter: drop-shadow(0 2px 4px rgba(74, 179, 255, 0.3));
-  }
-  
   .callout-text {
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.7;
     color: #e5e7eb;
+    text-align: center;
+    max-width: 100%;
   }
   
   .callout-text strong {
@@ -674,9 +674,7 @@
     }
     
     .time-savings-callout {
-      flex-direction: column;
-      text-align: center;
-      padding: 20px;
+      padding: 20px 24px;
     }
     
     .callout-text {
@@ -774,9 +772,8 @@
         </p>
         
         <div class="time-savings-callout">
-          <div class="callout-icon"></div>
           <div class="callout-text">
-            Fleets save an average of <strong>10–15 hours per truck every week</strong> by eliminating manual tracking, spreadsheets, and dispatcher guesswork.
+            Save <strong>10–15 hours per truck weekly</strong> through automated operations, dispatch optimization, and real-time financial tracking.
           </div>
         </div>
         
@@ -958,7 +955,7 @@
     <!-- Features -->
     <section class="features">
       <div class="feature-card">
-        <div class="feature-icon"></div>
+        <div class="feature-icon">💰</div>
         <h3>Profit Engine</h3>
         <p>
           Imports rate cons, fuel data, and financial statements — automatically categorizing every expense. Calculates true CPM, forecasts margins, and models how fuel, deadhead, and downtime impact profitability in real time.
@@ -966,7 +963,7 @@
       </div>
       
       <div class="feature-card">
-        <div class="feature-icon"></div>
+        <div class="feature-icon">🎯</div>
         <h3>Load Optimizer</h3>
         <p>
           Analyzes your fleet schedule, lane performance, driver availability, and market pricing to recommend the highest-yield loads. Evaluates positioning, spot-rate trends, and profitability — then initiates broker outreach automatically.
@@ -974,7 +971,7 @@
       </div>
       
       <div class="feature-card">
-        <div class="feature-icon"></div>
+        <div class="feature-icon">🤝</div>
         <h3>Broker Connect</h3>
         <p>
           Turns your historical load data into an automated revenue channel. Identifies your highest-margin brokers and contacts them for matching lanes, building consistent and profitable relationships on autopilot.
@@ -984,6 +981,7 @@
 
     <!-- Footer -->
     <footer class="footer">
+      <div class="mission-header">Mission:</div>
       <div class="mission-statement">
         We're building the financial and operational infrastructure for modern trucking — a system where every mile, load, and dollar is measured, optimized, and intelligently directed. Our mission is to give every carrier the clarity, control, and precision of a world-class financial institution.
       </div>
