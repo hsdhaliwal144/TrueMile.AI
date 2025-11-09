@@ -185,21 +185,45 @@
   .hero-content .subtitle {
     font-size: 20px;
     color: var(--text-muted);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     line-height: 1.6;
   }
   
   .hero-content .subline {
-    font-size: 18px;
+    font-size: 17px;
     color: var(--text-muted);
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin-bottom: 24px;
+    line-height: 1.7;
   }
   
-  .rigby-emoji {
-    font-size: 24px;
+  /* Time Savings Callout */
+  .time-savings-callout {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(74, 179, 255, 0.12) 0%, rgba(59, 130, 246, 0.08) 100%);
+    border: 2px solid #4AB3FF;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    box-shadow: 0 0 24px rgba(74, 179, 255, 0.15);
+  }
+  
+  .callout-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 4px rgba(74, 179, 255, 0.3));
+  }
+  
+  .callout-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #e5e7eb;
+  }
+  
+  .callout-text strong {
+    color: #4AB3FF;
+    font-weight: 700;
   }
   
   /* Social Proof Badges */
@@ -222,10 +246,7 @@
     border-radius: 10px;
     font-size: 14px;
     color: var(--text-muted);
-  }
-  
-  .proof-icon {
-    font-size: 20px;
+    font-weight: 500;
   }
   
   /* Demo Form */
@@ -550,6 +571,15 @@
     text-align: center;
   }
   
+  .mission-header {
+    color: var(--brand-light);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  
   .mission-statement {
     max-width: 800px;
     margin: 0 auto 32px auto;
@@ -640,8 +670,17 @@
     
     .hero-content .subline {
       font-size: 16px;
-      justify-content: center;
       text-align: center;
+    }
+    
+    .time-savings-callout {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .callout-text {
+      font-size: 15px;
     }
     
     .form-row {
@@ -734,21 +773,24 @@
           Meet Rigby, your AI advisor operating behind the scenes — 24/7.
         </p>
         
+        <div class="time-savings-callout">
+          <div class="callout-icon"></div>
+          <div class="callout-text">
+            Fleets save an average of <strong>10–15 hours per truck every week</strong> by eliminating manual tracking, spreadsheets, and dispatcher guesswork.
+          </div>
+        </div>
+        
         <div class="social-proof">
           <div class="proof-badge">
-            <span class="proof-icon"></span>
             <span>Real-time Profit Engine</span>
           </div>
           <div class="proof-badge">
-            <span class="proof-icon"></span>
             <span>Load Optimization</span>
           </div>
           <div class="proof-badge">
-            <span class="proof-icon"></span>
             <span>Automated Operations</span>
           </div>
           <div class="proof-badge">
-            <span class="proof-icon"></span>
             <span>Fleet Intelligence</span>
           </div>
         </div>
