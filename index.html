@@ -114,6 +114,20 @@
     max-width: 900px;
     margin: 0 auto;
   }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(5, 150, 105, 0.1);
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .hero-badge-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #059669;
+  }
   
   .hero h1 {
     font-size: 64px;
@@ -379,7 +393,14 @@
   .cta-section p {
     font-size: 18px;
     color: #666;
+    margin-bottom: 8px;
+  }
+
+  .cta-subtext {
+    font-size: 14px;
+    color: #999;
     margin-bottom: 32px;
+    font-style: italic;
   }
   
   /* Demo Form */
@@ -834,6 +855,34 @@
     color: #1a1a1a;
     font-weight: 600;
   }
+
+  /* Email Broker Button Hover */
+  .email-broker-btn {
+    width: 100%;
+    padding: 14px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .email-broker-btn:hover {
+    background: #047857;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+  }
+
+  /* DAT Screenshot styling */
+  .dat-screenshot {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+  }
   
   /* Responsive */
   @media (max-width: 1024px) {
@@ -925,6 +974,9 @@
 
       <!-- Hero -->
       <section class="hero">
+        <div class="hero-badge">
+          <span class="hero-badge-text">800+ trucks signed up</span>
+        </div>
         <h1>Turn Every Mile Into Predictable Profit</h1>
         <p class="subtitle">AI-powered load optimization, route planning, and financial automation. Giving carriers real-time visibility into performance and profit.</p>
         <a href="#demo" class="cta-button">Book a Free Demo</a>
@@ -1064,15 +1116,15 @@
               </div>
               <div class="dispatch-group">
                 <div class="dispatch-label">Required Rate</div>
-                <div class="dispatch-value">$3.00/mile</div>
+                <div class="dispatch-value">$2.50/mile</div>
               </div>
               <div class="dispatch-group">
                 <div class="dispatch-label">Target Revenue</div>
-                <div class="dispatch-value">$36,000</div>
+                <div class="dispatch-value">$30,000</div>
               </div>
               <div class="dispatch-group">
                 <div class="dispatch-label">Net Profit</div>
-                <div class="dispatch-value" style="color: #059669;">$5,300</div>
+                <div class="dispatch-value" style="color: #059669;">$4,300</div>
               </div>
             </div>
           </div>
@@ -1082,36 +1134,91 @@
         <div class="demo-content" id="loads">
           <div class="demo-content-header">
             <h3>Load Optimizer</h3>
-            <p>Screenshot any load board, get instant scoring</p>
+            <p>Your AI dispatcher scans all load boards, ranks every load, and recommends the most profitable one based upon your dispatch plan</p>
           </div>
           
           <div class="loads-grid">
-            <div class="loads-upload">
-              <div class="loads-upload-icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="17 8 12 3 7 8"/>
-                  <line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
+            <div class="loads-upload" style="padding: 0; border: 1px solid #e9ecef;">
+              <div style="background: #fff; padding: 12px 16px; border-bottom: 1px solid #e9ecef; font-weight: 600; font-size: 14px;">
+                DAT Load Board - 241 Results
               </div>
-              <div class="loads-upload-text">Upload Screenshot</div>
-              <div class="loads-upload-sub">DAT, Truckstop, or any load board</div>
+              <div style="padding: 8px;">
+                <table style="width: 100%; font-size: 12px; border-collapse: collapse;">
+                  <thead>
+                    <tr style="background: #f8f9fa; border-bottom: 2px solid #e9ecef;">
+                      <th style="padding: 8px; text-align: left; font-weight: 600; font-size: 11px; color: #666;">Rate</th>
+                      <th style="padding: 8px; text-align: left; font-weight: 600; font-size: 11px; color: #666;">Origin</th>
+                      <th style="padding: 8px; text-align: left; font-weight: 600; font-size: 11px; color: #666;">Destination</th>
+                      <th style="padding: 8px; text-align: left; font-weight: 600; font-size: 11px; color: #666;">Equipment</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                      <td style="padding: 10px 8px;"><strong style="color: #2563eb;">$4,501</strong><br/><span style="color: #999; font-size: 11px;">$2.93/mi</span></td>
+                      <td style="padding: 10px 8px;">Wichita Falls, TX</td>
+                      <td style="padding: 10px 8px;">Philadelphia, PA</td>
+                      <td style="padding: 10px 8px;">R<br/><span style="color: #999; font-size: 11px;">40,000 lbs</span></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                      <td style="padding: 10px 8px;"><strong style="color: #2563eb;">$4,300</strong><br/><span style="color: #999; font-size: 11px;">$2.58/mi</span></td>
+                      <td style="padding: 10px 8px;">Dallas, TX</td>
+                      <td style="padding: 10px 8px;">Hartford, CT</td>
+                      <td style="padding: 10px 8px;">R<br/><span style="color: #999; font-size: 11px;">35,000 lbs</span></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                      <td style="padding: 10px 8px;"><strong style="color: #2563eb;">$3,750</strong><br/><span style="color: #999; font-size: 11px;">$2.14/mi</span></td>
+                      <td style="padding: 10px 8px;">Tyler, TX</td>
+                      <td style="padding: 10px 8px;">Sparks, NV</td>
+                      <td style="padding: 10px 8px;">VC<br/><span style="color: #999; font-size: 11px;">42,000 lbs</span></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                      <td style="padding: 10px 8px;"><strong style="color: #2563eb;">$3,600</strong><br/><span style="color: #999; font-size: 11px;">$1.69/mi</span></td>
+                      <td style="padding: 10px 8px;">Dallas, TX</td>
+                      <td style="padding: 10px 8px;">Portland, OR</td>
+                      <td style="padding: 10px 8px;">R<br/><span style="color: #999; font-size: 11px;">40,000 lbs</span></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #f0f0f0;">
+                      <td style="padding: 10px 8px;"><strong style="color: #2563eb;">$3,100</strong><br/><span style="color: #999; font-size: 11px;">$6.11/mi</span></td>
+                      <td style="padding: 10px 8px;">Dallas, TX</td>
+                      <td style="padding: 10px 8px;">McAllen, TX</td>
+                      <td style="padding: 10px 8px;">RM<br/><span style="color: #999; font-size: 11px;">40,000 lbs</span></td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" style="padding: 12px 8px; text-align: center; color: #999; font-size: 11px;">+ 236 more loads</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div class="loads-results">
-              <div class="load-result pass">
-                <div class="load-badge pass">Pass</div>
-                <div class="load-route">Dallas, TX → Punta Gorda, FL</div>
-                <div class="load-meta">$4,000 • 1,076 mi • $3.72/mi • Score: 82/100</div>
-              </div>
-              <div class="load-result fail">
-                <div class="load-badge fail">Fail</div>
-                <div class="load-route">Sulphur Springs → Earth City</div>
-                <div class="load-meta">$850 • 594 mi • $1.43/mi • Score: 50/100</div>
-              </div>
-              <div class="load-result pass">
-                <div class="load-badge pass">Pass</div>
-                <div class="load-route">Houston, TX → Atlanta, GA</div>
-                <div class="load-meta">$3,200 • 800 mi • $4.00/mi • Score: 95/100</div>
+              <div class="load-result pass" style="background: #f0fdf4; border-color: #86efac; padding: 24px;">
+                <div class="load-badge pass" style="background: #86efac; color: #166534; display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;">RECOMMENDED</div>
+                <div class="load-route" style="font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px;">Wichita Falls, TX → Philadelphia, PA</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                  <div>
+                    <div style="font-size: 11px; color: #666; font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">Rate</div>
+                    <div style="font-size: 18px; font-weight: 700; color: #2563eb;">$4,501</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 11px; color: #666; font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">Distance</div>
+                    <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">1,536 mi</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 11px; color: #666; font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">Rate/Mile</div>
+                    <div style="font-size: 18px; font-weight: 700; color: #1a1a1a;">$2.93/mi</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 11px; color: #666; font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">Score</div>
+                    <div style="font-size: 18px; font-weight: 700; color: #059669;">88/100</div>
+                  </div>
+                </div>
+                <div style="padding: 12px; background: rgba(5, 150, 105, 0.1); border-radius: 8px; margin-bottom: 20px;">
+                  <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Equipment: <strong style="color: #1a1a1a;">Reefer (R)</strong></div>
+                  <div style="font-size: 12px; color: #666;">Weight: <strong style="color: #1a1a1a;">40,000 lbs • 53 ft - Full</strong></div>
+                </div>
+                <button class="email-broker-btn">
+                  Email Broker Now
+                </button>
               </div>
             </div>
           </div>
@@ -1145,11 +1252,12 @@
               Hi Team,<br><br>
               I came across your load posting and wanted to reach out.<br><br>
               <strong>LOAD DETAILS:</strong><br>
-              Origin: Dallas, TX → Punta Gorda, FL<br>
-              Distance: 1,076 miles • Rate: $4,000 ($3.72/mi)<br><br>
+              Origin: Wichita Falls, TX → Philadelphia, PA<br>
+              Distance: 1,536 miles • Rate: $4,501 ($2.93/mi)<br>
+              Equipment: Reefer (R) • 40,000 lbs • 53 ft - Full<br><br>
               <strong>EQUIPMENT:</strong><br>
               Driver: John Smith<br>
-              Truck: 2019 Freightliner Cascadia #107<br><br>
+              Truck: 2023 Freightliner Cascadia 126 #107<br><br>
               Ready to move this load with reliable service.<br><br>
               Sarah Mitchell<br>
               TrueMile Logistics
@@ -1162,7 +1270,7 @@
     <section class="results">
       <div class="section-header">
         <div class="section-label">Real Carrier Results</div>
-        <div class="section-title">4-Truck Fleet Performance</div>
+        <div class="section-title">4-Truck Fleet Performance - Oct 2025</div>
       </div>
       
       <div class="kpi-grid">
@@ -1299,6 +1407,7 @@
     <section class="cta-section" id="demo">
       <h2>Ready to optimize your fleet?</h2>
       <p>Book a free demo and see TrueMile.AI in action with your data.</p>
+      <p class="cta-subtext">Used by real carriers today</p>
       
       <div class="demo-form">
         <form action="https://formspree.io/f/mjkjbeal" method="POST">
