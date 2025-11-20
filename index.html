@@ -39,10 +39,49 @@
     -webkit-font-smoothing: antialiased;
   }
   
-  /* Subtle gradient background */
+  /* Cinematic Hero Section with Image Background */
   .gradient-section {
-    background: linear-gradient(180deg, #FFF5EB 0%, #FFE8D6 15%, #ffffff 50%);
+    position: relative;
     padding-bottom: 48px;
+    overflow: hidden;
+  }
+
+  .gradient-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/hero-truck.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(3px);
+    transform: scale(1.1);
+    z-index: 0;
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+  }
+
+  .gradient-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, 
+      rgba(26, 26, 26, 0.75) 0%, 
+      rgba(26, 26, 26, 0.65) 40%,
+      rgba(255, 255, 255, 0.95) 100%
+    );
+    z-index: 1;
+  }
+
+  .gradient-section .container {
+    position: relative;
+    z-index: 2;
   }
   
   .container { 
@@ -64,7 +103,8 @@
     font-weight: 700;
     font-size: 20px;
     letter-spacing: -0.02em;
-    color: #1a1a1a;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   
   .yc-badge {
@@ -103,15 +143,16 @@
   .hero-badge {
     display: inline-block;
     padding: 8px 16px;
-    background: rgba(5, 150, 105, 0.1);
+    background: rgba(5, 150, 105, 0.9);
     border-radius: 20px;
     margin-bottom: 20px;
+    backdrop-filter: blur(10px);
   }
 
   .hero-badge-text {
     font-size: 14px;
     font-weight: 700;
-    color: #059669;
+    color: #ffffff;
   }
   
   .hero h1 {
@@ -120,22 +161,24 @@
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin-bottom: 20px;
-    color: #1a1a1a;
+    color: #ffffff;
     font-family: 'Fraunces', serif;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   }
   
   .hero .subtitle {
     font-size: 22px;
-    color: #666;
+    color: rgba(255, 255, 255, 0.95);
     margin-bottom: 36px;
     line-height: 1.5;
     font-weight: 400;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
   
   .cta-button {
     padding: 16px 32px;
-    background: #1a1a1a;
-    color: white;
+    background: #ffffff;
+    color: #1a1a1a;
     border: none;
     border-radius: 10px;
     font-weight: 600;
@@ -144,19 +187,21 @@
     transition: all 0.2s ease;
     display: inline-block;
     text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   }
   
   .cta-button:hover {
     transform: translateY(-2px);
-    background: #000;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    background: #f0f0f0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
   }
   
   .cta-note {
     margin-top: 12px;
     font-size: 15px;
-    color: #1a1a1a;
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 700;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
   
   /* Stats Bar */
@@ -1096,14 +1141,33 @@
   
   @media (max-width: 640px) {
     .hero { padding: 48px 0 80px 0; }
-    .hero h1 { font-size: 36px; }
-    .hero .subtitle { font-size: 18px; }
+    .hero h1 { 
+      font-size: 36px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+    .hero .subtitle { 
+      font-size: 18px;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+    }
     .stat-value { font-size: 36px; }
     .section-title { font-size: 32px; }
     .kpi-value { font-size: 32px; }
     .driver-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
     .yc-badge { display: none; }
+
+    .gradient-section::before {
+      filter: blur(5px);
+      background-position: center center;
+    }
+
+    .gradient-section::after {
+      background: linear-gradient(180deg, 
+        rgba(26, 26, 26, 0.85) 0%, 
+        rgba(26, 26, 26, 0.75) 40%,
+        rgba(255, 255, 255, 0.95) 100%
+      );
+    }
 
     .demo-nav-bar {
       flex-direction: column;
@@ -1259,12 +1323,12 @@
       <!-- Stats Bar -->
       <div class="stats-bar">
         <div class="stat">
-          <div class="stat-value">+23%</div>
-          <div class="stat-label">Revenue Growth</div>
+          <div class="stat-value">+95%</div>
+          <div class="stat-label">Profit Increase</div>
         </div>
         <div class="stat">
-          <div class="stat-value">+12%</div>
-          <div class="stat-label">Rate Per Mile Increase</div>
+          <div class="stat-value">+23%</div>
+          <div class="stat-label">Revenue Growth</div>
         </div>
         <div class="stat">
           <div class="stat-value">3 hrs</div>
@@ -1527,7 +1591,7 @@
                       <td style="padding: 10px 8px;">R<br/><span style="color: #999; font-size: 11px;">40,000 lbs</span></td>
                     </tr>
                     <tr style="border-bottom: 1px solid #f0f0f0;">
-                      <td style="padding: 10px 8px;"><strong style="color: #2563eb;">$1,100</strong><br/><span style="color: #999; font-size: 11px;">$2.04/mi</span></td>
+                      <td style="padding: 10px 8px;"><strong style="color: #2563eb;">$3,100</strong><br/><span style="color: #999; font-size: 11px;">$6.11/mi</span></td>
                       <td style="padding: 10px 8px;">Dallas, TX</td>
                       <td style="padding: 10px 8px;">McAllen, TX</td>
                       <td style="padding: 10px 8px;">RM<br/><span style="color: #999; font-size: 11px;">40,000 lbs</span></td>
@@ -1587,7 +1651,7 @@
             <div class="intel-email-body">
               Hi Team,<br><br>
               I came across your load posting and wanted to book this load.<br><br>
-              Please send me over the carrier packet and our team will get that filled out for you shortly.<br><br>
+              Please send me over the carrier packet and our team will get that filled out for you shortly<br><br>
               <strong>LOAD DETAILS:</strong><br>
               MC: 048737<br>
               Reference ID: 2491042<br>
@@ -1913,6 +1977,48 @@
     // Start showing messages
     showMessage(0);
   }
+
+  // Parallax Hero Background Effect
+  let ticking = false;
+  
+  function updateParallax() {
+    const heroSection = document.querySelector('.gradient-section');
+    if (!heroSection) return;
+    
+    const scrolled = window.pageYOffset;
+    const heroHeight = heroSection.offsetHeight;
+    
+    // Only apply parallax within hero section
+    if (scrolled < heroHeight) {
+      const parallaxValue = scrolled * 0.5;
+      heroSection.style.setProperty('--parallax-offset', `${parallaxValue}px`);
+      
+      // Apply the transform to the ::before pseudo-element via CSS variable
+      const styleElement = document.querySelector('#parallax-style') || document.createElement('style');
+      styleElement.id = 'parallax-style';
+      styleElement.textContent = `
+        .gradient-section::before {
+          transform: scale(1.1) translateY(${parallaxValue}px) !important;
+        }
+      `;
+      
+      if (!document.querySelector('#parallax-style')) {
+        document.head.appendChild(styleElement);
+      }
+    }
+    
+    ticking = false;
+  }
+  
+  function requestParallaxUpdate() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+  
+  window.addEventListener('scroll', requestParallaxUpdate);
+  window.addEventListener('load', updateParallax);
   </script>
 </body>
 </html>
