@@ -1329,15 +1329,15 @@
       <!-- Stats Bar -->
       <div class="stats-bar">
         <div class="stat">
+          <div class="stat-value">+95%</div>
+          <div class="stat-label">Profit Increase</div>
+        </div>
+        <div class="stat">
           <div class="stat-value">+23%</div>
           <div class="stat-label">Revenue Growth</div>
         </div>
         <div class="stat">
-          <div class="stat-value">+12%</div>
-          <div class="stat-label">Rate Per Mile Increase</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value">+3 hrs</div>
+          <div class="stat-value">3 hrs</div>
           <div class="stat-label">Daily Time Saved</div>
         </div>
       </div>
@@ -2015,5 +2015,11 @@
   window.addEventListener('scroll', requestParallaxUpdate);
   window.addEventListener('load', updateParallax);
   </script>
+
+  <!-- Vercel Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
