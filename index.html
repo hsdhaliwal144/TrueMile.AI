@@ -576,6 +576,13 @@
 
   .demo-content-header {
     margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .demo-content-header-left {
+    flex: 1;
   }
 
   .demo-content-header h3 {
@@ -588,6 +595,39 @@
   .demo-content-header p {
     font-size: 16px;
     color: #666;
+  }
+
+  .demo-upload-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+  }
+
+  .upload-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  .upload-icon {
+    width: 16px;
+    height: 16px;
   }
 
   /* Financials Demo */
@@ -1099,12 +1139,28 @@
       padding: 24px 20px;
     }
 
+    .demo-content-header {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .demo-upload-buttons {
+      width: 100%;
+    }
+
+    .upload-btn {
+      flex: 1;
+      justify-content: center;
+    }
+
     .demo-title {
       font-size: 32px;
     }
 
+    /* Mobile-friendly table layout */
     .demo-table {
-      overflow-x: visible;
+      border: none;
+      background: transparent;
     }
 
     .demo-table-header {
@@ -1112,38 +1168,51 @@
     }
 
     .demo-table-row {
-      display: flex;
-      flex-direction: column;
-      grid-template-columns: unset;
+      display: block;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef !important;
+      border-radius: 12px;
       padding: 20px;
-      border-bottom: 2px solid #e9ecef !important;
-      gap: 12px;
+      margin-bottom: 16px;
     }
 
     .demo-table-row > div {
-      display: flex;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #e9ecef;
       align-items: center;
-      padding: 8px 0;
+    }
+
+    .demo-table-row > div:last-child {
+      border-bottom: none;
     }
 
     .demo-table-row > div:first-child {
+      grid-template-columns: 1fr;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 17px;
       color: #1a1a1a;
-      border-bottom: 1px solid #e9ecef;
-      padding-bottom: 12px;
-      margin-bottom: 8px;
-      justify-content: flex-start;
+      border-bottom: 2px solid #e9ecef;
+      padding-bottom: 14px;
+      margin-bottom: 6px;
     }
 
     .demo-table-row > div:not(:first-child)::before {
       content: attr(data-label);
       font-weight: 600;
       color: #666;
-      font-size: 11px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+    }
+
+    .demo-table-row > div:not(:first-child) {
+      font-weight: 600;
+      font-size: 16px;
+      color: #1a1a1a;
+      text-align: right;
     }
 
     .chat-container {
@@ -1248,17 +1317,32 @@
           <div class="demo-tabs">
             <div class="demo-tab active" data-tab="financials">Financials</div>
             <div class="demo-tab" data-tab="dispatch-engine">Dispatch Engine</div>
-            <div class="demo-tab" data-tab="dispatch-plan">Dispatch Plan</div>
-            <div class="demo-tab" data-tab="loads">Loads</div>
-            <div class="demo-tab" data-tab="load-booking">Load Booking</div>
+            <div class="demo-tab" data-tab="loads">Load Optimizer</div>
+            <div class="demo-tab" data-tab="intelligence">Intelligence</div>
           </div>
         </div>
 
         <!-- Financials Tab -->
         <div class="demo-content active" id="financials">
           <div class="demo-content-header">
-            <h3>Fleet Financials</h3>
-            <p>Real-time profit tracking and driver performance</p>
+            <div class="demo-content-header-left">
+              <h3>Fleet Financials</h3>
+              <p>Real-time profit tracking and driver performance</p>
+            </div>
+            <div class="demo-upload-buttons">
+              <button class="upload-btn">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Rate Cons
+              </button>
+              <button class="upload-btn">
+                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Expenses
+              </button>
+            </div>
           </div>
           
           <div class="demo-metrics">
@@ -1425,54 +1509,6 @@
           </div>
         </div>
 
-        <!-- Dispatch Plan Tab (Original Content) -->
-        <div class="demo-content" id="dispatch-plan">
-          <div class="demo-content-header">
-            <h3>Dispatch Plan</h3>
-            <p>AI-powered route planning for maximum profitability</p>
-          </div>
-          
-          <div class="dispatch-grid">
-            <div class="dispatch-input">
-              <div class="dispatch-group">
-                <div class="dispatch-label">Driver</div>
-                <div class="dispatch-value">Nick (Driver)</div>
-              </div>
-              <div class="dispatch-group">
-                <div class="dispatch-label">Days on Road</div>
-                <div class="dispatch-value">12 days</div>
-              </div>
-              <div class="dispatch-group">
-                <div class="dispatch-label">Days Off</div>
-                <div class="dispatch-value">3 days</div>
-              </div>
-              <div class="dispatch-group">
-                <div class="dispatch-label">Cycles</div>
-                <div class="dispatch-value">2 cycles</div>
-              </div>
-            </div>
-            <div class="dispatch-output">
-              <div class="dispatch-output-title">November Plan</div>
-              <div class="dispatch-group">
-                <div class="dispatch-label">Miles Needed</div>
-                <div class="dispatch-value">11,000 miles</div>
-              </div>
-              <div class="dispatch-group">
-                <div class="dispatch-label">Required Rate</div>
-                <div class="dispatch-value">$2.45/mile</div>
-              </div>
-              <div class="dispatch-group">
-                <div class="dispatch-label">Target Revenue</div>
-                <div class="dispatch-value">$27,000</div>
-              </div>
-              <div class="dispatch-group">
-                <div class="dispatch-label">Net Profit</div>
-                <div class="dispatch-value" style="color: #059669;">$7,800</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Loads Tab -->
         <div class="demo-content" id="loads">
           <div class="demo-content-header">
@@ -1568,18 +1604,32 @@
         </div>
 
         <!-- Intelligence Tab -->
-        <div class="demo-content" id="load-booking">
+        <div class="demo-content" id="intelligence">
           <div class="demo-content-header">
-            <h3>Broker Outreach</h3>
-            <p>AI contacts the listed broker to book your load.</p>
+            <h3>Broker Intelligence</h3>
+            <p>AI extracts loads from emails and generates outreach</p>
+          </div>
+          
+          <div class="intel-metrics">
+            <div class="intel-metric">
+              <div class="intel-metric-value">600+</div>
+              <div class="intel-metric-label">Emails Processed</div>
+            </div>
+            <div class="intel-metric">
+              <div class="intel-metric-value">504</div>
+              <div class="intel-metric-label">Loads Extracted</div>
+            </div>
+            <div class="intel-metric">
+              <div class="intel-metric-value" style="color: #059669;">40</div>
+              <div class="intel-metric-label">High Priority</div>
+            </div>
           </div>
 
           <div class="intel-email">
             <div class="intel-email-header">AI-Generated Outreach</div>
             <div class="intel-email-body">
               Hi Team,<br><br>
-              I came across your load posting and wanted to book this load. 
-              Please send over your carrier packet and we will get that over to your shortly.<br><br>
+              I came across your load posting and wanted to reach out.<br><br>
               <strong>LOAD DETAILS:</strong><br>
               MC: 048737<br>
               Reference ID: 2491042<br>
@@ -1588,8 +1638,8 @@
               Equipment: Reefer (R) • 40,000 lbs • 53 ft - Full<br><br>
               <strong>EQUIPMENT:</strong><br>
               Driver: John Smith<br>
-              Truck: 2023 Freightliner Cascadia 126 #107<br>
-              Trailer: 2022 Great Dane 53ft S-700 thermoking #76101<br><br>
+              Truck: 2023 Freightliner Cascadia 126 #107<br><br>
+              Trailer: 2022 Great Dane 53ft S-700 thermoking #76101<br>
               Ready to move this load with reliable service.<br><br>
               Sarah Mitchell<br>
               TrueMile Logistics
@@ -1783,87 +1833,127 @@
   </div>
 
   <script>
-    // Interactive Demo Tab Switching
-    let dispatchEngineAnimationStarted = false;
+  // Interactive Demo Tab Switching
+  let dispatchAnimationTimeouts = [];
 
-    document.querySelectorAll('.demo-tab').forEach(tab => {
-      tab.addEventListener('click', function() {
-        const targetTab = this.getAttribute('data-tab');
-        
-        // Remove active class from all tabs and content
-        document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.demo-content').forEach(c => c.classList.remove('active'));
-        
-        // Add active class to clicked tab and corresponding content
-        this.classList.add('active');
-        document.getElementById(targetTab).classList.add('active');
+  function clearDispatchAnimation() {
+    // Clear any pending timeouts
+    dispatchAnimationTimeouts.forEach(id => clearTimeout(id));
+    dispatchAnimationTimeouts = [];
+  }
 
-        // Start dispatch engine animation when tab is clicked
-        if (targetTab === 'dispatch-engine' && !dispatchEngineAnimationStarted) {
-          dispatchEngineAnimationStarted = true;
-          // Small delay to ensure tab content is visible
-          setTimeout(() => {
-            animateDispatchConversation();
-          }, 100);
-        }
-      });
-    });
+  function resetDispatchConversation() {
+    const messages = document.querySelectorAll('#dispatch-engine .chat-message');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const chatContainer = document.querySelector('#dispatch-engine .chat-container');
 
-    // Animate Dispatch Engine Conversation
-    function animateDispatchConversation() {
-      const messages = document.querySelectorAll('#dispatch-engine .chat-message');
-      const typingIndicator = document.getElementById('typing-indicator');
-      const chatContainer = document.querySelector('#dispatch-engine .chat-container');
-      
-      function scrollToBottom() {
-        chatContainer.scrollTop = chatContainer.scrollHeight;
+    clearDispatchAnimation();
+
+    // Reset all messages to hidden
+    messages.forEach(m => m.classList.remove('visible'));
+
+    // Hide typing indicator
+    if (typingIndicator) {
+      typingIndicator.classList.remove('visible');
+    }
+
+    // DON'T reset scroll - let it start naturally at top
+  }
+
+  document.querySelectorAll('.demo-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetTab = this.getAttribute('data-tab');
+
+      // Remove active class from all tabs and content
+      document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.demo-content').forEach(c => c.classList.remove('active'));
+
+      // Add active class to clicked tab and corresponding content
+      this.classList.add('active');
+      document.getElementById(targetTab).classList.add('active');
+
+      // If we are leaving dispatch engine, clean up
+      if (targetTab !== 'dispatch-engine') {
+        clearDispatchAnimation();
+        return;
       }
-      
-      function showMessage(index) {
-        if (index >= messages.length) {
-          return; // All messages shown
-        }
-        
-        const message = messages[index];
-        const delay = parseInt(message.getAttribute('data-delay')) || 500;
-        const isAIMessage = message.querySelector('.message-left');
-        
-        if (isAIMessage) {
-          // AI message flow: delay → typing indicator → message
-          setTimeout(() => {
-            // Show typing indicator
-            typingIndicator.classList.add('visible');
-            setTimeout(scrollToBottom, 100);
-            
-            // After 1 second, hide typing and show message
-            setTimeout(() => {
-              typingIndicator.classList.remove('visible');
-              message.classList.add('visible');
-              
-              // Wait for render then scroll and move to next
-              setTimeout(() => {
-                scrollToBottom();
-                showMessage(index + 1);
-              }, 150);
-            }, 1000);
-          }, delay);
-        } else {
-          // User message flow: delay → message
-          setTimeout(() => {
+
+      // When entering Dispatch Engine, reset and start the animation fresh
+      resetDispatchConversation();
+
+      // Small delay to ensure tab content is visible
+      setTimeout(() => {
+        animateDispatchConversation();
+      }, 100);
+    });
+  });
+
+  // Animate Dispatch Engine Conversation
+  function animateDispatchConversation() {
+    const messages = document.querySelectorAll('#dispatch-engine .chat-message');
+    const typingIndicator = document.getElementById('typing-indicator');
+    const chatContainer = document.querySelector('#dispatch-engine .chat-container');
+
+    if (!messages.length || !chatContainer) return;
+
+    function scrollToBottom() {
+      chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+
+    function schedule(fn, delay) {
+      const id = setTimeout(fn, delay);
+      dispatchAnimationTimeouts.push(id);
+    }
+
+    function showMessage(index) {
+      if (index >= messages.length) {
+        // Ensure final position is snapped to bottom
+        schedule(() => scrollToBottom(), 100);
+        return;
+      }
+
+      const message = messages[index];
+      const delay = parseInt(message.getAttribute('data-delay')) || 500;
+      const isAIMessage = message.querySelector('.message-left');
+
+      if (isAIMessage) {
+        // AI message flow: delay → typing indicator → message
+        schedule(() => {
+          typingIndicator.classList.add('visible');
+          schedule(scrollToBottom, 100);
+
+          // After 1 second, hide typing and show message
+          schedule(() => {
+            typingIndicator.classList.remove('visible');
             message.classList.add('visible');
-            
-            // Wait for render then scroll and move to next
-            setTimeout(() => {
+
+            // Scroll after render, then move to next
+            schedule(() => {
               scrollToBottom();
               showMessage(index + 1);
-            }, 150);
-          }, delay);
-        }
+            }, 200);
+          }, 1000);
+        }, delay);
+      } else {
+        // User message flow: delay → message
+        schedule(() => {
+          message.classList.add('visible');
+
+          // Scroll after render, then move to next
+          schedule(() => {
+            scrollToBottom();
+            showMessage(index + 1);
+          }, 200);
+        }, delay);
       }
-      
-      // Start showing messages from the first one
-      showMessage(0);
     }
+
+    // Start showing messages
+    showMessage(0);
+  }
   </script>
 </body>
 </html>
