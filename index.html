@@ -750,7 +750,8 @@
   .chat-container {
     max-width: 800px;
     margin: 0 auto;
-    max-height: 700px;
+    min-height: 400px;
+    max-height: 650px;
     overflow-y: auto;
     padding-right: 12px;
     padding-bottom: 24px;
@@ -776,17 +777,25 @@
 
   .chat-message {
     margin-bottom: 20px;
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 12px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
   }
 
   .chat-message.visible {
-    opacity: 1;
-    transform: translateY(0);
+    display: flex;
+    animation: messageSlideIn 0.3s ease-out;
+  }
+
+  @keyframes messageSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .message-bubble {
@@ -867,17 +876,13 @@
   }
 
   .typing-indicator {
-    display: none;
+    display: flex;
     gap: 4px;
     padding: 12px 18px;
     background: #f3f4f6;
     border-radius: 12px;
     width: fit-content;
     margin-bottom: 20px;
-  }
-
-  .typing-indicator.visible {
-    display: flex;
   }
 
   .typing-dot {
@@ -1318,7 +1323,7 @@
             <div class="demo-tab active" data-tab="financials">Financials</div>
             <div class="demo-tab" data-tab="dispatch-engine">Dispatch Engine</div>
             <div class="demo-tab" data-tab="loads">Load Optimizer</div>
-            <div class="demo-tab" data-tab="intelligence">Intelligence</div>
+            <div class="demo-tab" data-tab="intelligence">Load Booking</div>
           </div>
         </div>
 
@@ -1402,17 +1407,13 @@
         <!-- Dispatch Engine Tab (Conversation) -->
         <div class="demo-content" id="dispatch-engine">
           <div class="demo-content-header">
-            <h3>Dispatch Engine</h3>
-            <p>AI-powered dispatch planning assistant</p>
+            <div class="demo-content-header-left">
+              <h3>Dispatch Engine</h3>
+              <p>AI-powered dispatch planning assistant</p>
+            </div>
           </div>
           
-          <div class="chat-container">
-            <div class="typing-indicator" id="typing-indicator">
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-              <div class="typing-dot"></div>
-            </div>
-
+          <div class="chat-container" id="chat-container-dispatch">
             <div class="chat-message" data-delay="200">
               <div class="message-bubble message-left">
                 Hi! I'm your dispatch planning assistant. Which driver are we planning routes for today?
@@ -1512,8 +1513,10 @@
         <!-- Loads Tab -->
         <div class="demo-content" id="loads">
           <div class="demo-content-header">
-            <h3>Load Optimizer</h3>
-            <p>Your AI dispatcher scans all load boards, ranks every load, and recommends the most profitable one based upon your dispatch plan</p>
+            <div class="demo-content-header-left">
+              <h3>Load Optimizer</h3>
+              <p>Your AI dispatcher scans all load boards, ranks every load, and recommends the most profitable one based upon your dispatch plan</p>
+            </div>
           </div>
           
           <div class="loads-grid">
@@ -1606,22 +1609,9 @@
         <!-- Intelligence Tab -->
         <div class="demo-content" id="intelligence">
           <div class="demo-content-header">
-            <h3>Broker Intelligence</h3>
-            <p>AI extracts loads from emails and generates outreach</p>
-          </div>
-          
-          <div class="intel-metrics">
-            <div class="intel-metric">
-              <div class="intel-metric-value">600+</div>
-              <div class="intel-metric-label">Emails Processed</div>
-            </div>
-            <div class="intel-metric">
-              <div class="intel-metric-value">504</div>
-              <div class="intel-metric-label">Loads Extracted</div>
-            </div>
-            <div class="intel-metric">
-              <div class="intel-metric-value" style="color: #059669;">40</div>
-              <div class="intel-metric-label">High Priority</div>
+            <div class="demo-content-header-left">
+              <h3>Broker Contact</h3>
+              <p>AI contacts the listed broker to secure the booking.</p>
             </div>
           </div>
 
@@ -1629,7 +1619,8 @@
             <div class="intel-email-header">AI-Generated Outreach</div>
             <div class="intel-email-body">
               Hi Team,<br><br>
-              I came across your load posting and wanted to reach out.<br><br>
+              I came across your load posting and wanted to book this load.<br><br>
+              Please send me over the carrier packet and our team will get that filled out for you shortly<br><br>
               <strong>LOAD DETAILS:</strong><br>
               MC: 048737<br>
               Reference ID: 2491042<br>
@@ -1638,8 +1629,8 @@
               Equipment: Reefer (R) • 40,000 lbs • 53 ft - Full<br><br>
               <strong>EQUIPMENT:</strong><br>
               Driver: John Smith<br>
-              Truck: 2023 Freightliner Cascadia 126 #107<br><br>
-              Trailer: 2022 Great Dane 53ft S-700 thermoking #76101<br>
+              Truck: 2023 Freightliner Cascadia 126 #107<br>
+              Trailer: 2022 Great Dane 53ft S-700 thermoking #76101<br><br>
               Ready to move this load with reliable service.<br><br>
               Sarah Mitchell<br>
               TrueMile Logistics
@@ -1844,7 +1835,6 @@
 
   function resetDispatchConversation() {
     const messages = document.querySelectorAll('#dispatch-engine .chat-message');
-    const typingIndicator = document.getElementById('typing-indicator');
     const chatContainer = document.querySelector('#dispatch-engine .chat-container');
 
     clearDispatchAnimation();
@@ -1852,12 +1842,9 @@
     // Reset all messages to hidden
     messages.forEach(m => m.classList.remove('visible'));
 
-    // Hide typing indicator
-    if (typingIndicator) {
-      typingIndicator.classList.remove('visible');
-    }
-
-    // DON'T reset scroll - let it start naturally at top
+    // Remove any typing indicators that might be in the DOM
+    const typingIndicators = chatContainer.querySelectorAll('.typing-indicator');
+    typingIndicators.forEach(ti => ti.remove());
   }
 
   document.querySelectorAll('.demo-tab').forEach(tab => {
@@ -1891,10 +1878,14 @@
   // Animate Dispatch Engine Conversation
   function animateDispatchConversation() {
     const messages = document.querySelectorAll('#dispatch-engine .chat-message');
-    const typingIndicator = document.getElementById('typing-indicator');
     const chatContainer = document.querySelector('#dispatch-engine .chat-container');
 
     if (!messages.length || !chatContainer) return;
+
+    // Create typing indicator element
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'typing-indicator';
+    typingIndicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
 
     function scrollToBottom() {
       chatContainer.scrollTo({
@@ -1922,12 +1913,13 @@
       if (isAIMessage) {
         // AI message flow: delay → typing indicator → message
         schedule(() => {
-          typingIndicator.classList.add('visible');
+          // Insert typing indicator right before this message
+          message.parentNode.insertBefore(typingIndicator, message);
           schedule(scrollToBottom, 100);
 
           // After 1 second, hide typing and show message
           schedule(() => {
-            typingIndicator.classList.remove('visible');
+            typingIndicator.remove();
             message.classList.add('visible');
 
             // Scroll after render, then move to next
