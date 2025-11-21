@@ -1336,8 +1336,8 @@
         </div>
         <h1>AI-Powered Operating System for Carriers</h1>
         <p class="hero-tagline">Turn every mile into predictable profit.</p>
-        <p class="subtitle">Real-time load optimization, route planning, and financial automation.</p>
-        <a href="#demo" class="cta-button">Book a Demo</a>
+        <p class="subtitle">AI-powered load optimization, route planning, and financial automation. Giving carriers real-time visibility into performance and profit.</p>
+        <a href="#demo" class="cta-button">Book a Free Demo</a>
         <p class="cta-note">$49.99/month per truck • Limited beta access</p>
       </section>
 
@@ -1650,7 +1650,7 @@
                   <div style="font-size: 12px; color: #666; margin-bottom: 4px;">Equipment: <strong style="color: #1a1a1a;">Reefer (R)</strong></div>
                   <div style="font-size: 12px; color: #666;">Weight: <strong style="color: #1a1a1a;">40,000 lbs • 53 ft - Full</strong></div>
                 </div>
-                <button class="email-broker-btn">
+                <button class="email-broker-btn" onclick="switchToLoadBooking()">
                   Email Broker Now
                 </button>
               </div>
@@ -1831,7 +1831,7 @@
     <!-- CTA Section -->
     <section class="cta-section" id="demo">
       <h2>Ready to optimize your fleet?</h2>
-      <p>Book a demo and see TrueMile.AI in action with your data.</p>
+      <p>Book a free demo and see TrueMile.AI in action with your data.</p>
       <p class="cta-subtext">Used by real carriers today</p>
       
       <div class="demo-form">
@@ -1859,7 +1859,7 @@
           <input type="hidden" name="_subject" value="New Demo Request - TrueMile.AI" />
           <input type="hidden" name="_next" value="https://truemile.ai/thank-you" />
           
-          <button type="submit" class="submit-button">Book a Demo</button>
+          <button type="submit" class="submit-button">Book Free Demo</button>
         </form>
         
         <p class="pricing-note">Early access: $49.99/month per truck</p>
@@ -2029,6 +2029,26 @@
   
   window.addEventListener('scroll', requestParallaxUpdate);
   window.addEventListener('load', updateParallax);
+
+  // Switch to Load Booking tab from Email Broker button
+  function switchToLoadBooking() {
+    // Remove active class from all tabs and content
+    document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.demo-content').forEach(c => c.classList.remove('active'));
+
+    // Add active class to Load Booking tab and content
+    const loadBookingTab = document.querySelector('.demo-tab[data-tab="intelligence"]');
+    const loadBookingContent = document.getElementById('intelligence');
+    
+    if (loadBookingTab) loadBookingTab.classList.add('active');
+    if (loadBookingContent) loadBookingContent.classList.add('active');
+
+    // Smooth scroll to the demo section
+    const demoSection = document.querySelector('.demo-section');
+    if (demoSection) {
+      demoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
   </script>
 
   <!-- Vercel Analytics -->
