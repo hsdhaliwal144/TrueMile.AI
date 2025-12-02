@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - TrueMile.AI</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container {
+      max-width: 440px;
+      width: 100%;
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+    .oauth-btn {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      background: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      transition: all 0.2s;
+    }
+    .oauth-btn:hover {
+      background: #f9fafb;
+      border-color: #1a1a1a;
+    }
+    .divider {
+      text-align: center;
+      margin: 24px 0;
+      color: #999;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #1a1a1a;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #1a1a1a;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: #000;
+    }
+    .footer-link {
+      text-align: center;
+      margin-top: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+    .footer-link a {
+      color: #1a1a1a;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">TrueMile.AI</div>
+    <div class="subtitle">Start optimizing your fleet</div>
+
+    <button class="oauth-btn" onclick="signInWithGoogle()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707 0-.593.102-1.17.282-1.709V4.958H.957C.347 6.173 0 7.548 0 9c0 1.452.348 2.827.957 4.042l3.007-2.335z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z"/></svg>
+      Continue with Google
+    </button>
+
+    <button class="oauth-btn" onclick="signInWithOutlook()">
+      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#0078D4" d="M0 0h18v18H0z"/><path fill="#FFF" d="M9 4.5c-2.485 0-4.5 2.015-4.5 4.5s2.015 4.5 4.5 4.5 4.5-2.015 4.5-4.5-2.015-4.5-4.5-4.5zm0 7.65c-1.738 0-3.15-1.412-3.15-3.15S7.262 5.85 9 5.85s3.15 1.412 3.15 3.15-1.412 3.15-3.15 3.15z"/></svg>
+      Continue with Outlook
+    </button>
+
+    <div class="divider">or</div>
+
+    <form onsubmit="signUpWithEmail(event)">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" minlength="6" required />
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+
+    <div class="footer-link">
+      Already have an account? <a href="/login">Sign In</a>
+    </div>
+  </div>
+
+  <script>
+    const supabase = window.supabase.createClient(
+      'https://gjajvsvdvnxskczltnnq.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdqYWp2c3Zkdm54c2tjemx0bm5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3MDQwNzksImV4cCI6MjA3NTI4MDA3OX0.bV05dMG2PnBeSmvTwEeYVzEvuiYHCnirMu-mCsRU-so'
+    );
+
+    async function signInWithGoogle() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/onboarding`
+        }
+      });
+      if (error) alert(error.message);
+    }
+
+    async function signInWithOutlook() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'azure',
+        options: {
+          redirectTo: `${window.location.origin}/onboarding`,
+          scopes: 'email Mail.Read'
+        }
+      });
+      if (error) alert(error.message);
+    }
+
+    async function signUpWithEmail(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/onboarding`
+        }
+      });
+
+      if (error) {
+        alert(error.message);
+      } else {
+        alert('Check your email to confirm your account!');
+      }
+    }
+  </script>
+</body>
+</html>
