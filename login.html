@@ -175,25 +175,69 @@
     );
 
     async function signInWithGoogle() {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: 'https://truemile.ai/dashboard'  // Hardcoded production URL
+      try {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: 'https://truemile.ai/dashboard'
+          }
+        });
+        if (error) {
+          console.error('Google sign in error:', error);
+          alert(error.message);
+        }
+      } catch (err) {
+        console.error('Exception:', err);
+        alert('An error occurred. Please try again.');
+      }
     }
-  });
-  if (error) alert(error.message);
-}
 
-async function signInWithOutlook() {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'azure',
-    options: {
-      redirectTo: 'https://truemile.ai/dashboard',  // Hardcoded production URL
-      scopes: 'email Mail.Read'
+    async function signInWithOutlook() {
+      try {
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider: 'azure',
+          options: {
+            redirectTo: 'https://truemile.ai/dashboard',
+            scopes: 'email Mail.Read'
+          }
+        });
+        if (error) {
+          console.error('Outlook sign in error:', error);
+          alert(error.message);
+        }
+      } catch (err) {
+        console.error('Exception:', err);
+        alert('An error occurred. Please try again.');
+      }
     }
-  });
-  if (error) alert(error.message);
-}
+
+    async function signInWithEmail(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        });
+
+        if (error) {
+          alert(error.message);
+        } else {
+          window.location.href = '/dashboard';
+        }
+      } catch (err) {
+        console.error('Exception:', err);
+        alert('An error occurred. Please try again.');
+      }
+    }
+
+    // Check if already logged in
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        window.location.href = '/dashboard';
+      }
     });
   </script>
 </body>
