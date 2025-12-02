@@ -10,12 +10,29 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #f9fafb;
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFE8D6 100%);
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 24px;
+    }
+    .home-link {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      color: #666;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .home-link:hover {
+      color: #1a1a1a;
     }
     .container {
       max-width: 440px;
@@ -105,6 +122,13 @@
   </style>
 </head>
 <body>
+  <a href="/" class="home-link">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 19l-7-7 7-7"/>
+    </svg>
+    Home
+  </a>
+
   <div class="container">
     <div class="logo">TrueMile.AI</div>
     <div class="subtitle">Start optimizing your fleet</div>
