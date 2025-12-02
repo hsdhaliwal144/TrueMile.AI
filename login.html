@@ -175,48 +175,25 @@
     );
 
     async function signInWithGoogle() {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/dashboard`
-        }
-      });
-      if (error) alert(error.message);
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: 'https://truemile.ai/dashboard'  // Hardcoded production URL
     }
+  });
+  if (error) alert(error.message);
+}
 
-    async function signInWithOutlook() {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'azure',
-        options: {
-          redirectTo: `${window.location.origin}/dashboard`,
-          scopes: 'email Mail.Read'
-        }
-      });
-      if (error) alert(error.message);
+async function signInWithOutlook() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'azure',
+    options: {
+      redirectTo: 'https://truemile.ai/dashboard',  // Hardcoded production URL
+      scopes: 'email Mail.Read'
     }
-
-    async function signInWithEmail(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) {
-        alert(error.message);
-      } else {
-        window.location.href = '/dashboard';
-      }
-    }
-
-    // Check if already logged in
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        window.location.href = '/dashboard';
-      }
+  });
+  if (error) alert(error.message);
+}
     });
   </script>
 </body>
