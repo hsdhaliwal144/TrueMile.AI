@@ -163,45 +163,45 @@
     );
 
     async function signInWithGoogle() {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/onboarding`
-        }
-      });
-      if (error) alert(error.message);
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: 'https://truemile.ai/onboarding'  // Hardcoded production URL
     }
+  });
+  if (error) alert(error.message);
+}
 
-    async function signInWithOutlook() {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'azure',
-        options: {
-          redirectTo: `${window.location.origin}/onboarding`,
-          scopes: 'email Mail.Read'
-        }
-      });
-      if (error) alert(error.message);
+async function signInWithOutlook() {
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'azure',
+    options: {
+      redirectTo: 'https://truemile.ai/onboarding',  // Hardcoded production URL
+      scopes: 'email Mail.Read'
     }
+  });
+  if (error) alert(error.message);
+}
 
-    async function signUpWithEmail(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+async function signUpWithEmail(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/onboarding`
-        }
-      });
-
-      if (error) {
-        alert(error.message);
-      } else {
-        alert('Check your email to confirm your account!');
-      }
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: 'https://truemile.ai/onboarding'  // Hardcoded production URL
     }
+  });
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert('Check your email to confirm your account!');
+  }
+}
   </script>
 </body>
 </html>
