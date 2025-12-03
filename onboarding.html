@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to TrueMile.AI</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #FFF8F0 0%, #FFE8D6 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container {
+      max-width: 500px;
+      width: 100%;
+      background: white;
+      padding: 48px;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+    .step {
+      margin-bottom: 32px;
+    }
+    .step-number {
+      width: 32px;
+      height: 32px;
+      background: #1a1a1a;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: #1a1a1a;
+    }
+    .price-display {
+      background: #f9fafb;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 24px;
+      border: 1px solid #e5e5e5;
+    }
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 15px;
+      color: #666;
+    }
+    .price-row.total {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1a1a1a;
+      padding-top: 12px;
+      border-top: 2px solid #e5e5e5;
+      margin-top: 12px;
+    }
+    .btn {
+      width: 100%;
+      padding: 16px;
+      background: #1a1a1a;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 24px;
+    }
+    .btn:hover {
+      background: #000;
+    }
+    .btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .success {
+      color: #059669;
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">Welcome to TrueMile.AI! 🚛</div>
+    <div class="subtitle">Let's get your fleet set up</div>
+
+    <form id="onboarding-form">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">Company Information</div>
+        <input type="text" id="company-name" placeholder="Company Name" required />
+        <input type="text" id="mc-number" placeholder="MC Number (Optional)" />
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">Fleet Size</div>
+        <select id="truck-count" required>
+          <option value="">Select number of trucks</option>
+          <option value="1">1 truck</option>
+          <option value="2">2 trucks</option>
+          <option value="3">3 trucks</option>
+          <option value="4">4 trucks</option>
+          <option value="5">5 trucks</option>
+          <option value="6">6 trucks</option>
+          <option value="7">7 trucks</option>
+          <option value="8">8 trucks</option>
+          <option value="9">9 trucks</option>
+          <option value="10">10 trucks</option>
+          <option value="15">15 trucks</option>
+          <option value="20">20 trucks</option>
+          <option value="25">25+ trucks</option>
+        </select>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">Subscription</div>
+        
+        <div class="price-display">
+          <div class="price-row">
+            <span>Price per truck</span>
+            <span>$50.00/month</span>
+          </div>
+          <div class="price-row">
+            <span>Number of trucks</span>
+            <span id="truck-display">—</span>
+          </div>
+          <div class="price-row total">
+            <span>Total monthly</span>
+            <span id="total-price">$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn" id="submit-btn">Complete Setup</button>
+      <div class="success" id="success-message"></div>
+    </form>
+  </div>
+
+  <script>
+    const supabase = window.supabase.createClient(
+      'https://gjajvsvdvnxskczltnnq.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdqYWp2c3Zkdm54c2tjemx0bm5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3MDQwNzksImV4cCI6MjA3NTI4MDA3OX0.bV05dMG2PnBeSmvTwEeYVzEvuiYHCnirMu-mCsRU-so'
+    );
+
+    // Check if user is authenticated
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!session) {
+        window.location.href = '/signup';
+      }
+    });
+
+    // Update price display
+    document.getElementById('truck-count').addEventListener('change', function() {
+      const trucks = parseInt(this.value) || 0;
+      const pricePerTruck = 50;
+      const total = trucks * pricePerTruck;
+      
+      document.getElementById('truck-display').textContent = trucks;
+      document.getElementById('total-price').textContent = `$${total.toFixed(2)}`;
+    });
+
+    // Handle form submission (simplified - no Stripe for now)
+    document.getElementById('onboarding-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('success-message');
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Setting up...';
+      successMsg.textContent = '';
+
+      const companyName = document.getElementById('company-name').value;
+      const mcNumber = document.getElementById('mc-number').value;
+      const truckCount = parseInt(document.getElementById('truck-count').value);
+
+      if (!truckCount) {
+        alert('Please select number of trucks');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Complete Setup';
+        return;
+      }
+
+      try {
+        // Get current user
+        const { data: { user } } = await supabase.auth.getUser();
+
+        // For now, just show success and redirect
+        // TODO: Add Stripe payment integration later
+        successMsg.textContent = '✓ Setup complete! Redirecting...';
+        
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 1500);
+
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Complete Setup';
+      }
+    });
+  </script>
+</body>
+</html>
