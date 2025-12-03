@@ -124,7 +124,7 @@
 </head>
 <body>
   <div class="container">
-    <div class="logo">Welcome to TrueMile.AI! 🚛</div>
+    <div class="logo">Welcome to TrueMile.AI!/div>
     <div class="subtitle">Let's get your fleet set up</div>
 
     <form id="onboarding-form">
@@ -132,29 +132,22 @@
         <div class="step-number">1</div>
         <div class="step-title">Company Information</div>
         <input type="text" id="company-name" placeholder="Company Name" required />
-        <input type="text" id="mc-number" placeholder="MC Number (Optional)" />
+        <input type="text" id="mc-number" placeholder="MC Number" />
+        <input type="text" id="dot-number" placeholder="DOT Number" />
       </div>
 
       <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-title">Fleet Size</div>
-        <select id="truck-count" required>
-          <option value="">Select number of trucks</option>
-          <option value="1">1 truck</option>
-          <option value="2">2 trucks</option>
-          <option value="3">3 trucks</option>
-          <option value="4">4 trucks</option>
-          <option value="5">5 trucks</option>
-          <option value="6">6 trucks</option>
-          <option value="7">7 trucks</option>
-          <option value="8">8 trucks</option>
-          <option value="9">9 trucks</option>
-          <option value="10">10 trucks</option>
-          <option value="15">15 trucks</option>
-          <option value="20">20 trucks</option>
-          <option value="25">25+ trucks</option>
-        </select>
-      </div>
+  <div class="step-number">2</div>
+  <div class="step-title">Fleet Size</div>
+  <input 
+    type="number" 
+    id="truck-count" 
+    placeholder="Number of trucks" 
+    min="1" 
+    max="500" 
+    required 
+  />
+</div>
 
       <div class="step">
         <div class="step-number">3</div>
@@ -195,14 +188,14 @@
     });
 
     // Update price display
-    document.getElementById('truck-count').addEventListener('change', function() {
-      const trucks = parseInt(this.value) || 0;
-      const pricePerTruck = 50;
-      const total = trucks * pricePerTruck;
-      
-      document.getElementById('truck-display').textContent = trucks;
-      document.getElementById('total-price').textContent = `$${total.toFixed(2)}`;
-    });
+document.getElementById('truck-count').addEventListener('input', function() {
+  const trucks = parseInt(this.value) || 0;
+  const pricePerTruck = 50;
+  const total = trucks * pricePerTruck;
+  
+  document.getElementById('truck-display').textContent = trucks;
+  document.getElementById('total-price').textContent = `$${total.toFixed(2)}`;
+});
 
     // Handle form submission (simplified - no Stripe for now)
     document.getElementById('onboarding-form').addEventListener('submit', async function(e) {
