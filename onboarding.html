@@ -1,3 +1,17 @@
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabase = window.supabase.createClient(
+    'https://gjajvsvdvnxskczltnnq.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdqYWp2c3Zkdm54c2tjemx0bm5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3MDQwNzksImV4cCI6MjA3NTI4MDA3OX0.bV05dMG2PnBeSmvTwEeYVzEvuiYHCnirMu-mCsRU-so'
+  );
+
+  // Check if user is authenticated
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (!session) {
+      window.location.href = 'https://truemile.ai/login';
+    }
+  });
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -228,7 +242,7 @@ document.getElementById('truck-count').addEventListener('input', function() {
         successMsg.textContent = '✓ Setup complete! Redirecting...';
         
         setTimeout(() => {
-          window.location.href = '/dashboard';
+          window.location.href = 'https://fleet1backend-production.up.railway.app/dashboard';
         }, 1500);
 
       } catch (error) {
