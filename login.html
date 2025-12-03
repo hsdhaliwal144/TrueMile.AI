@@ -179,7 +179,7 @@
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: 'https://truemile.ai/dashboard'
+            redirectTo: 'https://fleet1backend-production.up.railway.app/dashboard'
           }
         });
         if (error) {
@@ -197,7 +197,7 @@
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'azure',
           options: {
-            redirectTo: 'https://truemile.ai/dashboard',
+            redirectTo: 'https://fleet1backend-production.up.railway.app/dashboard',
             scopes: 'email Mail.Read'
           }
         });
@@ -210,6 +210,8 @@
         alert('An error occurred. Please try again.');
       }
     }
+
+    window.location.href = 'https://fleet1backend-production.up.railway.app/dashboard';
 
     async function signInWithEmail(e) {
       e.preventDefault();
@@ -225,7 +227,7 @@
         if (error) {
           alert(error.message);
         } else {
-          window.location.href = '/dashboard';
+          window.location.href = 'https://fleet1backend-production.up.railway.app/dashboard';
         }
       } catch (err) {
         console.error('Exception:', err);
