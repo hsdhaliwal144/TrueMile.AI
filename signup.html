@@ -1,5 +1,9 @@
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - TrueMile.AI</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -159,45 +163,33 @@
     );
 
     async function signInWithGoogle() {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: 'https://truemile.ai/onboarding'  // Hardcoded production URL
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: 'https://truemile.ai/onboarding'
+        }
+      });
+      if (error) alert(error.message);
     }
-  });
-  if (error) alert(error.message);
-}
 
-async function signInWithOutlook() {
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider: 'azure',
-    options: {
-      redirectTo: 'https://truemile.ai/onboarding',  // Hardcoded production URL
-      scopes: 'email Mail.Read'
+    async function signInWithOutlook() {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'azure',
+        options: {
+          redirectTo: 'https://truemile.ai/onboarding',
+          scopes: 'email Mail.Read'
+        }
+      });
+      if (error) alert(error.message);
     }
-  });
-  if (error) alert(error.message);
-}
 
-async function signUpWithEmail(e) {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
+    async function signUpWithEmail(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: 'https://truemile.ai/onboarding'  // Hardcoded production URL
-    }
-  });
-
-  if (error) {
-    alert(error.message);
-  } else {
-    alert('Check your email to confirm your account!');
-  }
-}
-  </script>
-</body>
-</html>**************************/
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: 'https://truemile.ai/onbo
