@@ -1,4 +1,4 @@
-/*<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -179,7 +179,7 @@
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: {
-            redirectTo: 'https://fleet1backend-production.up.railway.app/dashboard'
+            redirectTo: 'https://fleet1-frontend.vercel.app'
           }
         });
         if (error) {
@@ -197,7 +197,7 @@
         const { error } = await supabase.auth.signInWithOAuth({
           provider: 'azure',
           options: {
-            redirectTo: 'https://fleet1backend-production.up.railway.app/dashboard',
+            redirectTo: 'https://fleet1-frontend.vercel.app',
             scopes: 'email Mail.Read'
           }
         });
@@ -210,8 +210,6 @@
         alert('An error occurred. Please try again.');
       }
     }
-
-    window.location.href = 'https://fleet1backend-production.up.railway.app/dashboard';
 
     async function signInWithEmail(e) {
       e.preventDefault();
@@ -227,7 +225,7 @@
         if (error) {
           alert(error.message);
         } else {
-          window.location.href = 'https://fleet1backend-production.up.railway.app/dashboard';
+          window.location.href = 'https://fleet1-frontend.vercel.app';
         }
       } catch (err) {
         console.error('Exception:', err);
@@ -238,9 +236,9 @@
     // Check if already logged in
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
-        window.location.href = '/dashboard';
+        window.location.href = 'https://fleet1-frontend.vercel.app';
       }
     });
   </script>
 </body>
-</html>*/
+</html>
