@@ -1,3 +1,9 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false
+  "rewrites": [
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/signup", "destination": "/signup.html" },
+    { "source": "/onboarding", "destination": "/onboarding.html" },
+    { "source": "/thank-you", "destination": "/thank-you.html" },
+    { "source": "/reset-password", "destination": "/reset-password.html" }
+  ]
+}
