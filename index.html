@@ -38,8 +38,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
   background:var(--ink);
   display:flex;
   align-items:center;
-  padding:0 64px;
-  gap:48px;
+  justify-content:center;
+  padding:0 48px;
+  gap:80px;
   overflow:hidden;
 }
 .hero-wrap::before{
@@ -52,11 +53,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .hero-left{
   position:relative;
   z-index:2;
-  flex:0 0 52%;          /* wider — text owns more than half */
+  flex:1 1 auto;
+  max-width:520px;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding-right:32px;
+  padding-right:0;
 }
 .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;opacity:0;animation:fup .7s .2s ease forwards;}
 .ed{width:5px;height:5px;border-radius:50%;background:var(--green-l);}
@@ -72,7 +74,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 
 /* RIGHT — smaller, supporting role */
 .hero-right{
-  flex:0 0 48%;          /* narrower — secondary */
+  flex:0 0 auto;
+  width:440px;
   position:relative;
   display:flex;
   align-items:center;
