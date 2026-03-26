@@ -32,81 +32,102 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .nc:hover{opacity:.86;}
 
 /* ── HERO ── */
-.hero-wrap{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;}
-.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 75% 50%,rgba(37,99,235,.12) 0%,transparent 65%);pointer-events:none;}
-.hero-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 50% at 20% 60%,rgba(26,107,74,.06) 0%,transparent 60%);pointer-events:none;}
+.hero-wrap{
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  background:var(--ink);
+}
+.hero-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 60% at 72% 50%,rgba(37,99,235,.13) 0%,transparent 65%);
+  pointer-events:none;
+}
 
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:0 64px;height:100vh;width:100%;position:relative;z-index:1;}
+.hero{
+  display:grid;
+  grid-template-columns:45% 55%;
+  height:100%;
+  padding:0 48px;
+  position:relative;
+  z-index:1;
+  gap:0;
+}
 
-.hero-left{max-width:520px;}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fup .7s .2s ease forwards;}
+/* Left col: text vertically centered */
+.hero-left{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-right:48px;
+}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;opacity:0;animation:fup .7s .2s ease forwards;}
 .ed{width:5px;height:5px;border-radius:50%;background:var(--green-l);}
 .et{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.36);}
-.hero h1{font-family:var(--serif);font-size:clamp(44px,5.5vw,80px);font-weight:700;line-height:1.02;letter-spacing:-.025em;margin-bottom:22px;opacity:0;animation:fup .8s .4s ease forwards;}
+.hero h1{font-family:var(--serif);font-size:clamp(38px,4.5vw,64px);font-weight:700;line-height:1.05;letter-spacing:-.025em;margin-bottom:16px;opacity:0;animation:fup .8s .4s ease forwards;}
 .hero h1 em{font-style:italic;color:rgba(255,255,255,.28);}
-.hero-sub{font-size:16px;color:rgba(255,255,255,.44);line-height:1.72;max-width:42ch;font-weight:300;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.44);line-height:1.7;max-width:46ch;font-weight:300;margin-bottom:32px;opacity:0;animation:fup .8s .6s ease forwards;}
 .hbtns{display:flex;gap:16px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
-
-/* Button — Fleetline style: dark fill, rounded, no outline */
-.bp{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:13px 28px;
-  background:#1e1e1e;
-  color:var(--white);
-  font-size:14px;font-weight:500;
-  border-radius:6px;
-  text-decoration:none;
-  border:1px solid rgba(255,255,255,.12);
-  transition:background .2s,transform .2s;
-}
+.bp{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1e1e1e;color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:background .2s,transform .2s;}
 .bp:hover{background:#2a2a2a;transform:translateY(-1px);}
 .bs{font-size:14px;color:rgba(255,255,255,.38);text-decoration:none;font-weight:400;transition:color .2s;}
 .bs:hover{color:var(--white);}
 
-/* hero right — metrics card */
+/* Right col: window naturally sized, vertically centered */
 .hero-right{
-  opacity:0;animation:fup 1s .7s ease forwards;
   position:relative;
-  display:flex;align-items:center;justify-content:center;
-  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:80px 0 80px 0;
+  opacity:0;
+  animation:fup 1s .5s ease forwards;
 }
 .hero-glow{
   position:absolute;top:50%;left:50%;
   width:600px;height:600px;
   transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(37,99,235,.22) 0%,rgba(37,99,235,0) 70%);
+  background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 70%);
   pointer-events:none;filter:blur(60px);z-index:0;
 }
-/* outer window frame — like Fleetline's browser chrome */
 .hero-window{
   position:relative;z-index:1;
-  width:100%;max-width:560px;
-  background:#141414;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:12px;
+  width:100%;
+  background:#181818;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:10px;
   overflow:hidden;
-  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);
+  box-shadow:0 24px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);
 }
 .hero-window-bar{
   display:flex;align-items:center;gap:8px;
-  padding:14px 20px;
-  background:#0d0d0d;
+  padding:13px 18px;
+  background:#0f0f0f;
   border-bottom:1px solid rgba(255,255,255,.06);
 }
 .hero-window-dots{display:flex;gap:6px;}
-.hero-window-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.08);}
+.hero-window-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);}
 .hero-window-url{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.2);margin-left:4px;}
-/* metrics card inside window */
-.hero-metrics-card{background:rgba(8,12,24,.8);border:1px solid rgba(37,99,235,.25);border-radius:8px;margin:20px;overflow:hidden;box-shadow:0 0 0 1px rgba(37,99,235,.08),inset 0 1px 0 rgba(255,255,255,.04);}
-.hmc-bar{padding:12px 18px;background:rgba(37,99,235,.07);border-bottom:1px solid rgba(37,99,235,.14);display:flex;align-items:center;gap:8px;}
+.hero-window-body{
+  padding:20px;
+  background:linear-gradient(150deg,#0c1020 0%,#080a0f 100%);
+}
+.hero-metrics-card{
+  background:rgba(8,14,32,.85);
+  border:1px solid rgba(37,99,235,.3);
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(37,99,235,.1),0 16px 48px rgba(37,99,235,.18),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.hmc-bar{padding:12px 18px;background:rgba(37,99,235,.08);border-bottom:1px solid rgba(37,99,235,.15);display:flex;align-items:center;gap:8px;}
 .hmc-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
 .hmc-title{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.32);letter-spacing:.06em;}
-.hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.04);}
-.hm{background:rgba(8,12,24,.9);padding:24px 20px;transition:background .2s;}
+.hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
+.hm{background:rgba(8,14,32,.9);padding:32px 28px;transition:background .2s;}
 .hm:hover{background:rgba(37,99,235,.07);}
-.hm-tag{display:inline-block;margin-bottom:10px;padding:2px 8px;background:rgba(37,99,235,.18);color:#60a5fa;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;}
-.hm-val{font-family:var(--serif);font-size:38px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:6px;}
-.hm-label{font-size:11px;color:rgba(255,255,255,.36);font-weight:400;}
+.hm-tag{display:inline-block;margin-bottom:12px;padding:2px 9px;background:rgba(37,99,235,.2);color:#60a5fa;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;}
+.hm-val{font-family:var(--serif);font-size:44px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:8px;}
+.hm-label{font-size:12px;color:rgba(255,255,255,.36);font-weight:400;}
 
 /* ── FEATURE SECTIONS (vertical stacked) ── */
 .fx-section{padding:0;}
@@ -117,12 +138,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .fx-band-body{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;}
 .fx-card-wrap{padding:0 64px 96px;max-width:1160px;margin:0 auto;}
 
-.fx-section-alt .fx-band-label,.fx-section-alt .fx-band-body{color:rgba(255,255,255,.4);}
-.fx-section-alt .fx-band-head{color:var(--white);}
-.fx-section-alt .fx-band-head em{color:rgba(255,255,255,.28);}
-
 /* ── FLOATING UI CARD ── */
-.ui-card{background:var(--white);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.1),0 4px 16px rgba(0,0,0,.06);overflow:hidden;width:100%;max-width:480px;position:relative;z-index:1;}
+.ui-card{background:var(--white);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.1),0 4px 16px rgba(0,0,0,.06);overflow:hidden;width:100%;position:relative;z-index:1;}
 .ui-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--fog);border-bottom:1px solid var(--fog3);}
 .ui-dots{display:flex;gap:5px;}
 .ui-dot{width:8px;height:8px;border-radius:50%;background:var(--fog3);}
@@ -131,11 +148,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 /* ── LOAD BOARD ANIMATION UI ── */
 .lb-header{padding:12px 16px;border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;}
 .lb-title{font-size:13px;font-weight:600;color:var(--ink);}
-.lb-count{font-family:var(--mono);font-size:11px;color:var(--muted);}
 .lb-scanning{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-weight:500;}
 .scan-dot{width:6px;height:6px;border-radius:50%;background:var(--green-l);animation:pulse 1.4s infinite;}
-
-.lb-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:12px 16px;border-bottom:1px solid var(--fog2);align-items:center;transition:background .3s,border-color .3s;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease,background .3s,border-color .3s;}
+.lb-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:12px 16px;border-bottom:1px solid var(--fog2);align-items:center;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease,background .3s,border-color .3s;}
 .lb-row.show{opacity:1;transform:translateY(0);}
 .lb-row.winner{background:rgba(26,107,74,.06);border-left:3px solid var(--green-l);padding-left:13px;}
 .lb-row.winner .lb-rate{color:var(--green);}
@@ -145,83 +160,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .lb-rpm{font-size:10px;color:var(--muted);text-align:right;font-family:var(--mono);margin-top:2px;}
 .lb-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:var(--green-m);color:var(--green);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .4s .2s;}
 .lb-badge.show{opacity:1;}
-
-/* Score counter */
 .score-bar{padding:12px 16px;border-top:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;opacity:0;transition:opacity .5s;}
 .score-bar.show{opacity:1;}
 .score-label{font-size:11px;color:var(--muted);font-weight:500;}
 .score-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--green);}
 .score-track{height:4px;background:var(--fog3);border-radius:2px;flex:1;margin:0 12px;overflow:hidden;}
 .score-fill{height:100%;background:var(--green-l);border-radius:2px;width:0%;transition:width 1.2s ease;}
-
-/* Email preview */
 .email-preview{padding:14px 16px;background:#eff6ff;border-top:1px solid #dbeafe;opacity:0;transition:opacity .5s .3s;}
 .email-preview.show{opacity:1;}
 .ep-tag{font-size:10px;font-weight:600;color:#1a5eb8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
 .ep-body{font-size:11px;line-height:1.6;color:#374151;}
 .ep-body strong{color:var(--ink);}
-.ep-btn{margin-top:10px;width:100%;padding:9px;background:var(--green);color:white;border:none;border-radius:4px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:pointer;opacity:0;transition:opacity .4s .6s;animation:none;}
+.ep-btn{margin-top:10px;width:100%;padding:9px;background:var(--green);color:white;border:none;border-radius:4px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:pointer;opacity:0;transition:opacity .4s .6s;}
 .ep-btn.show{opacity:1;animation:subtlePulse 2s 1s ease-in-out infinite;}
 
-/* ── PROOF ── */
-.proof{background:var(--ink2);color:var(--white);padding:104px 48px;}
-.proof-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1160px;margin:0 auto;}
-.proof-left .sec-label{color:rgba(255,255,255,.3);}
-.proof-left .sec-head{color:var(--white);margin-bottom:20px;}
-.proof-left .sec-head em{color:rgba(255,255,255,.28);}
-.proof-left-desc{font-size:15px;color:rgba(255,255,255,.38);line-height:1.75;font-weight:300;max-width:38ch;}
-
-/* glowing card */
-.proof-right{position:relative;}
-.proof-glow{
-  position:absolute;top:50%;left:50%;
-  width:340px;height:340px;
-  transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(37,99,235,.28) 0%,rgba(37,99,235,.0) 70%);
-  pointer-events:none;
-  filter:blur(30px);
-  z-index:0;
-}
-.proof-card{
-  position:relative;z-index:1;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(37,99,235,.35);
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 0 0 1px rgba(37,99,235,.15), 0 20px 60px rgba(37,99,235,.15), inset 0 1px 0 rgba(255,255,255,.06);
-}
-.proof-card-header{
-  padding:14px 22px;
-  background:rgba(37,99,235,.08);
-  border-bottom:1px solid rgba(37,99,235,.2);
-  display:flex;align-items:center;gap:8px;
-}
-.proof-card-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
-.proof-card-title{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.06em;}
-.proof-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
-.pm{
-  background:rgba(10,10,10,.5);
-  padding:32px 28px;
-  position:relative;
-  transition:background .2s;
-}
-.pm:hover{background:rgba(37,99,235,.08);}
-.pm-tag{
-  display:inline-block;margin-bottom:12px;
-  padding:2px 8px;
-  background:rgba(37,99,235,.15);
-  color:#60a5fa;
-  border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;
-}
-.pm-val{
-  font-family:var(--serif);
-  font-size:clamp(36px,4vw,52px);
-  font-weight:800;line-height:1;letter-spacing:-.03em;
-  color:var(--white);margin-bottom:8px;
-}
-.pm-val span{color:#3b82f6;}
-.pm-label{font-size:13px;color:rgba(255,255,255,.38);font-weight:400;}
-
+/* ── HOW ── */
 .how{background:var(--fog);color:var(--ink);padding:104px 48px;}
 .how-top{margin-bottom:56px;}
 .how-h{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:22ch;margin-bottom:16px;color:var(--ink);}
@@ -234,7 +187,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .st{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.3;}
 .sb{font-size:13px;color:var(--muted);line-height:1.72;font-weight:400;}
 
-/* ── FEATURES (light section) ── */
+/* ── FEATURES ── */
 .features{background:var(--fog);color:var(--ink);padding:104px 48px;}
 .fh{margin-bottom:56px;}
 .fl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
@@ -275,11 +228,9 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 .ftm{font-size:13px;color:rgba(255,255,255,.2);max-width:40ch;text-align:center;line-height:1.65;font-weight:300;}
 
 /* ── UTILS ── */
-section .container,.proof .container,.how .container,.features .container,.cta .container{max-width:1160px;margin:0 auto;}
 .container{max-width:1160px;margin:0 auto;}
 .sec-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
 .sec-head{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:72px;max-width:22ch;}
-.sec-head em{font-style:italic;color:rgba(10,10,10,.3);}
 
 /* ── ANIMATIONS ── */
 @keyframes fup{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
@@ -289,27 +240,21 @@ section .container,.proof .container,.how .container,.features .container,.cta .
 .reveal.visible{opacity:1;transform:translateY(0);}
 
 /* ── RESPONSIVE ── */
-@media(max-width:1200px){
-  nav{padding:0 24px;}
-  .hero{grid-template-columns:1fr 1fr;padding:0 32px;gap:40px;}
-  .hero h1{font-size:clamp(38px,4.5vw,60px);}
-  .hm-val{font-size:clamp(28px,3vw,40px);}
-}
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;padding:80px 24px;gap:48px;height:auto;padding-top:100px;}
+  nav{padding:0 24px;}
+  .hero{grid-template-columns:1fr;height:auto;padding:100px 24px 64px;}
+  .hero-left{padding-right:0;padding-bottom:0;}
   .hero-right{display:none;}
   .how,.features,.cta{padding:80px 24px;}
-  .fx-row{grid-template-columns:1fr;direction:ltr;}
-  .fx-right{min-height:400px;}
-  .fx-left{padding:60px 32px 40px;}
+  .fx-band{padding:60px 24px 48px;}
+  .fx-card-wrap{padding:0 24px 72px;}
   .steps{grid-template-columns:repeat(2,1fr);}
   .fg{grid-template-columns:1fr;}
   .cta-i{grid-template-columns:1fr;gap:48px;}
   footer{flex-direction:column;gap:20px;text-align:center;padding:36px 24px;}
-  .how-top{flex-direction:column;gap:20px;}
 }
 @media(max-width:640px){
-  .hero h1{font-size:44px;}
+  .hero h1{font-size:40px;}
   .steps{grid-template-columns:1fr;}
   .nr .nl{display:none;}
   .fr{grid-template-columns:1fr;}
@@ -328,9 +273,10 @@ section .container,.proof .container,.how .container,.features .container,.cta .
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — Fleetline layout: text bottom-left, window right half -->
 <div class="hero-wrap">
   <section class="hero">
+    <!-- LEFT: text at bottom -->
     <div class="hero-left">
       <div class="eyebrow"><div class="ed"></div><span class="et">AI-Powered Dispatch Intelligence</span></div>
       <h1>Every mile.<br><em>Optimized.</em></h1>
@@ -340,38 +286,46 @@ section .container,.proof .container,.how .container,.features .container,.cta .
         <a href="#features" class="bs">See how it works</a>
       </div>
     </div>
+
+    <!-- RIGHT: tall window fills column -->
     <div class="hero-right">
       <div class="hero-glow"></div>
       <div class="hero-window">
         <div class="hero-window-bar">
-          <div class="hero-window-dots"><div class="hero-window-dot"></div><div class="hero-window-dot"></div><div class="hero-window-dot"></div></div>
+          <div class="hero-window-dots">
+            <div class="hero-window-dot"></div>
+            <div class="hero-window-dot"></div>
+            <div class="hero-window-dot"></div>
+          </div>
           <span class="hero-window-url">truemile.ai/dashboard</span>
         </div>
-        <div class="hero-metrics-card">
-          <div class="hmc-bar">
-            <div class="hmc-dot"></div>
-            <span class="hmc-title">Fleet Performance — Live Metrics</span>
-          </div>
-          <div class="hmc-grid">
-            <div class="hm">
-              <div class="hm-tag">avg. across fleet</div>
-              <div class="hm-val">1.4x</div>
-              <div class="hm-label">Revenue increases</div>
+        <div class="hero-window-body">
+          <div class="hero-metrics-card">
+            <div class="hmc-bar">
+              <div class="hmc-dot"></div>
+              <span class="hmc-title">Fleet Performance — Live Metrics</span>
             </div>
-            <div class="hm">
-              <div class="hm-tag">trucks loaded</div>
-              <div class="hm-val">15%</div>
-              <div class="hm-label">Utilization increases</div>
-            </div>
-            <div class="hm">
-              <div class="hm-tag">rate per mile</div>
-              <div class="hm-val">+20%</div>
-              <div class="hm-label">RPM improvement</div>
-            </div>
-            <div class="hm">
-              <div class="hm-tag">per dispatcher</div>
-              <div class="hm-val">50%</div>
-              <div class="hm-label">Less time dispatching</div>
+            <div class="hmc-grid">
+              <div class="hm">
+                <div class="hm-tag">avg. across fleet</div>
+                <div class="hm-val">1.4x</div>
+                <div class="hm-label">Revenue increases</div>
+              </div>
+              <div class="hm">
+                <div class="hm-tag">trucks loaded</div>
+                <div class="hm-val">15%</div>
+                <div class="hm-label">Utilization increases</div>
+              </div>
+              <div class="hm">
+                <div class="hm-tag">rate per mile</div>
+                <div class="hm-val">+20%</div>
+                <div class="hm-label">RPM improvement</div>
+              </div>
+              <div class="hm">
+                <div class="hm-tag">per dispatcher</div>
+                <div class="hm-val">50%</div>
+                <div class="hm-label">Less time dispatching</div>
+              </div>
             </div>
           </div>
         </div>
@@ -380,7 +334,7 @@ section .container,.proof .container,.how .container,.features .container,.cta .
   </section>
 </div>
 
-<!-- ═══ FEATURE SECTION 1: Load Optimizer ═══ -->
+<!-- LOAD OPTIMIZER -->
 <div class="fx-section" id="features" style="background:var(--white);">
   <div class="fx-band reveal">
     <div class="fx-band-label">Load Optimizer</div>
@@ -420,7 +374,7 @@ section .container,.proof .container,.how .container,.features .container,.cta .
       <div class="score-bar" id="scoreBar">
         <span class="score-label">Cycle Profit Score</span>
         <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
-        <span class="score-val" id="scoreVal">88 / 100</span>
+        <span class="score-val">88 / 100</span>
       </div>
       <div class="email-preview" id="emailPreview">
         <div class="ep-tag">AI-Generated Outreach — Ready to Send</div>
@@ -431,8 +385,8 @@ section .container,.proof .container,.how .container,.features .container,.cta .
   </div>
 </div>
 
-<!-- ═══ FEATURE SECTION 2: Broker Contact ═══ -->
-<div style="background:var(--fog2);padding-bottom:0;">
+<!-- BROKER CONTACT -->
+<div style="background:var(--fog2);">
   <div class="fx-band reveal">
     <div class="fx-band-label">Broker Contact</div>
     <div class="fx-band-head">One click.<br><em>Broker contacted.</em></div>
@@ -460,7 +414,7 @@ section .container,.proof .container,.how .container,.features .container,.cta .
   </div>
 </div>
 
-<!-- HOW -->
+<!-- HOW IT WORKS -->
 <section class="how">
   <div class="container">
     <div class="how-top reveal">
@@ -522,115 +476,72 @@ section .container,.proof .container,.how .container,.features .container,.cta .
 </footer>
 
 <script>
-// ── Scroll reveal ──
+// Scroll reveal
 const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
 },{threshold:.08,rootMargin:'0px 0px -32px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// ── Load board animation ──
-let lbAnimated = false;
-const lbObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting && !lbAnimated){lbAnimated=true;runLBAnimation();}
-  });
+// Load board animation
+let lbAnimated=false;
+const lbObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting&&!lbAnimated){lbAnimated=true;runLBAnimation();}});
 },{threshold:.3});
-const lbCard = document.getElementById('lbCard');
-if(lbCard) lbObs.observe(lbCard);
+const lbCard=document.getElementById('lbCard');
+if(lbCard)lbObs.observe(lbCard);
 
 function runLBAnimation(){
-  const rows = ['row1','row2','row3','rowWinner'];
-  const delays = [400, 900, 1400, 2100];
-
-  rows.forEach((id,i)=>{
-    setTimeout(()=>{
-      const el = document.getElementById(id);
-      if(el) el.classList.add('show');
-    }, delays[i]);
+  ['row1','row2','row3','rowWinner'].forEach((id,i)=>{
+    setTimeout(()=>{const el=document.getElementById(id);if(el)el.classList.add('show');},{0:400,1:900,2:1400,3:2100}[i]);
   });
-
-  // Show winner badge
   setTimeout(()=>{
-    const wb = document.getElementById('winBadge');
-    const wr = document.getElementById('rowWinner');
-    if(wb) wb.classList.add('show');
-    if(wr) wr.classList.add('winner');
-  }, 2500);
-
-  // Show score bar + animate fill
+    const wb=document.getElementById('winBadge'),wr=document.getElementById('rowWinner');
+    if(wb)wb.classList.add('show');if(wr)wr.classList.add('winner');
+  },2500);
   setTimeout(()=>{
-    const sb = document.getElementById('scoreBar');
-    if(sb) sb.classList.add('show');
-    setTimeout(()=>{
-      const sf = document.getElementById('scoreFill');
-      if(sf) sf.style.width='88%';
-    },100);
-    // Update scan status
-    const ss = document.getElementById('scanStatus');
-    if(ss) ss.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#22c47a;display:inline-block;margin-right:6px;"></span> Best load found';
-  }, 3000);
-
-  // Show email preview
+    const sb=document.getElementById('scoreBar');if(sb)sb.classList.add('show');
+    setTimeout(()=>{const sf=document.getElementById('scoreFill');if(sf)sf.style.width='88%';},100);
+    const ss=document.getElementById('scanStatus');
+    if(ss)ss.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#22c47a;display:inline-block;margin-right:6px;"></span> Best load found';
+  },3000);
   setTimeout(()=>{
-    const ep = document.getElementById('emailPreview');
-    if(ep) ep.classList.add('show');
-    const btn = document.getElementById('epBtn');
-    if(btn) btn.classList.add('show');
-  }, 3600);
+    const ep=document.getElementById('emailPreview'),btn=document.getElementById('epBtn');
+    if(ep)ep.classList.add('show');if(btn)btn.classList.add('show');
+  },3600);
 }
 
-// ── Email typewriter animation ──
-const emailLines = `Hi Team,\n\nI'd like to book your load posting.\n\nPlease send the carrier packet and we'll get it filled out shortly.\n\n<strong>LOAD DETAILS:</strong>\nMC: 048737 · Ref: 2491042\nWichita Falls, TX → Philadelphia, PA\n1,536 miles · $4,501 ($2.93/mi)\nReefer · 40,000 lbs · 53 ft\n\n<strong>EQUIPMENT:</strong>\nTruck: 2023 Freightliner Cascadia 126 #107\nTrailer: 2022 Great Dane 53ft S-700 TK\n\n— Sarah Mitchell, TrueMile Logistics`;
-
-let emailAnimated = false;
-const emailObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting && !emailAnimated){emailAnimated=true;typeEmail();}
-  });
+// Email typewriter
+const emailLines=`Hi Team,\n\nI'd like to book your load posting.\n\nPlease send the carrier packet and we'll get it filled out shortly.\n\n<strong>LOAD DETAILS:</strong>\nMC: 048737 · Ref: 2491042\nWichita Falls, TX → Philadelphia, PA\n1,536 miles · $4,501 ($2.93/mi)\nReefer · 40,000 lbs · 53 ft\n\n<strong>EQUIPMENT:</strong>\nTruck: 2023 Freightliner Cascadia 126 #107\nTrailer: 2022 Great Dane 53ft S-700 TK\n\n— Sarah Mitchell, TrueMile Logistics`;
+let emailAnimated=false;
+const emailObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting&&!emailAnimated){emailAnimated=true;typeEmail();}});
 },{threshold:.3});
-const emailCard = document.getElementById('emailCard');
-if(emailCard) emailObs.observe(emailCard);
-
+const emailCard=document.getElementById('emailCard');
+if(emailCard)emailObs.observe(emailCard);
 function typeEmail(){
-  const el = document.getElementById('emailText');
-  if(!el) return;
-  const lines = emailLines.split('\n');
-  let lineIdx=0, charIdx=0, html='';
-  const interval = setInterval(()=>{
-    if(lineIdx>=lines.length){clearInterval(interval);return;}
-    const line = lines[lineIdx];
-    if(charIdx<line.length){
-      html += line[charIdx];
-      charIdx++;
-    } else {
-      html += '<br>';
-      lineIdx++;charIdx=0;
-    }
-    el.innerHTML=html+'<span style="opacity:.6;animation:fup .5s infinite alternate;">|</span>';
+  const el=document.getElementById('emailText');if(!el)return;
+  const lines=emailLines.split('\n');let lineIdx=0,charIdx=0,html='';
+  const iv=setInterval(()=>{
+    if(lineIdx>=lines.length){clearInterval(iv);return;}
+    const line=lines[lineIdx];
+    if(charIdx<line.length){html+=line[charIdx];charIdx++;}
+    else{html+='<br>';lineIdx++;charIdx=0;}
+    el.innerHTML=html+'<span style="opacity:.6">|</span>';
   },18);
 }
 
-// ── Send button ──
-const sendBtn = document.getElementById('sendBtn');
-if(sendBtn){
-  sendBtn.addEventListener('click',function(){
-    this.textContent='Sent ✓';
-    this.style.background='#155c3d';
-    const st = document.getElementById('statusText');
-    if(st) st.textContent='Email delivered · Awaiting broker response';
-  });
-}
+// Send
+document.getElementById('sendBtn')?.addEventListener('click',function(){
+  this.textContent='Sent ✓';this.style.background='#155c3d';
+  const st=document.getElementById('statusText');if(st)st.textContent='Email delivered · Awaiting broker response';
+});
 
-// ── Submit ──
-const sub = document.getElementById('submitBtn');
-if(sub){
-  sub.addEventListener('click',function(e){
-    e.preventDefault();
-    this.textContent='Submitted ✓';
-    this.style.cssText+=';background:#22c47a;color:#0a1f12;';
-    setTimeout(()=>{this.textContent='Book Demo →';this.style.cssText='';},3000);
-  });
-}
+// Submit
+document.getElementById('submitBtn')?.addEventListener('click',function(e){
+  e.preventDefault();this.textContent='Submitted ✓';
+  this.style.cssText+=';background:#22c47a;color:#0a1f12;';
+  setTimeout(()=>{this.textContent='Book Demo →';this.style.cssText='';},3000);
+});
 </script>
 </body>
 </html>
