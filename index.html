@@ -33,66 +33,95 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 
 /* ── HERO ── */
 .hero-wrap{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;}
-.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 25% 55%,rgba(26,107,74,.08) 0%,transparent 65%);pointer-events:none;}
-.hero-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 55% at 72% 50%,rgba(37,99,235,.1) 0%,transparent 65%);pointer-events:none;}
+.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 75% 50%,rgba(37,99,235,.12) 0%,transparent 65%);pointer-events:none;}
+.hero-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 40% 50% at 20% 60%,rgba(26,107,74,.06) 0%,transparent 60%);pointer-events:none;}
 
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:0 64px;height:100vh;width:100%;position:relative;z-index:1;}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:0 64px;height:100vh;width:100%;position:relative;z-index:1;}
 
-.hero-left{}
+.hero-left{max-width:520px;}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fup .7s .2s ease forwards;}
 .ed{width:5px;height:5px;border-radius:50%;background:var(--green-l);}
 .et{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.36);}
 .hero h1{font-family:var(--serif);font-size:clamp(44px,5.5vw,80px);font-weight:700;line-height:1.02;letter-spacing:-.025em;margin-bottom:22px;opacity:0;animation:fup .8s .4s ease forwards;}
 .hero h1 em{font-style:italic;color:rgba(255,255,255,.28);}
 .hero-sub{font-size:16px;color:rgba(255,255,255,.44);line-height:1.72;max-width:42ch;font-weight:300;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
-.hbtns{display:flex;gap:14px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
-.bp{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;background:var(--white);color:var(--ink);font-size:14px;font-weight:600;border-radius:3px;text-decoration:none;transition:opacity .2s,transform .2s;}
-.bp:hover{opacity:.9;transform:translateY(-1px);}
-.bs{font-size:14px;color:rgba(255,255,255,.38);text-decoration:none;font-weight:400;transition:color .2s;padding:12px 4px;}
+.hbtns{display:flex;gap:16px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
+
+/* Button — Fleetline style: dark fill, rounded, no outline */
+.bp{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;
+  background:#1e1e1e;
+  color:var(--white);
+  font-size:14px;font-weight:500;
+  border-radius:6px;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.12);
+  transition:background .2s,transform .2s;
+}
+.bp:hover{background:#2a2a2a;transform:translateY(-1px);}
+.bs{font-size:14px;color:rgba(255,255,255,.38);text-decoration:none;font-weight:400;transition:color .2s;}
 .bs:hover{color:var(--white);}
 
 /* hero right — metrics card */
-.hero-right{opacity:0;animation:fup 1s .7s ease forwards;position:relative;display:flex;align-items:center;justify-content:flex-end;}
-.hero-glow{position:absolute;top:50%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(37,99,235,.28) 0%,rgba(37,99,235,0) 70%);pointer-events:none;filter:blur(48px);z-index:0;}
-.hero-metrics-card{position:relative;z-index:1;background:rgba(255,255,255,.03);border:1px solid rgba(37,99,235,.28);border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px rgba(37,99,235,.1),0 24px 80px rgba(37,99,235,.16),inset 0 1px 0 rgba(255,255,255,.06);width:340px;}
-.hmc-bar{padding:13px 20px;background:rgba(37,99,235,.08);border-bottom:1px solid rgba(37,99,235,.16);display:flex;align-items:center;gap:8px;}
+.hero-right{
+  opacity:0;animation:fup 1s .7s ease forwards;
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  height:100%;
+}
+.hero-glow{
+  position:absolute;top:50%;left:50%;
+  width:600px;height:600px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(37,99,235,.22) 0%,rgba(37,99,235,0) 70%);
+  pointer-events:none;filter:blur(60px);z-index:0;
+}
+/* outer window frame — like Fleetline's browser chrome */
+.hero-window{
+  position:relative;z-index:1;
+  width:100%;max-width:560px;
+  background:#141414;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04);
+}
+.hero-window-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:14px 20px;
+  background:#0d0d0d;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.hero-window-dots{display:flex;gap:6px;}
+.hero-window-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.08);}
+.hero-window-url{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.2);margin-left:4px;}
+/* metrics card inside window */
+.hero-metrics-card{background:rgba(8,12,24,.8);border:1px solid rgba(37,99,235,.25);border-radius:8px;margin:20px;overflow:hidden;box-shadow:0 0 0 1px rgba(37,99,235,.08),inset 0 1px 0 rgba(255,255,255,.04);}
+.hmc-bar{padding:12px 18px;background:rgba(37,99,235,.07);border-bottom:1px solid rgba(37,99,235,.14);display:flex;align-items:center;gap:8px;}
 .hmc-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
-.hmc-title{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.06em;}
-.hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
-.hm{background:rgba(8,8,12,.6);padding:28px 22px;transition:background .2s;}
-.hm:hover{background:rgba(37,99,235,.08);}
+.hmc-title{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.32);letter-spacing:.06em;}
+.hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.04);}
+.hm{background:rgba(8,12,24,.9);padding:24px 20px;transition:background .2s;}
+.hm:hover{background:rgba(37,99,235,.07);}
 .hm-tag{display:inline-block;margin-bottom:10px;padding:2px 8px;background:rgba(37,99,235,.18);color:#60a5fa;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;}
-.hm-val{font-family:var(--serif);font-size:42px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:7px;}
-.hm-label{font-size:12px;color:rgba(255,255,255,.38);font-weight:400;}
+.hm-val{font-family:var(--serif);font-size:38px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:6px;}
+.hm-label{font-size:11px;color:rgba(255,255,255,.36);font-weight:400;}
 
-/* ── SHARED SECTION LAYOUT ── */
+/* ── FEATURE SECTIONS (vertical stacked) ── */
 .fx-section{padding:0;}
-.fx-row{display:grid;grid-template-columns:1fr 1fr;min-height:100vh;}
-.fx-row:first-child{background:var(--white);}
-.fx-row:first-child .fx-left{color:var(--ink);}
-.fx-row:first-child .fx-label{color:var(--muted);}
-.fx-row:first-child .fx-head{color:var(--ink);}
-.fx-row:first-child .fx-head em{color:rgba(10,10,10,.3);}
-.fx-row:first-child .fx-body{color:var(--muted);}
-.fx-row:first-child .fx-right{background:#f8f7f5;}
-.fx-row:nth-child(2){background:var(--fog);}
-.fx-row:nth-child(2) .fx-left{color:var(--ink);}
-.fx-row:nth-child(2) .fx-label{color:var(--muted);}
-.fx-row:nth-child(2) .fx-head{color:var(--ink);}
-.fx-row:nth-child(2) .fx-head em{color:rgba(10,10,10,.3);}
-.fx-row:nth-child(2) .fx-body{color:var(--muted);}
-.fx-row:nth-child(2) .fx-right{background:var(--fog2);}
-.fx-row.reverse{direction:rtl;}
-.fx-row.reverse > *{direction:ltr;}
-.fx-left{padding:80px 64px;display:flex;flex-direction:column;justify-content:center;position:sticky;top:60px;height:calc(100vh - 60px);}
-.fx-right{display:flex;align-items:flex-start;justify-content:center;padding:80px 48px;position:relative;overflow:visible;}
+.fx-band{padding:80px 64px 64px;max-width:1160px;margin:0 auto;}
+.fx-band-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.fx-band-head{font-family:var(--serif);font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:16px;color:var(--ink);}
+.fx-band-head em{font-style:italic;color:rgba(10,10,10,.3);}
+.fx-band-body{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;}
+.fx-card-wrap{padding:0 64px 96px;max-width:1160px;margin:0 auto;}
 
-.fx-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-.fx-head{font-family:var(--serif);font-size:clamp(30px,3.5vw,46px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;}
-.fx-head em{font-style:italic;color:rgba(10,10,10,.3);}
-.fx-body{font-size:15px;color:var(--muted);line-height:1.75;font-weight:400;max-width:38ch;}
+.fx-section-alt .fx-band-label,.fx-section-alt .fx-band-body{color:rgba(255,255,255,.4);}
+.fx-section-alt .fx-band-head{color:var(--white);}
+.fx-section-alt .fx-band-head em{color:rgba(255,255,255,.28);}
 
-/* ── FLOATING UI CARD (the product mockup) ── */
+/* ── FLOATING UI CARD ── */
 .ui-card{background:var(--white);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.1),0 4px 16px rgba(0,0,0,.06);overflow:hidden;width:100%;max-width:480px;position:relative;z-index:1;}
 .ui-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--fog);border-bottom:1px solid var(--fog3);}
 .ui-dots{display:flex;gap:5px;}
@@ -313,31 +342,37 @@ section .container,.proof .container,.how .container,.features .container,.cta .
     </div>
     <div class="hero-right">
       <div class="hero-glow"></div>
-      <div class="hero-metrics-card">
-        <div class="hmc-bar">
-          <div class="hmc-dot"></div>
-          <span class="hmc-title">Fleet Performance — Live Metrics</span>
+      <div class="hero-window">
+        <div class="hero-window-bar">
+          <div class="hero-window-dots"><div class="hero-window-dot"></div><div class="hero-window-dot"></div><div class="hero-window-dot"></div></div>
+          <span class="hero-window-url">truemile.ai/dashboard</span>
         </div>
-        <div class="hmc-grid">
-          <div class="hm">
-            <div class="hm-tag">avg. across fleet</div>
-            <div class="hm-val">1.4x</div>
-            <div class="hm-label">Revenue increases</div>
+        <div class="hero-metrics-card">
+          <div class="hmc-bar">
+            <div class="hmc-dot"></div>
+            <span class="hmc-title">Fleet Performance — Live Metrics</span>
           </div>
-          <div class="hm">
-            <div class="hm-tag">trucks loaded</div>
-            <div class="hm-val">15%</div>
-            <div class="hm-label">Utilization increases</div>
-          </div>
-          <div class="hm">
-            <div class="hm-tag">rate per mile</div>
-            <div class="hm-val">+20%</div>
-            <div class="hm-label">RPM improvement</div>
-          </div>
-          <div class="hm">
-            <div class="hm-tag">per dispatcher</div>
-            <div class="hm-val">50%</div>
-            <div class="hm-label">Less time dispatching</div>
+          <div class="hmc-grid">
+            <div class="hm">
+              <div class="hm-tag">avg. across fleet</div>
+              <div class="hm-val">1.4x</div>
+              <div class="hm-label">Revenue increases</div>
+            </div>
+            <div class="hm">
+              <div class="hm-tag">trucks loaded</div>
+              <div class="hm-val">15%</div>
+              <div class="hm-label">Utilization increases</div>
+            </div>
+            <div class="hm">
+              <div class="hm-tag">rate per mile</div>
+              <div class="hm-val">+20%</div>
+              <div class="hm-label">RPM improvement</div>
+            </div>
+            <div class="hm">
+              <div class="hm-tag">per dispatcher</div>
+              <div class="hm-val">50%</div>
+              <div class="hm-label">Less time dispatching</div>
+            </div>
           </div>
         </div>
       </div>
@@ -346,124 +381,83 @@ section .container,.proof .container,.how .container,.features .container,.cta .
 </div>
 
 <!-- ═══ FEATURE SECTION 1: Load Optimizer ═══ -->
-<div class="fx-section" id="features">
-
-  <div class="fx-row">
-    <div class="fx-left reveal">
-      <div class="fx-label">Load Optimizer</div>
-      <div class="fx-head">Scans every load board.<br><em>Surfaces the one.</em></div>
-      <div class="fx-body">TrueMile pulls DAT, Truckstop, and broker networks simultaneously — evaluating 241+ loads against your fleet schedule, cost structure, and driver cycle. The highest cycle-profit load rises to the top automatically.</div>
-    </div>
-    <div class="fx-right">
-      <!-- ANIMATED LOAD BOARD -->
-      <div class="ui-card" id="lbCard">
-        <div class="ui-bar">
-          <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
-          <span class="ui-url">truemile.ai/loads</span>
-        </div>
-        <div class="lb-header">
-          <span class="lb-title">DAT Load Board</span>
-          <span class="lb-scanning" id="scanStatus">
-            <span class="scan-dot"></span> Scanning 241 loads...
-          </span>
-        </div>
-
-        <!-- Loads animate in one by one -->
-        <div class="lb-row" id="row1">
-          <div></div>
-          <div>
-            <div class="lb-row-route">Dallas, TX → Portland, OR</div>
-            <div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div>
-          </div>
-          <div>
-            <div class="lb-rate">$3,600</div>
-            <div class="lb-rpm">$1.69/mi</div>
-          </div>
-        </div>
-
-        <div class="lb-row" id="row2">
-          <div></div>
-          <div>
-            <div class="lb-row-route">Tyler, TX → Sparks, NV</div>
-            <div class="lb-row-meta">1,752 mi · Van · 42k lbs</div>
-          </div>
-          <div>
-            <div class="lb-rate">$3,750</div>
-            <div class="lb-rpm">$2.14/mi</div>
-          </div>
-        </div>
-
-        <div class="lb-row" id="row3">
-          <div></div>
-          <div>
-            <div class="lb-row-route">Dallas, TX → Hartford, CT</div>
-            <div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div>
-          </div>
-          <div>
-            <div class="lb-rate">$4,300</div>
-            <div class="lb-rpm">$2.58/mi</div>
-          </div>
-        </div>
-
-        <!-- WINNER row -->
-        <div class="lb-row" id="rowWinner">
-          <div><span class="lb-badge" id="winBadge">✓ Best</span></div>
-          <div>
-            <div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div>
-            <div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div>
-          </div>
-          <div>
-            <div class="lb-rate" id="winRate">$4,501</div>
-            <div class="lb-rpm">$2.93/mi</div>
-          </div>
-        </div>
-
-        <!-- Score bar -->
-        <div class="score-bar" id="scoreBar">
-          <span class="score-label">Cycle Profit Score</span>
-          <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
-          <span class="score-val" id="scoreVal">88 / 100</span>
-        </div>
-
-        <!-- Email preview -->
-        <div class="email-preview" id="emailPreview">
-          <div class="ep-tag">AI-Generated Outreach — Ready to Send</div>
-          <div class="ep-body">Hi Team, I'd like to book your load: <strong>Wichita Falls, TX → Philadelphia, PA</strong> · $4,501 · MC: 048737. Please send the carrier packet. — TrueMile Logistics</div>
-          <button class="ep-btn" id="epBtn">Email Broker Now →</button>
-        </div>
+<div class="fx-section" id="features" style="background:var(--white);">
+  <div class="fx-band reveal">
+    <div class="fx-band-label">Load Optimizer</div>
+    <div class="fx-band-head">Scans every load board.<br><em>Surfaces the one.</em></div>
+    <div class="fx-band-body">TrueMile pulls DAT, Truckstop, and broker networks simultaneously — evaluating all loads against your fleet schedule, cost structure, and driver cycle. The highest cycle-profit load rises to the top automatically.</div>
+  </div>
+  <div class="fx-card-wrap reveal">
+    <div class="ui-card" id="lbCard" style="max-width:720px;margin:0 auto;">
+      <div class="ui-bar">
+        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+        <span class="ui-url">truemile.ai/loads</span>
+      </div>
+      <div class="lb-header">
+        <span class="lb-title">DAT Load Board</span>
+        <span class="lb-scanning" id="scanStatus"><span class="scan-dot"></span> Scanning all loads...</span>
+      </div>
+      <div class="lb-row" id="row1">
+        <div></div>
+        <div><div class="lb-row-route">Dallas, TX → Portland, OR</div><div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div></div>
+        <div><div class="lb-rate">$3,600</div><div class="lb-rpm">$1.69/mi</div></div>
+      </div>
+      <div class="lb-row" id="row2">
+        <div></div>
+        <div><div class="lb-row-route">Tyler, TX → Sparks, NV</div><div class="lb-row-meta">1,752 mi · Van · 42k lbs</div></div>
+        <div><div class="lb-rate">$3,750</div><div class="lb-rpm">$2.14/mi</div></div>
+      </div>
+      <div class="lb-row" id="row3">
+        <div></div>
+        <div><div class="lb-row-route">Dallas, TX → Hartford, CT</div><div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div></div>
+        <div><div class="lb-rate">$4,300</div><div class="lb-rpm">$2.58/mi</div></div>
+      </div>
+      <div class="lb-row" id="rowWinner">
+        <div><span class="lb-badge" id="winBadge">✓ Best</span></div>
+        <div><div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div><div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div></div>
+        <div><div class="lb-rate" id="winRate">$4,501</div><div class="lb-rpm">$2.93/mi</div></div>
+      </div>
+      <div class="score-bar" id="scoreBar">
+        <span class="score-label">Cycle Profit Score</span>
+        <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+        <span class="score-val" id="scoreVal">88 / 100</span>
+      </div>
+      <div class="email-preview" id="emailPreview">
+        <div class="ep-tag">AI-Generated Outreach — Ready to Send</div>
+        <div class="ep-body">Hi Team, I'd like to book your load: <strong>Wichita Falls, TX → Philadelphia, PA</strong> · $4,501 · MC: 048737. Please send the carrier packet. — TrueMile Logistics</div>
+        <button class="ep-btn" id="epBtn">Email Broker Now →</button>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ═══ FEATURE SECTION 2: Broker Contact ═══ -->
-  <div class="fx-row reverse">
-    <div class="fx-left reveal">
-      <div class="fx-label">Broker Contact</div>
-      <div class="fx-head">One click.<br><em>Broker contacted.</em></div>
-      <div class="fx-body">TrueMile generates a professional, carrier-ready outreach email with your MC number, equipment details, and load specifics pre-filled. You approve — it sends. No copy-paste, no phone tag.</div>
-    </div>
-    <div class="fx-right">
-      <div class="ui-card" id="emailCard">
-        <div class="ui-bar">
-          <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
-          <span class="ui-url">truemile.ai/outreach</span>
-        </div>
-        <div style="padding:20px 18px;border-bottom:1px solid var(--fog3);">
-          <div style="font-size:11px;font-weight:600;color:#1a5eb8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">AI-Generated Outreach</div>
-          <div style="font-size:12px;line-height:1.85;color:#374151;" id="emailText"></div>
-        </div>
-        <div style="padding:14px 18px;display:flex;gap:10px;">
-          <button style="flex:1;padding:10px;background:var(--fog2);color:var(--ink);border:1px solid var(--fog3);border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);">Edit Draft</button>
-          <button style="flex:2;padding:10px;background:var(--green);color:white;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans);" id="sendBtn">Send Email →</button>
-        </div>
-        <div style="padding:10px 18px;background:var(--fog);border-top:1px solid var(--fog3);display:flex;align-items:center;gap:8px;" id="sentStatus" style="display:none;">
-          <span style="font-size:11px;color:var(--muted);">Status:</span>
-          <span style="font-size:11px;font-weight:600;color:var(--green);" id="statusText">Awaiting approval</span>
-        </div>
+<!-- ═══ FEATURE SECTION 2: Broker Contact ═══ -->
+<div style="background:var(--fog2);padding-bottom:0;">
+  <div class="fx-band reveal">
+    <div class="fx-band-label">Broker Contact</div>
+    <div class="fx-band-head">One click.<br><em>Broker contacted.</em></div>
+    <div class="fx-band-body">TrueMile generates a professional, carrier-ready outreach email with your MC number, equipment details, and load specifics pre-filled. You approve — it sends. No copy-paste, no phone tag.</div>
+  </div>
+  <div class="fx-card-wrap reveal">
+    <div class="ui-card" id="emailCard" style="max-width:720px;margin:0 auto;">
+      <div class="ui-bar">
+        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+        <span class="ui-url">truemile.ai/outreach</span>
+      </div>
+      <div style="padding:20px 18px;border-bottom:1px solid var(--fog3);">
+        <div style="font-size:11px;font-weight:600;color:#1a5eb8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">AI-Generated Outreach</div>
+        <div style="font-size:13px;line-height:1.85;color:#374151;" id="emailText"></div>
+      </div>
+      <div style="padding:14px 18px;display:flex;gap:10px;">
+        <button style="flex:1;padding:10px;background:var(--fog2);color:var(--ink);border:1px solid var(--fog3);border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);">Edit Draft</button>
+        <button style="flex:2;padding:10px;background:var(--green);color:white;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);" id="sendBtn">Send Email →</button>
+      </div>
+      <div style="padding:10px 18px;background:var(--fog);border-top:1px solid var(--fog3);display:flex;align-items:center;gap:8px;">
+        <span style="font-size:11px;color:var(--muted);">Status:</span>
+        <span style="font-size:11px;font-weight:600;color:var(--green);" id="statusText">Awaiting approval</span>
       </div>
     </div>
   </div>
-
 </div>
 
 <!-- HOW -->
@@ -475,7 +469,7 @@ section .container,.proof .container,.how .container,.features .container,.cta .
     </div>
     <div class="steps reveal">
       <div class="step"><div class="sn">01</div><div class="st">Set Your Fleet Profile</div><div class="sb">Cost structure, driver schedules, home-time windows, RPM floors. One-time setup.</div></div>
-      <div class="step"><div class="sn">02</div><div class="st">Scan Load Boards</div><div class="sb">Pulls DAT, Truckstop, and broker networks in real time — 241+ loads evaluated per search.</div></div>
+      <div class="step"><div class="sn">02</div><div class="st">Scan Load Boards</div><div class="sb">Pulls DAT, Truckstop, and broker networks in real time — all available loads evaluated per search.</div></div>
       <div class="step"><div class="sn">03</div><div class="st">Rank by Cycle Profit</div><div class="sb">Scored by projected cycle profit — not just RPM. Deadhead, dwell, and continuation lanes all factor in.</div></div>
       <div class="step"><div class="sn">04</div><div class="st">Contact Broker</div><div class="sb">One click generates a professional outreach email. You approve, TrueMile executes.</div></div>
     </div>
@@ -514,7 +508,7 @@ section .container,.proof .container,.how .container,.features .container,.cta .
           <option>1–5 trucks</option><option>5–10 trucks</option><option>10–20 trucks</option><option>20–50 trucks</option><option>50+ trucks</option>
         </select>
       </div>
-      <input class="fi" type="text" placeholder="MC # (optional)"/>
+      <input class="fi" type="text" placeholder="MC #"/>
       <button class="fsb" id="submitBtn">Book Demo →</button>
       <div class="fno">Early access · No commitment</div>
     </div>
