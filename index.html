@@ -1,326 +1,483 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>TrueMile.AI — Turn Every Mile Into Predictable Profit</title>
-<meta name="description" content="AI dispatch assistant that scans load boards, applies your rules, and surfaces the best load. You make the final call." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --ink:    #0a0a0a;
-  --ink-2:  #111111;
-  --ink-3:  #1c1c1c;
-  --fog:    #f4f2ef;
-  --fog-2:  #eae7e2;
-  --fog-3:  #dbd7d0;
-  --white:  #ffffff;
-  --accent: #1a6b4a;
-  --accent-light: #22c47a;
-  --accent-muted: rgba(26,107,74,0.10);
-  --muted:  #6b6866;
-  --bl:     rgba(255,255,255,0.07);
-  --bf:     rgba(0,0,0,0.09);
-  --serif:  'Playfair Display', Georgia, serif;
-  --sans:   'DM Sans', system-ui, sans-serif;
-  --mono:   'DM Mono', monospace;
+:root{
+  --ink:#0a0a0a;--ink2:#111;--ink3:#1c1c1c;
+  --fog:#f4f2ef;--fog2:#eae7e2;--fog3:#dbd7d0;
+  --white:#fff;
+  --green:#1a6b4a;--green-l:#22c47a;--green-m:rgba(26,107,74,.1);
+  --muted:#6b6866;--bl:rgba(255,255,255,.07);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{font-family:var(--sans);background:var(--ink);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:rgba(10,10,10,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--bl);}
-.nav-brand{font-weight:600;font-size:15px;letter-spacing:0.01em;color:var(--white);}
-.nav-brand span{color:var(--accent-light);}
-.nav-r{display:flex;gap:36px;align-items:center;}
-.nav-link{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color 0.2s;}
-.nav-link:hover{color:var(--white);}
-.nav-cta{font-size:13px;font-weight:500;color:var(--ink);background:var(--white);padding:8px 18px;border-radius:3px;text-decoration:none;transition:opacity 0.2s;}
-.nav-cta:hover{opacity:0.86;}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:rgba(10,10,10,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--bl);}
+.nb{font-weight:600;font-size:15px;color:var(--white);letter-spacing:.01em;}
+.nb span{color:var(--green-l);}
+.nr{display:flex;gap:36px;align-items:center;}
+.nl{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;}
+.nl:hover{color:var(--white);}
+.nc{font-size:13px;font-weight:500;color:var(--ink);background:var(--white);padding:8px 18px;border-radius:3px;text-decoration:none;transition:opacity .2s;}
+.nc:hover{opacity:.86;}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 80px;position:relative;}
-.hero::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");pointer-events:none;opacity:0.6;}
+/* ── HERO ── */
+.hero-wrap{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;}
+.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 25% 55%,rgba(26,107,74,.08) 0%,transparent 65%);pointer-events:none;}
+.hero-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 55% at 72% 50%,rgba(37,99,235,.1) 0%,transparent 65%);pointer-events:none;}
 
-.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:32px;opacity:0;animation:fadeUp 0.7s 0.2s ease forwards;}
-.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--accent-light);}
-.eyebrow-text{font-size:11px;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:rgba(255,255,255,0.36);}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:0 64px;height:100vh;width:100%;position:relative;z-index:1;}
 
-.hero h1{font-family:var(--serif);font-size:clamp(54px,7.5vw,104px);font-weight:700;line-height:1.0;letter-spacing:-0.025em;color:var(--white);margin-bottom:28px;max-width:18ch;opacity:0;animation:fadeUp 0.8s 0.4s ease forwards;}
-.hero h1 em{font-style:italic;color:rgba(255,255,255,0.3);}
+.hero-left{}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fup .7s .2s ease forwards;}
+.ed{width:5px;height:5px;border-radius:50%;background:var(--green-l);}
+.et{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.36);}
+.hero h1{font-family:var(--serif);font-size:clamp(44px,5.5vw,80px);font-weight:700;line-height:1.02;letter-spacing:-.025em;margin-bottom:22px;opacity:0;animation:fup .8s .4s ease forwards;}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,.28);}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.44);line-height:1.72;max-width:42ch;font-weight:300;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
+.hbtns{display:flex;gap:14px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
+.bp{display:inline-flex;align-items:center;gap:7px;padding:12px 24px;background:var(--white);color:var(--ink);font-size:14px;font-weight:600;border-radius:3px;text-decoration:none;transition:opacity .2s,transform .2s;}
+.bp:hover{opacity:.9;transform:translateY(-1px);}
+.bs{font-size:14px;color:rgba(255,255,255,.38);text-decoration:none;font-weight:400;transition:color .2s;padding:12px 4px;}
+.bs:hover{color:var(--white);}
 
-.hero-sub{font-size:17px;color:rgba(255,255,255,0.46);line-height:1.72;max-width:44ch;font-weight:300;margin-bottom:44px;opacity:0;animation:fadeUp 0.8s 0.6s ease forwards;}
+/* hero right — metrics card */
+.hero-right{opacity:0;animation:fup 1s .7s ease forwards;position:relative;}
+.hero-glow{position:absolute;top:50%;left:50%;width:400px;height:400px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(37,99,235,.3) 0%,rgba(37,99,235,0) 70%);pointer-events:none;filter:blur(40px);z-index:0;}
+.hero-metrics-card{position:relative;z-index:1;background:rgba(255,255,255,.03);border:1px solid rgba(37,99,235,.3);border-radius:12px;overflow:hidden;box-shadow:0 0 0 1px rgba(37,99,235,.1),0 24px 80px rgba(37,99,235,.18),inset 0 1px 0 rgba(255,255,255,.06);}
+.hmc-bar{padding:13px 20px;background:rgba(37,99,235,.08);border-bottom:1px solid rgba(37,99,235,.18);display:flex;align-items:center;gap:8px;}
+.hmc-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
+.hmc-title{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.06em;}
+.hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
+.hm{background:rgba(8,8,12,.6);padding:28px 24px;transition:background .2s;}
+.hm:hover{background:rgba(37,99,235,.08);}
+.hm-tag{display:inline-block;margin-bottom:10px;padding:2px 8px;background:rgba(37,99,235,.18);color:#60a5fa;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;}
+.hm-val{font-family:var(--serif);font-size:clamp(32px,3.5vw,48px);font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:7px;}
+.hm-label{font-size:12px;color:rgba(255,255,255,.36);font-weight:400;}
 
-.hero-btns{display:flex;gap:14px;align-items:center;justify-content:center;opacity:0;animation:fadeUp 0.8s 0.8s ease forwards;}
-.btn-p{display:inline-flex;align-items:center;gap:7px;padding:13px 26px;background:var(--white);color:var(--ink);font-size:14px;font-weight:600;border-radius:3px;text-decoration:none;transition:opacity 0.2s,transform 0.2s;}
-.btn-p:hover{opacity:0.9;transform:translateY(-1px);}
-.btn-s{font-size:14px;color:rgba(255,255,255,0.4);text-decoration:none;font-weight:400;transition:color 0.2s;padding:13px 4px;}
-.btn-s:hover{color:var(--white);}
+/* ── SHARED SECTION LAYOUT (Fleetline style: left text + right floating UI) ── */
+.fx-section{padding:0;}
+.fx-row{display:grid;grid-template-columns:1fr 1fr;min-height:600px;}
+.fx-row:first-child{background:var(--ink2);}
+.fx-row:first-child .fx-left{color:var(--white);}
+.fx-row:first-child .fx-label{color:rgba(255,255,255,.3);}
+.fx-row:first-child .fx-head{color:var(--white);}
+.fx-row:first-child .fx-head em{color:rgba(255,255,255,.28);}
+.fx-row:first-child .fx-body{color:rgba(255,255,255,.38);}
+.fx-row:first-child .fx-right{background:#f8f7f5;}
+.fx-row:nth-child(2){background:var(--fog);}
+.fx-row:nth-child(2) .fx-left{color:var(--ink);}
+.fx-row:nth-child(2) .fx-label{color:var(--muted);}
+.fx-row:nth-child(2) .fx-head{color:var(--ink);}
+.fx-row:nth-child(2) .fx-head em{color:rgba(10,10,10,.3);}
+.fx-row:nth-child(2) .fx-body{color:var(--muted);}
+.fx-row:nth-child(2) .fx-right{background:var(--fog2);}
+.fx-row.reverse{direction:rtl;}
+.fx-row.reverse > *{direction:ltr;}
+.fx-left{padding:80px 64px;display:flex;flex-direction:column;justify-content:center;}
+.fx-right{display:flex;align-items:center;justify-content:center;padding:48px 40px;position:relative;overflow:hidden;}
 
-/* SECTIONS */
-section{padding:104px 48px;}
-.container{max-width:1160px;margin:0 auto;}
-.sec-label{font-size:11px;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-.sec-head{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;margin-bottom:72px;max-width:22ch;}
-.sec-head em{font-style:italic;color:rgba(10,10,10,0.3);}
-.sec-head.light em{color:rgba(255,255,255,0.28);}
-.sec-head.light{color:var(--white);}
+.fx-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.fx-head{font-family:var(--serif);font-size:clamp(30px,3.5vw,46px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;}
+.fx-head em{font-style:italic;color:rgba(10,10,10,.3);}
+.fx-body{font-size:15px;color:var(--muted);line-height:1.75;font-weight:400;max-width:38ch;}
 
-/* PROOF */
-.proof{background:var(--fog);color:var(--ink);}
-.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--fog-3);border:1px solid var(--fog-3);border-radius:6px;overflow:hidden;}
-.proof-cell{background:var(--fog);padding:52px 44px;position:relative;}
-.proof-tag{position:absolute;top:26px;right:26px;display:inline-block;padding:3px 9px;background:var(--accent-muted);color:var(--accent);border-radius:20px;font-size:11px;font-weight:500;letter-spacing:0.03em;}
-.proof-val{font-family:var(--serif);font-size:clamp(48px,5vw,72px);font-weight:800;line-height:1;letter-spacing:-0.03em;color:var(--ink);margin-bottom:10px;}
-.proof-lbl{font-size:15px;color:var(--muted);font-weight:400;}
+/* ── FLOATING UI CARD (the product mockup) ── */
+.ui-card{background:var(--white);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.12),0 4px 16px rgba(0,0,0,.06);overflow:hidden;width:100%;max-width:440px;position:relative;z-index:1;}
+.ui-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--fog);border-bottom:1px solid var(--fog3);}
+.ui-dots{display:flex;gap:5px;}
+.ui-dot{width:8px;height:8px;border-radius:50%;background:var(--fog3);}
+.ui-url{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:4px;}
 
-/* HOW */
-.how{background:var(--ink-2);color:var(--white);}
-.how-top{display:flex;align-items:flex-end;justify-content:space-between;gap:48px;margin-bottom:56px;}
-.how-head{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;max-width:16ch;}
-.how-head em{font-style:italic;color:rgba(255,255,255,0.28);}
-.how-desc{font-size:15px;color:rgba(255,255,255,0.38);line-height:1.75;max-width:40ch;font-weight:300;}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bl);border:1px solid var(--bl);border-radius:6px;overflow:hidden;}
-.step{background:var(--ink-2);padding:36px 28px;}
-.step-n{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.08em;margin-bottom:26px;}
-.step-t{font-size:15px;font-weight:500;color:var(--white);margin-bottom:10px;line-height:1.3;}
-.step-b{font-size:13px;color:rgba(255,255,255,0.34);line-height:1.72;font-weight:300;}
+/* ── LOAD BOARD ANIMATION UI ── */
+.lb-header{padding:12px 16px;border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;}
+.lb-title{font-size:13px;font-weight:600;color:var(--ink);}
+.lb-count{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.lb-scanning{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-weight:500;}
+.scan-dot{width:6px;height:6px;border-radius:50%;background:var(--green-l);animation:pulse 1.4s infinite;}
 
-/* PRODUCT */
-.product{background:var(--fog);color:var(--ink);}
-.tabs-nav{display:flex;border-bottom:1px solid var(--fog-3);}
-.tab-btn{padding:11px 22px;font-size:13px;font-weight:500;color:var(--muted);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.18s;font-family:var(--sans);}
-.tab-btn:hover{color:var(--ink);}
-.tab-btn.active{color:var(--ink);border-bottom-color:var(--ink);}
-.tab-pane{display:none;background:var(--white);border:1px solid var(--fog-3);border-top:none;border-radius:0 0 6px 6px;overflow:hidden;}
-.tab-pane.active{display:block;}
-.mbar{display:flex;align-items:center;gap:14px;padding:12px 22px;background:var(--fog-2);border-bottom:1px solid var(--fog-3);}
-.mdots{display:flex;gap:5px;}
-.mdot{width:9px;height:9px;border-radius:50%;background:var(--fog-3);}
-.murl{font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--white);padding:3px 11px;border-radius:3px;border:1px solid var(--fog-3);}
-.mbody{padding:28px;}
-.loads-split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.lboard{border:1px solid var(--fog-3);border-radius:5px;overflow:hidden;}
-.lboard-head{padding:11px 14px;background:var(--fog);border-bottom:1px solid var(--fog-3);font-size:12px;font-weight:600;color:var(--ink);}
-.ltable{width:100%;border-collapse:collapse;font-size:12px;}
-.ltable th{padding:8px 12px;text-align:left;font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);background:var(--fog-2);border-bottom:1px solid var(--fog-3);}
-.ltable td{padding:10px 12px;color:var(--ink);border-bottom:1px solid var(--fog-2);vertical-align:top;}
-.ltable tr:last-child td{border-bottom:none;}
-.rb{font-weight:700;color:#1a5eb8;font-size:13px;}
-.rs{color:var(--muted);font-size:10px;}
-.rec{background:#f0fdf6;border:1.5px solid #86efac;border-radius:5px;padding:22px;}
-.rec-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;background:#dcfce7;color:#166534;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;}
-.rec-route{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:14px;line-height:1.3;}
-.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-.rl{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
-.rv{font-size:14px;font-weight:700;color:var(--ink);}
-.rv.bl{color:#1a5eb8;}
-.rv.gr{color:var(--accent);}
-.rec-btn{width:100%;padding:11px;background:var(--accent);color:white;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;transition:background 0.18s;font-family:var(--sans);}
-.rec-btn:hover{background:#155c3d;}
-.ecard{background:#eff6ff;border:1px solid #dbeafe;border-radius:5px;padding:28px;}
-.etag{font-size:11px;font-weight:600;color:#1a5eb8;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:14px;}
-.ebody{font-size:13px;line-height:1.85;color:#374151;}
-.ebody strong{color:var(--ink);font-weight:600;}
+.lb-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:12px 16px;border-bottom:1px solid var(--fog2);align-items:center;transition:background .3s,border-color .3s;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease,background .3s,border-color .3s;}
+.lb-row.show{opacity:1;transform:translateY(0);}
+.lb-row.winner{background:rgba(26,107,74,.06);border-left:3px solid var(--green-l);padding-left:13px;}
+.lb-row.winner .lb-rate{color:var(--green);}
+.lb-row-route{font-size:12px;font-weight:500;color:var(--ink);line-height:1.4;}
+.lb-row-meta{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--mono);}
+.lb-rate{font-size:14px;font-weight:700;color:var(--ink);text-align:right;}
+.lb-rpm{font-size:10px;color:var(--muted);text-align:right;font-family:var(--mono);margin-top:2px;}
+.lb-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:var(--green-m);color:var(--green);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .4s .2s;}
+.lb-badge.show{opacity:1;}
 
-/* FEATURES */
-.features{background:var(--ink);color:var(--white);}
-.feat-head{margin-bottom:56px;}
-.feat-label{font-size:11px;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:14px;}
-.feat-headline{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;max-width:20ch;}
-.feat-headline em{font-style:italic;color:rgba(255,255,255,0.28);}
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bl);border:1px solid var(--bl);border-radius:6px;overflow:hidden;}
-.feat-card{background:var(--ink);padding:36px 30px;transition:background 0.18s;}
-.feat-card:hover{background:var(--ink-2);}
-.feat-n{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.16);letter-spacing:0.1em;margin-bottom:24px;}
-.feat-t{font-size:17px;font-weight:500;color:var(--white);margin-bottom:12px;line-height:1.3;}
-.feat-b{font-size:13px;color:rgba(255,255,255,0.36);line-height:1.75;font-weight:300;}
+/* Score counter */
+.score-bar{padding:12px 16px;border-top:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;opacity:0;transition:opacity .5s;}
+.score-bar.show{opacity:1;}
+.score-label{font-size:11px;color:var(--muted);font-weight:500;}
+.score-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--green);}
+.score-track{height:4px;background:var(--fog3);border-radius:2px;flex:1;margin:0 12px;overflow:hidden;}
+.score-fill{height:100%;background:var(--green-l);border-radius:2px;width:0%;transition:width 1.2s ease;}
 
-/* CTA */
-.cta{background:var(--ink-2);padding:104px 48px;}
-.cta-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1160px;margin:0 auto;}
-.cta-label{font-size:11px;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:18px;}
-.cta-head{font-family:var(--serif);font-size:clamp(32px,3.5vw,50px);font-weight:700;line-height:1.08;letter-spacing:-0.02em;margin-bottom:18px;}
-.cta-head em{font-style:italic;color:rgba(255,255,255,0.28);}
-.cta-desc{font-size:15px;color:rgba(255,255,255,0.36);line-height:1.72;font-weight:300;}
-.cform{display:flex;flex-direction:column;gap:10px;}
-.fi,.fs{width:100%;padding:12px 15px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:3px;color:var(--white);font-size:14px;font-family:var(--sans);font-weight:300;transition:border-color 0.18s;appearance:none;}
-.fi::placeholder{color:rgba(255,255,255,0.26);}
-.fs{color:rgba(255,255,255,0.26);}
-.fs option{background:var(--ink-2);color:white;}
-.fi:focus,.fs:focus{outline:none;border-color:rgba(255,255,255,0.25);}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.fsub{padding:14px;background:var(--white);color:var(--ink);font-size:14px;font-weight:600;border:none;border-radius:3px;cursor:pointer;transition:opacity 0.18s;margin-top:4px;font-family:var(--sans);}
-.fsub:hover{opacity:0.86;}
-.fnote{font-size:12px;color:rgba(255,255,255,0.2);text-align:center;}
+/* Email preview */
+.email-preview{padding:14px 16px;background:#eff6ff;border-top:1px solid #dbeafe;opacity:0;transition:opacity .5s .3s;}
+.email-preview.show{opacity:1;}
+.ep-tag{font-size:10px;font-weight:600;color:#1a5eb8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+.ep-body{font-size:11px;line-height:1.6;color:#374151;}
+.ep-body strong{color:var(--ink);}
+.ep-btn{margin-top:10px;width:100%;padding:9px;background:var(--green);color:white;border:none;border-radius:4px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:pointer;opacity:0;transition:opacity .4s .6s;animation:none;}
+.ep-btn.show{opacity:1;animation:subtlePulse 2s 1s ease-in-out infinite;}
 
-/* FOOTER */
+/* ── PROOF ── */
+.proof{background:var(--ink2);color:var(--white);padding:104px 48px;}
+.proof-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1160px;margin:0 auto;}
+.proof-left .sec-label{color:rgba(255,255,255,.3);}
+.proof-left .sec-head{color:var(--white);margin-bottom:20px;}
+.proof-left .sec-head em{color:rgba(255,255,255,.28);}
+.proof-left-desc{font-size:15px;color:rgba(255,255,255,.38);line-height:1.75;font-weight:300;max-width:38ch;}
+
+/* glowing card */
+.proof-right{position:relative;}
+.proof-glow{
+  position:absolute;top:50%;left:50%;
+  width:340px;height:340px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(37,99,235,.28) 0%,rgba(37,99,235,.0) 70%);
+  pointer-events:none;
+  filter:blur(30px);
+  z-index:0;
+}
+.proof-card{
+  position:relative;z-index:1;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(37,99,235,.35);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(37,99,235,.15), 0 20px 60px rgba(37,99,235,.15), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.proof-card-header{
+  padding:14px 22px;
+  background:rgba(37,99,235,.08);
+  border-bottom:1px solid rgba(37,99,235,.2);
+  display:flex;align-items:center;gap:8px;
+}
+.proof-card-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
+.proof-card-title{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.06em;}
+.proof-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
+.pm{
+  background:rgba(10,10,10,.5);
+  padding:32px 28px;
+  position:relative;
+  transition:background .2s;
+}
+.pm:hover{background:rgba(37,99,235,.08);}
+.pm-tag{
+  display:inline-block;margin-bottom:12px;
+  padding:2px 8px;
+  background:rgba(37,99,235,.15);
+  color:#60a5fa;
+  border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;
+}
+.pm-val{
+  font-family:var(--serif);
+  font-size:clamp(36px,4vw,52px);
+  font-weight:800;line-height:1;letter-spacing:-.03em;
+  color:var(--white);margin-bottom:8px;
+}
+.pm-val span{color:#3b82f6;}
+.pm-label{font-size:13px;color:rgba(255,255,255,.38);font-weight:400;}
+
+.how{background:var(--fog);color:var(--ink);padding:104px 48px;}
+.how-top{margin-bottom:56px;}
+.how-h{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:22ch;margin-bottom:16px;color:var(--ink);}
+.how-h em{font-style:italic;color:rgba(10,10,10,.3);}
+.how-d{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;font-weight:400;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fog3);border:1px solid var(--fog3);border-radius:6px;overflow:hidden;}
+.step{background:var(--fog);padding:36px 28px;}
+.step:nth-child(even){background:var(--white);}
+.sn{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:26px;opacity:.5;}
+.st{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.3;}
+.sb{font-size:13px;color:var(--muted);line-height:1.72;font-weight:400;}
+
+/* ── FEATURES (light section) ── */
+.features{background:var(--fog);color:var(--ink);padding:104px 48px;}
+.fh{margin-bottom:56px;}
+.fl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.fhh{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:20ch;color:var(--ink);}
+.fhh em{font-style:italic;color:rgba(10,10,10,.3);}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--fog3);border:1px solid var(--fog3);border-radius:6px;overflow:hidden;}
+.fc{background:var(--fog);padding:36px 30px;transition:background .18s;}
+.fc:nth-child(2){background:var(--white);}
+.fc:hover{background:var(--fog2);}
+.fc:nth-child(2):hover{background:var(--fog);}
+.fn{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:24px;opacity:.5;}
+.ftt{font-size:17px;font-weight:500;color:var(--ink);margin-bottom:12px;line-height:1.3;}
+.fb{font-size:13px;color:var(--muted);line-height:1.75;font-weight:400;}
+
+/* ── CTA ── */
+.cta{background:var(--ink2);padding:104px 48px;}
+.cta-i{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1160px;margin:0 auto;}
+.cl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:18px;}
+.ch{font-family:var(--serif);font-size:clamp(32px,3.5vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:18px;}
+.ch em{font-style:italic;color:rgba(255,255,255,.28);}
+.cd{font-size:15px;color:rgba(255,255,255,.36);line-height:1.72;font-weight:300;}
+.cf{display:flex;flex-direction:column;gap:10px;}
+.fi,.fs{width:100%;padding:12px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:3px;color:var(--white);font-size:14px;font-family:var(--sans);font-weight:300;transition:border-color .18s;appearance:none;}
+.fi::placeholder{color:rgba(255,255,255,.26);}
+.fs{color:rgba(255,255,255,.26);}
+.fs option{background:var(--ink2);color:white;}
+.fi:focus,.fs:focus{outline:none;border-color:rgba(255,255,255,.25);}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.fsb{padding:14px;background:var(--white);color:var(--ink);font-size:14px;font-weight:600;border:none;border-radius:3px;cursor:pointer;transition:opacity .18s;margin-top:4px;font-family:var(--sans);}
+.fsb:hover{opacity:.86;}
+.fno{font-size:12px;color:rgba(255,255,255,.2);text-align:center;}
+
+/* ── FOOTER ── */
 footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;}
-.ft-brand{font-size:14px;font-weight:500;color:rgba(255,255,255,0.32);}
-.ft-brand span{color:var(--accent-light);}
-.ft-copy{font-size:12px;color:rgba(255,255,255,0.16);}
-.ft-mission{font-size:13px;color:rgba(255,255,255,0.2);max-width:40ch;text-align:center;line-height:1.65;font-weight:300;}
+.ftb{font-size:14px;font-weight:500;color:rgba(255,255,255,.32);}
+.ftb span{color:var(--green-l);}
+.ftc{font-size:12px;color:rgba(255,255,255,.16);}
+.ftm{font-size:13px;color:rgba(255,255,255,.2);max-width:40ch;text-align:center;line-height:1.65;font-weight:300;}
 
-/* ANIMATION */
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.65s ease,transform 0.65s ease;}
+/* ── UTILS ── */
+section .container,.proof .container,.how .container,.features .container,.cta .container{max-width:1160px;margin:0 auto;}
+.container{max-width:1160px;margin:0 auto;}
+.sec-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.sec-head{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:72px;max-width:22ch;}
+.sec-head em{font-style:italic;color:rgba(10,10,10,.3);}
+
+/* ── ANIMATIONS ── */
+@keyframes fup{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+@keyframes subtlePulse{0%,100%{box-shadow:0 0 0 0 rgba(26,107,74,.4);}50%{box-shadow:0 0 0 6px rgba(26,107,74,0);}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-/* RESPONSIVE */
-@media(max-width:1024px){
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){
   nav{padding:0 24px;}
-  section,.cta{padding:80px 24px;}
-  .hero{padding:100px 24px 72px;}
-  .proof-grid{grid-template-columns:1fr;}
+  .hero{grid-template-columns:1fr 1fr;padding:0 32px;gap:40px;}
+  .hero h1{font-size:clamp(38px,4.5vw,60px);}
+  .hm-val{font-size:clamp(28px,3vw,40px);}
+}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:80px 24px;gap:48px;height:auto;padding-top:100px;}
+  .hero-right{display:none;}
+  .how,.features,.cta{padding:80px 24px;}
+  .fx-row{grid-template-columns:1fr;direction:ltr;}
+  .fx-right{min-height:400px;}
+  .fx-left{padding:60px 32px 40px;}
   .steps{grid-template-columns:repeat(2,1fr);}
-  .feat-grid{grid-template-columns:1fr;}
-  .loads-split{grid-template-columns:1fr;}
-  .cta-inner{grid-template-columns:1fr;gap:48px;}
+  .fg{grid-template-columns:1fr;}
+  .cta-i{grid-template-columns:1fr;gap:48px;}
   footer{flex-direction:column;gap:20px;text-align:center;padding:36px 24px;}
   .how-top{flex-direction:column;gap:20px;}
 }
 @media(max-width:640px){
   .hero h1{font-size:44px;}
   .steps{grid-template-columns:1fr;}
-  .nav-r .nav-link{display:none;}
-  .frow{grid-template-columns:1fr;}
+  .nr .nl{display:none;}
+  .fr{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="nav-brand">TrueMile<span>.AI</span></div>
-  <div class="nav-r">
-    <a href="#product" class="nav-link">Product</a>
-    <a href="#results" class="nav-link">Results</a>
-    <a href="#contact" class="nav-cta">Book Demo</a>
+  <div class="nb">TrueMile<span>.AI</span></div>
+  <div class="nr">
+    <a href="#features" class="nl">Product</a>
+    <a href="#results" class="nl">Results</a>
+    <a href="#contact" class="nc">Book Demo</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="eyebrow">
-    <div class="eyebrow-dot"></div>
-    <span class="eyebrow-text">AI-Powered Dispatch Intelligence</span>
-  </div>
-  <h1>Planning for the next<br>generation of <em>trucking.</em></h1>
-  <p class="hero-sub">TrueMile simulates billions of possibilities — not just for your next load, but for all of them. We run the math, you run the fleet.</p>
-  <div class="hero-btns">
-    <a href="#contact" class="btn-p">Get Started →</a>
-    <a href="#product" class="btn-s">See how it works</a>
-  </div>
-</section>
+<div class="hero-wrap">
+  <section class="hero">
+    <div class="hero-left">
+      <div class="eyebrow"><div class="ed"></div><span class="et">AI-Powered Dispatch Intelligence</span></div>
+      <h1>Every mile.<br><em>Optimized.</em></h1>
+      <p class="hero-sub">TrueMile simulates billions of possibilities — not just for your next load, but for all of them. We run the math, you run the fleet.</p>
+      <div class="hbtns">
+        <a href="#contact" class="bp">Get Started →</a>
+        <a href="#features" class="bs">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-glow"></div>
+      <div class="hero-metrics-card">
+        <div class="hmc-bar">
+          <div class="hmc-dot"></div>
+          <span class="hmc-title">Fleet Performance — Live Metrics</span>
+        </div>
+        <div class="hmc-grid">
+          <div class="hm">
+            <div class="hm-tag">avg. across fleet</div>
+            <div class="hm-val">1.4x</div>
+            <div class="hm-label">Revenue increases</div>
+          </div>
+          <div class="hm">
+            <div class="hm-tag">trucks loaded</div>
+            <div class="hm-val">15%</div>
+            <div class="hm-label">Utilization increases</div>
+          </div>
+          <div class="hm">
+            <div class="hm-tag">rate per mile</div>
+            <div class="hm-val">+20%</div>
+            <div class="hm-label">RPM improvement</div>
+          </div>
+          <div class="hm">
+            <div class="hm-tag">per dispatcher</div>
+            <div class="hm-val">50%</div>
+            <div class="hm-label">Less time dispatching</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
-<!-- PROOF -->
-<section class="proof" id="results">
-  <div class="container">
-    <div class="sec-label reveal">Real Carrier Results</div>
-    <div class="sec-head reveal">Finding the best plan<br><em>is no longer impossible.</em></div>
-    <div class="proof-grid reveal">
-      <div class="proof-cell">
-        <div class="proof-tag">avg. across fleet</div>
-        <div class="proof-val">1.4x</div>
-        <div class="proof-lbl">Revenue increases</div>
-      </div>
-      <div class="proof-cell">
-        <div class="proof-tag">trucks loaded</div>
-        <div class="proof-val">15%</div>
-        <div class="proof-lbl">Utilization increases</div>
-      </div>
-      <div class="proof-cell">
-        <div class="proof-tag">per dispatcher</div>
-        <div class="proof-val">50%</div>
-        <div class="proof-lbl">Time spent dispatching</div>
+<!-- ═══ FEATURE SECTION 1: Load Optimizer ═══ -->
+<div class="fx-section" id="features">
+
+  <div class="fx-row">
+    <div class="fx-left reveal">
+      <div class="fx-label">Load Optimizer</div>
+      <div class="fx-head">Scans every load board.<br><em>Surfaces the one.</em></div>
+      <div class="fx-body">TrueMile pulls DAT, Truckstop, and broker networks simultaneously — evaluating 241+ loads against your fleet schedule, cost structure, and driver cycle. The highest cycle-profit load rises to the top automatically.</div>
+    </div>
+    <div class="fx-right">
+      <!-- ANIMATED LOAD BOARD -->
+      <div class="ui-card" id="lbCard">
+        <div class="ui-bar">
+          <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+          <span class="ui-url">truemile.ai/loads</span>
+        </div>
+        <div class="lb-header">
+          <span class="lb-title">DAT Load Board</span>
+          <span class="lb-scanning" id="scanStatus">
+            <span class="scan-dot"></span> Scanning 241 loads...
+          </span>
+        </div>
+
+        <!-- Loads animate in one by one -->
+        <div class="lb-row" id="row1">
+          <div></div>
+          <div>
+            <div class="lb-row-route">Dallas, TX → Portland, OR</div>
+            <div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div>
+          </div>
+          <div>
+            <div class="lb-rate">$3,600</div>
+            <div class="lb-rpm">$1.69/mi</div>
+          </div>
+        </div>
+
+        <div class="lb-row" id="row2">
+          <div></div>
+          <div>
+            <div class="lb-row-route">Tyler, TX → Sparks, NV</div>
+            <div class="lb-row-meta">1,752 mi · Van · 42k lbs</div>
+          </div>
+          <div>
+            <div class="lb-rate">$3,750</div>
+            <div class="lb-rpm">$2.14/mi</div>
+          </div>
+        </div>
+
+        <div class="lb-row" id="row3">
+          <div></div>
+          <div>
+            <div class="lb-row-route">Dallas, TX → Hartford, CT</div>
+            <div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div>
+          </div>
+          <div>
+            <div class="lb-rate">$4,300</div>
+            <div class="lb-rpm">$2.58/mi</div>
+          </div>
+        </div>
+
+        <!-- WINNER row -->
+        <div class="lb-row" id="rowWinner">
+          <div><span class="lb-badge" id="winBadge">✓ Best</span></div>
+          <div>
+            <div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div>
+            <div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div>
+          </div>
+          <div>
+            <div class="lb-rate" id="winRate">$4,501</div>
+            <div class="lb-rpm">$2.93/mi</div>
+          </div>
+        </div>
+
+        <!-- Score bar -->
+        <div class="score-bar" id="scoreBar">
+          <span class="score-label">Cycle Profit Score</span>
+          <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+          <span class="score-val" id="scoreVal">88 / 100</span>
+        </div>
+
+        <!-- Email preview -->
+        <div class="email-preview" id="emailPreview">
+          <div class="ep-tag">AI-Generated Outreach — Ready to Send</div>
+          <div class="ep-body">Hi Team, I'd like to book your load: <strong>Wichita Falls, TX → Philadelphia, PA</strong> · $4,501 · MC: 048737. Please send the carrier packet. — TrueMile Logistics</div>
+          <button class="ep-btn" id="epBtn">Email Broker Now →</button>
+        </div>
       </div>
     </div>
   </div>
-</section>
+
+  <!-- ═══ FEATURE SECTION 2: Broker Contact ═══ -->
+  <div class="fx-row reverse">
+    <div class="fx-left reveal">
+      <div class="fx-label">Broker Contact</div>
+      <div class="fx-head">One click.<br><em>Broker contacted.</em></div>
+      <div class="fx-body">TrueMile generates a professional, carrier-ready outreach email with your MC number, equipment details, and load specifics pre-filled. You approve — it sends. No copy-paste, no phone tag.</div>
+    </div>
+    <div class="fx-right">
+      <div class="ui-card" id="emailCard">
+        <div class="ui-bar">
+          <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+          <span class="ui-url">truemile.ai/outreach</span>
+        </div>
+        <div style="padding:20px 18px;border-bottom:1px solid var(--fog3);">
+          <div style="font-size:11px;font-weight:600;color:#1a5eb8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">AI-Generated Outreach</div>
+          <div style="font-size:12px;line-height:1.85;color:#374151;" id="emailText"></div>
+        </div>
+        <div style="padding:14px 18px;display:flex;gap:10px;">
+          <button style="flex:1;padding:10px;background:var(--fog2);color:var(--ink);border:1px solid var(--fog3);border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);">Edit Draft</button>
+          <button style="flex:2;padding:10px;background:var(--green);color:white;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans);" id="sendBtn">Send Email →</button>
+        </div>
+        <div style="padding:10px 18px;background:var(--fog);border-top:1px solid var(--fog3);display:flex;align-items:center;gap:8px;" id="sentStatus" style="display:none;">
+          <span style="font-size:11px;color:var(--muted);">Status:</span>
+          <span style="font-size:11px;font-weight:600;color:var(--green);" id="statusText">Awaiting approval</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
 
 <!-- HOW -->
 <section class="how">
   <div class="container">
     <div class="how-top reveal">
-      <div class="how-head">From billions of options <em>to one.</em></div>
-      <div class="how-desc">TrueMile evaluates every available load against your fleet schedule, cost structure, driver cycle, and destination market — then surfaces the single best move.</div>
+      <div class="how-h">From billions of options <em>to one.</em></div>
+      <div class="how-d">TrueMile evaluates every available load against your fleet schedule, cost structure, driver cycle, and destination market — then surfaces the single best move.</div>
     </div>
     <div class="steps reveal">
-      <div class="step"><div class="step-n">01</div><div class="step-t">Set Your Fleet Profile</div><div class="step-b">Cost structure, driver schedules, home-time windows, RPM floors. One-time setup.</div></div>
-      <div class="step"><div class="step-n">02</div><div class="step-t">Scan Load Boards</div><div class="step-b">Pulls DAT, Truckstop, and broker networks in real time — 241+ loads evaluated per search.</div></div>
-      <div class="step"><div class="step-n">03</div><div class="step-t">Rank by Cycle Profit</div><div class="step-b">Scored by projected cycle profit — not just RPM. Deadhead, dwell, and continuation lanes all factor in.</div></div>
-      <div class="step"><div class="step-n">04</div><div class="step-t">Contact Broker</div><div class="step-b">One click generates a professional outreach email. You approve, TrueMile executes.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- PRODUCT -->
-<section class="product" id="product">
-  <div class="container">
-    <div class="sec-label reveal" style="color:var(--muted)">Product</div>
-    <div class="sec-head reveal" style="color:var(--ink)">From load board<br><em>to booked load.</em></div>
-    <div class="reveal">
-      <div class="tabs-nav">
-        <button class="tab-btn active" data-tab="loads">Load Optimizer</button>
-        <button class="tab-btn" data-tab="booking">Broker Contact</button>
-      </div>
-      <div class="tab-pane active" id="tab-loads">
-        <div class="mbar"><div class="mdots"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div><div class="murl">truemile.ai/loads</div></div>
-        <div class="mbody">
-          <div class="loads-split">
-            <div class="lboard">
-              <div class="lboard-head">DAT Load Board — 241 Results</div>
-              <table class="ltable">
-                <thead><tr><th>Rate</th><th>Origin</th><th>Destination</th><th>Equip</th></tr></thead>
-                <tbody>
-                  <tr><td><div class="rb">$4,501</div><div class="rs">$2.93/mi</div></td><td>Wichita Falls, TX</td><td>Philadelphia, PA</td><td>R</td></tr>
-                  <tr><td><div class="rb">$4,300</div><div class="rs">$2.58/mi</div></td><td>Dallas, TX</td><td>Hartford, CT</td><td>R</td></tr>
-                  <tr><td><div class="rb">$3,750</div><div class="rs">$2.14/mi</div></td><td>Tyler, TX</td><td>Sparks, NV</td><td>VC</td></tr>
-                  <tr><td><div class="rb">$3,600</div><div class="rs">$1.69/mi</div></td><td>Dallas, TX</td><td>Portland, OR</td><td>R</td></tr>
-                  <tr><td colspan="4" style="font-size:11px;color:var(--muted);text-align:center;padding:10px;">+ 237 more loads</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <div>
-              <div class="rec">
-                <div class="rec-badge">✓ Recommended</div>
-                <div class="rec-route">Wichita Falls, TX → Philadelphia, PA</div>
-                <div class="rec-grid">
-                  <div><div class="rl">Rate</div><div class="rv bl">$4,501</div></div>
-                  <div><div class="rl">Distance</div><div class="rv">1,536 mi</div></div>
-                  <div><div class="rl">Rate / Mile</div><div class="rv">$2.93/mi</div></div>
-                  <div><div class="rl">Score</div><div class="rv gr">88 / 100</div></div>
-                </div>
-                <button class="rec-btn" onclick="switchTab('booking')">Email Broker Now →</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane" id="tab-booking">
-        <div class="mbar"><div class="mdots"><div class="mdot"></div><div class="mdot"></div><div class="mdot"></div></div><div class="murl">truemile.ai/outreach</div></div>
-        <div class="mbody">
-          <div class="ecard">
-            <div class="etag">AI-Generated Outreach</div>
-            <div class="ebody">
-              Hi Team,<br><br>
-              I came across your load posting and wanted to book this load.<br><br>
-              Please send me the carrier packet and our team will get that filled out shortly.<br><br>
-              <strong>LOAD DETAILS:</strong><br>
-              MC: 048737 · Reference ID: 2491042<br>
-              Origin: Wichita Falls, TX → Philadelphia, PA<br>
-              Distance: 1,536 miles · Rate: $4,501 ($2.93/mi)<br>
-              Equipment: Reefer (R) · 40,000 lbs · 53 ft<br><br>
-              <strong>EQUIPMENT:</strong><br>
-              Truck: 2023 Freightliner Cascadia 126 #107<br>
-              Trailer: 2022 Great Dane 53ft S-700 TK #76101<br><br>
-              Ready to move this load.<br><br>
-              Sarah Mitchell — TrueMile Logistics
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="step"><div class="sn">01</div><div class="st">Set Your Fleet Profile</div><div class="sb">Cost structure, driver schedules, home-time windows, RPM floors. One-time setup.</div></div>
+      <div class="step"><div class="sn">02</div><div class="st">Scan Load Boards</div><div class="sb">Pulls DAT, Truckstop, and broker networks in real time — 241+ loads evaluated per search.</div></div>
+      <div class="step"><div class="sn">03</div><div class="st">Rank by Cycle Profit</div><div class="sb">Scored by projected cycle profit — not just RPM. Deadhead, dwell, and continuation lanes all factor in.</div></div>
+      <div class="step"><div class="sn">04</div><div class="st">Contact Broker</div><div class="sb">One click generates a professional outreach email. You approve, TrueMile executes.</div></div>
     </div>
   </div>
 </section>
@@ -328,66 +485,158 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 <!-- FEATURES -->
 <section class="features">
   <div class="container">
-    <div class="feat-head">
-      <div class="feat-label reveal">More than optimization</div>
-      <div class="feat-headline reveal">Built for operators<br><em>who run on numbers.</em></div>
+    <div class="fh">
+      <div class="fl reveal">More than optimization</div>
+      <div class="fhh reveal">Built for operators<br><em>who run on numbers.</em></div>
     </div>
-    <div class="feat-grid reveal">
-      <div class="feat-card"><div class="feat-n">01</div><div class="feat-t">Load Optimizer</div><div class="feat-b">Scans every load board in real time. Scores loads by cycle profit — accounting for deadhead, dwell time, and destination market strength.</div></div>
-      <div class="feat-card"><div class="feat-n">02</div><div class="feat-t">Cycle-Based Ranking</div><div class="feat-b">Goes beyond single-load RPM. Projects profit across the full driver cycle — remaining OTR days, continuation lanes, and home deadline.</div></div>
-      <div class="feat-card"><div class="feat-n">03</div><div class="feat-t">Automated Outreach</div><div class="feat-b">Generates professional broker emails in one click. You approve — TrueMile sends, tracks, and follows up automatically.</div></div>
+    <div class="fg reveal">
+      <div class="fc"><div class="fn">01</div><div class="ftt">Load Optimizer</div><div class="fb">Scans every load board in real time. Scores loads by cycle profit — accounting for deadhead, dwell time, and destination market strength.</div></div>
+      <div class="fc"><div class="fn">02</div><div class="ftt">Cycle-Based Ranking</div><div class="fb">Goes beyond single-load RPM. Projects profit across the full driver cycle — remaining OTR days, continuation lanes, and home deadline.</div></div>
+      <div class="fc"><div class="fn">03</div><div class="ftt">Automated Outreach</div><div class="fb">Generates professional broker emails in one click. You approve — TrueMile sends, tracks, and follows up automatically.</div></div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
 <div class="cta" id="contact">
-  <div class="cta-inner">
+  <div class="cta-i">
     <div>
-      <div class="cta-label">Partner with us</div>
-      <div class="cta-head">Unlock your fleet's <em>full potential.</em></div>
-      <div class="cta-desc">Book a demo and see TrueMile in action with your actual data. Early access pricing — per-truck, cancel anytime.</div>
+      <div class="cl">Partner with us</div>
+      <div class="ch">Unlock your fleet's <em>full potential.</em></div>
+      <div class="cd">Book a demo and see TrueMile in action with your actual data. Early access pricing — per-truck, cancel anytime.</div>
     </div>
-    <div class="cform">
-      <input class="fi" type="email" placeholder="Work email" required />
-      <div class="frow">
-        <input class="fi" type="text" placeholder="Company name" required />
+    <div class="cf">
+      <input class="fi" type="email" placeholder="Work email" required/>
+      <div class="fr">
+        <input class="fi" type="text" placeholder="Company name" required/>
         <select class="fs" required>
           <option value="" disabled selected>Fleet size</option>
           <option>1–5 trucks</option><option>5–10 trucks</option><option>10–20 trucks</option><option>20–50 trucks</option><option>50+ trucks</option>
         </select>
       </div>
-      <input class="fi" type="text" placeholder="MC # (optional)" />
-      <button class="fsub" id="submitBtn">Book Demo →</button>
-      <div class="fnote">Early access · No commitment</div>
+      <input class="fi" type="text" placeholder="MC # (optional)"/>
+      <button class="fsb" id="submitBtn">Book Demo →</button>
+      <div class="fno">Early access · No commitment</div>
     </div>
   </div>
 </div>
 
 <footer>
-  <div class="ft-brand">TrueMile<span>.AI</span></div>
-  <div class="ft-mission">We're building the operational infrastructure for modern trucking — where every mile, load, and dollar is measured and intelligently directed.</div>
-  <div class="ft-copy">© 2025 TrueMile.AI</div>
+  <div class="ftb">TrueMile<span>.AI</span></div>
+  <div class="ftm">We're building the operational infrastructure for modern trucking — where every mile, load, and dollar is measured and intelligently directed.</div>
+  <div class="ftc">© 2025 TrueMile.AI</div>
 </footer>
 
 <script>
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} });
-},{threshold:0.08,rootMargin:'0px 0px -32px 0px'});
+// ── Scroll reveal ──
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-function switchTab(name){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
-  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id==='tab-'+name));
-}
-document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
+// ── Load board animation ──
+let lbAnimated = false;
+const lbObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !lbAnimated){lbAnimated=true;runLBAnimation();}
+  });
+},{threshold:.3});
+const lbCard = document.getElementById('lbCard');
+if(lbCard) lbObs.observe(lbCard);
 
-document.getElementById('submitBtn').addEventListener('click',function(e){
-  e.preventDefault();
-  this.textContent='Submitted ✓';
-  this.style.cssText+=';background:#22c47a;color:#0a1f12;';
-  setTimeout(()=>{this.textContent='Book Demo →';this.style.cssText='';},3000);
-});
+function runLBAnimation(){
+  const rows = ['row1','row2','row3','rowWinner'];
+  const delays = [400, 900, 1400, 2100];
+
+  rows.forEach((id,i)=>{
+    setTimeout(()=>{
+      const el = document.getElementById(id);
+      if(el) el.classList.add('show');
+    }, delays[i]);
+  });
+
+  // Show winner badge
+  setTimeout(()=>{
+    const wb = document.getElementById('winBadge');
+    const wr = document.getElementById('rowWinner');
+    if(wb) wb.classList.add('show');
+    if(wr) wr.classList.add('winner');
+  }, 2500);
+
+  // Show score bar + animate fill
+  setTimeout(()=>{
+    const sb = document.getElementById('scoreBar');
+    if(sb) sb.classList.add('show');
+    setTimeout(()=>{
+      const sf = document.getElementById('scoreFill');
+      if(sf) sf.style.width='88%';
+    },100);
+    // Update scan status
+    const ss = document.getElementById('scanStatus');
+    if(ss) ss.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#22c47a;display:inline-block;margin-right:6px;"></span> Best load found';
+  }, 3000);
+
+  // Show email preview
+  setTimeout(()=>{
+    const ep = document.getElementById('emailPreview');
+    if(ep) ep.classList.add('show');
+    const btn = document.getElementById('epBtn');
+    if(btn) btn.classList.add('show');
+  }, 3600);
+}
+
+// ── Email typewriter animation ──
+const emailLines = `Hi Team,\n\nI'd like to book your load posting.\n\nPlease send the carrier packet and we'll get it filled out shortly.\n\n<strong>LOAD DETAILS:</strong>\nMC: 048737 · Ref: 2491042\nWichita Falls, TX → Philadelphia, PA\n1,536 miles · $4,501 ($2.93/mi)\nReefer · 40,000 lbs · 53 ft\n\n<strong>EQUIPMENT:</strong>\nTruck: 2023 Freightliner Cascadia 126 #107\nTrailer: 2022 Great Dane 53ft S-700 TK\n\n— Sarah Mitchell, TrueMile Logistics`;
+
+let emailAnimated = false;
+const emailObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && !emailAnimated){emailAnimated=true;typeEmail();}
+  });
+},{threshold:.3});
+const emailCard = document.getElementById('emailCard');
+if(emailCard) emailObs.observe(emailCard);
+
+function typeEmail(){
+  const el = document.getElementById('emailText');
+  if(!el) return;
+  const lines = emailLines.split('\n');
+  let lineIdx=0, charIdx=0, html='';
+  const interval = setInterval(()=>{
+    if(lineIdx>=lines.length){clearInterval(interval);return;}
+    const line = lines[lineIdx];
+    if(charIdx<line.length){
+      html += line[charIdx];
+      charIdx++;
+    } else {
+      html += '<br>';
+      lineIdx++;charIdx=0;
+    }
+    el.innerHTML=html+'<span style="opacity:.6;animation:fup .5s infinite alternate;">|</span>';
+  },18);
+}
+
+// ── Send button ──
+const sendBtn = document.getElementById('sendBtn');
+if(sendBtn){
+  sendBtn.addEventListener('click',function(){
+    this.textContent='Sent ✓';
+    this.style.background='#155c3d';
+    const st = document.getElementById('statusText');
+    if(st) st.textContent='Email delivered · Awaiting broker response';
+  });
+}
+
+// ── Submit ──
+const sub = document.getElementById('submitBtn');
+if(sub){
+  sub.addEventListener('click',function(e){
+    e.preventDefault();
+    this.textContent='Submitted ✓';
+    this.style.cssText+=';background:#22c47a;color:#0a1f12;';
+    setTimeout(()=>{this.textContent='Book Demo →';this.style.cssText='';},3000);
+  });
+}
 </script>
 </body>
 </html>
