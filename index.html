@@ -73,12 +73,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .bs{font-size:14px;color:rgba(255,255,255,.38);text-decoration:none;font-weight:400;transition:color .2s;}
 .bs:hover{color:var(--white);}
 
-/* Right col: window naturally sized, vertically centered */
+/* Right col: tall window filling most of viewport like Fleetline */
 .hero-right{
   position:relative;
   display:flex;
-  align-items:center;
-  justify-content:center;
+  align-items:stretch;
   padding:80px 0 80px 0;
   opacity:0;
   animation:fup 1s .5s ease forwards;
@@ -98,35 +97,57 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
   border-radius:10px;
   overflow:hidden;
   box-shadow:0 24px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);
+  display:flex;
+  flex-direction:column;
 }
 .hero-window-bar{
   display:flex;align-items:center;gap:8px;
   padding:13px 18px;
   background:#0f0f0f;
   border-bottom:1px solid rgba(255,255,255,.06);
+  flex-shrink:0;
 }
 .hero-window-dots{display:flex;gap:6px;}
 .hero-window-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);}
 .hero-window-url{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.2);margin-left:4px;}
+/* Atmospheric background inside window — like Fleetline's teal gradient */
 .hero-window-body{
-  padding:20px;
-  background:linear-gradient(150deg,#0c1020 0%,#080a0f 100%);
+  flex:1;
+  position:relative;
+  background:
+    radial-gradient(ellipse 120% 80% at 60% 30%, rgba(10,80,100,.7) 0%, rgba(5,30,60,.8) 50%, rgba(5,10,20,1) 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+/* Subtle grid texture like Fleetline */
+.hero-window-body::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
 }
 .hero-metrics-card{
-  background:rgba(8,14,32,.85);
+  position:relative;z-index:1;
+  width:100%;max-width:460px;
+  background:rgba(8,14,32,.88);
   border:1px solid rgba(37,99,235,.3);
   border-radius:10px;
   overflow:hidden;
-  box-shadow:0 0 0 1px rgba(37,99,235,.1),0 16px 48px rgba(37,99,235,.18),inset 0 1px 0 rgba(255,255,255,.05);
+  box-shadow:0 0 0 1px rgba(37,99,235,.1),0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
 }
 .hmc-bar{padding:12px 18px;background:rgba(37,99,235,.08);border-bottom:1px solid rgba(37,99,235,.15);display:flex;align-items:center;gap:8px;}
 .hmc-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
 .hmc-title{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.32);letter-spacing:.06em;}
 .hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
-.hm{background:rgba(8,14,32,.9);padding:32px 28px;transition:background .2s;}
-.hm:hover{background:rgba(37,99,235,.07);}
+.hm{background:rgba(8,14,32,.92);padding:28px 24px;transition:background .2s;}
+.hm:hover{background:rgba(37,99,235,.1);}
 .hm-tag{display:inline-block;margin-bottom:12px;padding:2px 9px;background:rgba(37,99,235,.2);color:#60a5fa;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;}
-.hm-val{font-family:var(--serif);font-size:44px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:8px;}
+.hm-val{font-family:var(--serif);font-size:40px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:8px;}
 .hm-label{font-size:12px;color:rgba(255,255,255,.36);font-weight:400;}
 
 /* ── FEATURE SECTIONS (vertical stacked) ── */
