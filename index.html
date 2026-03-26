@@ -21,7 +21,7 @@
 html{scroll-behavior:smooth;}
 body{font-family:var(--sans);background:var(--ink);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 
-/* ── NAV ── */
+/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:rgba(10,10,10,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--bl);}
 .nb{font-weight:600;font-size:15px;color:var(--white);letter-spacing:.01em;}
 .nb span{color:var(--green-l);}
@@ -31,126 +31,123 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .nc{font-size:13px;font-weight:500;color:var(--ink);background:var(--white);padding:8px 18px;border-radius:3px;text-decoration:none;transition:opacity .2s;}
 .nc:hover{opacity:.86;}
 
-/* ── HERO ── */
+/* HERO — matches Fleetline: text left, contained window right */
 .hero-wrap{
-  height:100vh;
+  min-height:100vh;
   position:relative;
-  overflow:hidden;
   background:var(--ink);
+  display:flex;
+  align-items:center;
+  padding:100px 48px 80px;
+  gap:0;
+  overflow:hidden;
 }
 .hero-wrap::before{
   content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 50% 60% at 72% 50%,rgba(37,99,235,.13) 0%,transparent 65%);
+  background:radial-gradient(ellipse 55% 70% at 72% 50%,rgba(10,40,80,.4) 0%,transparent 65%);
   pointer-events:none;
 }
 
-.hero{
-  display:grid;
-  grid-template-columns:45% 55%;
-  height:100%;
-  padding:0 48px;
-  position:relative;
-  z-index:1;
-  gap:0;
-}
-
-/* Left col: text vertically centered */
+/* LEFT — text vertically centered like Fleetline */
 .hero-left{
+  position:relative;
+  z-index:2;
+  flex:0 0 42%;
   display:flex;
   flex-direction:column;
   justify-content:center;
-  padding-right:48px;
+  padding-right:56px;
 }
 .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:20px;opacity:0;animation:fup .7s .2s ease forwards;}
 .ed{width:5px;height:5px;border-radius:50%;background:var(--green-l);}
 .et{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.36);}
-.hero h1{font-family:var(--serif);font-size:clamp(38px,4.5vw,64px);font-weight:700;line-height:1.05;letter-spacing:-.025em;margin-bottom:16px;opacity:0;animation:fup .8s .4s ease forwards;}
-.hero h1 em{font-style:italic;color:rgba(255,255,255,.28);}
-.hero-sub{font-size:15px;color:rgba(255,255,255,.44);line-height:1.7;max-width:46ch;font-weight:300;margin-bottom:32px;opacity:0;animation:fup .8s .6s ease forwards;}
+.hero-left h1{font-family:var(--serif);font-size:clamp(44px,5vw,72px);font-weight:700;line-height:1.0;letter-spacing:-.03em;margin-bottom:20px;opacity:0;animation:fup .8s .4s ease forwards;}
+.hero-left h1 em{font-style:italic;color:rgba(255,255,255,.28);}
+.hero-sub{font-size:15px;color:rgba(255,255,255,.44);line-height:1.72;max-width:42ch;font-weight:300;margin-bottom:36px;opacity:0;animation:fup .8s .6s ease forwards;}
 .hbtns{display:flex;gap:16px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
 .bp{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:#1e1e1e;color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:background .2s,transform .2s;}
 .bp:hover{background:#2a2a2a;transform:translateY(-1px);}
 .bs{font-size:14px;color:rgba(255,255,255,.38);text-decoration:none;font-weight:400;transition:color .2s;}
 .bs:hover{color:var(--white);}
 
-/* Right col: tall window filling most of viewport like Fleetline */
+/* RIGHT — contained window, like Fleetline. NOT flush to viewport. */
 .hero-right{
+  flex:0 0 58%;
   position:relative;
   display:flex;
-  align-items:stretch;
-  padding:80px 0 80px 0;
+  align-items:center;
+  justify-content:flex-end;
   opacity:0;
-  animation:fup 1s .5s ease forwards;
+  animation:fup 1s .4s ease forwards;
 }
 .hero-glow{
   position:absolute;top:50%;left:50%;
   width:600px;height:600px;
   transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 70%);
+  background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 65%);
   pointer-events:none;filter:blur(60px);z-index:0;
 }
+/* The window: contained rectangle with proper sizing, not full-bleed */
 .hero-window{
   position:relative;z-index:1;
   width:100%;
-  background:#181818;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:10px;
+  max-height:620px;
+  background:#0d1b2e;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
   overflow:hidden;
-  box-shadow:0 24px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);
   display:flex;
   flex-direction:column;
+  box-shadow:0 32px 100px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04);
 }
 .hero-window-bar{
   display:flex;align-items:center;gap:8px;
   padding:13px 18px;
-  background:#0f0f0f;
-  border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(5,10,20,.95);
+  border-bottom:1px solid rgba(255,255,255,.07);
   flex-shrink:0;
 }
 .hero-window-dots{display:flex;gap:6px;}
-.hero-window-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.1);}
-.hero-window-url{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.2);margin-left:4px;}
-/* Atmospheric background inside window — like Fleetline's teal gradient */
+.hero-window-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.12);}
+.hero-window-url{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.22);margin-left:4px;}
 .hero-window-body{
   flex:1;
   position:relative;
-  background:
-    radial-gradient(ellipse 120% 80% at 60% 30%, rgba(10,80,100,.7) 0%, rgba(5,30,60,.8) 50%, rgba(5,10,20,1) 100%);
+  background:radial-gradient(ellipse 120% 80% at 55% 30%, rgba(10,75,100,.75) 0%, rgba(5,28,60,.8) 45%, rgba(4,8,20,1) 100%);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:32px;
+  padding:40px 36px;
+  min-height:480px;
 }
-/* Subtle grid texture like Fleetline */
 .hero-window-body::before{
-  content:'';
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
   background-size:40px 40px;
   pointer-events:none;
 }
+/* Metrics card — centered in window, appropriately sized */
 .hero-metrics-card{
   position:relative;z-index:1;
-  width:100%;max-width:460px;
-  background:rgba(8,14,32,.88);
-  border:1px solid rgba(37,99,235,.3);
+  width:100%;
+  max-width:440px;
+  background:rgba(8,14,32,.9);
+  border:1px solid rgba(37,99,235,.28);
   border-radius:10px;
   overflow:hidden;
-  box-shadow:0 0 0 1px rgba(37,99,235,.1),0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
+  box-shadow:0 0 0 1px rgba(37,99,235,.08),0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
 }
-.hmc-bar{padding:12px 18px;background:rgba(37,99,235,.08);border-bottom:1px solid rgba(37,99,235,.15);display:flex;align-items:center;gap:8px;}
+.hmc-bar{padding:11px 16px;background:rgba(37,99,235,.08);border-bottom:1px solid rgba(37,99,235,.14);display:flex;align-items:center;gap:8px;}
 .hmc-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
-.hmc-title{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.32);letter-spacing:.06em;}
+.hmc-title{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.06em;}
 .hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
 .hm{background:rgba(8,14,32,.92);padding:28px 24px;transition:background .2s;}
 .hm:hover{background:rgba(37,99,235,.1);}
-.hm-tag{display:inline-block;margin-bottom:12px;padding:2px 9px;background:rgba(37,99,235,.2);color:#60a5fa;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;}
-.hm-val{font-family:var(--serif);font-size:40px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:8px;}
-.hm-label{font-size:12px;color:rgba(255,255,255,.36);font-weight:400;}
+.hm-tag{display:inline-block;margin-bottom:10px;padding:2px 9px;background:rgba(37,99,235,.2);color:#60a5fa;border-radius:20px;font-size:10px;font-weight:500;letter-spacing:.04em;}
+.hm-val{font-family:var(--serif);font-size:38px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:7px;}
+.hm-label{font-size:12px;color:rgba(255,255,255,.34);font-weight:400;}
 
-/* ── FEATURE SECTIONS (vertical stacked) ── */
+/* FEATURE SECTIONS */
 .fx-section{padding:0;}
 .fx-band{padding:80px 64px 64px;max-width:1160px;margin:0 auto;}
 .fx-band-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
@@ -159,14 +156,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .fx-band-body{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;}
 .fx-card-wrap{padding:0 64px 96px;max-width:1160px;margin:0 auto;}
 
-/* ── FLOATING UI CARD ── */
 .ui-card{background:var(--white);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.1),0 4px 16px rgba(0,0,0,.06);overflow:hidden;width:100%;position:relative;z-index:1;}
 .ui-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--fog);border-bottom:1px solid var(--fog3);}
 .ui-dots{display:flex;gap:5px;}
 .ui-dot{width:8px;height:8px;border-radius:50%;background:var(--fog3);}
 .ui-url{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:4px;}
-
-/* ── LOAD BOARD ANIMATION UI ── */
 .lb-header{padding:12px 16px;border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;}
 .lb-title{font-size:13px;font-weight:600;color:var(--ink);}
 .lb-scanning{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-weight:500;}
@@ -195,7 +189,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .ep-btn{margin-top:10px;width:100%;padding:9px;background:var(--green);color:white;border:none;border-radius:4px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:pointer;opacity:0;transition:opacity .4s .6s;}
 .ep-btn.show{opacity:1;animation:subtlePulse 2s 1s ease-in-out infinite;}
 
-/* ── HOW ── */
 .how{background:var(--fog);color:var(--ink);padding:104px 48px;}
 .how-top{margin-bottom:56px;}
 .how-h{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:22ch;margin-bottom:16px;color:var(--ink);}
@@ -208,7 +201,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .st{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.3;}
 .sb{font-size:13px;color:var(--muted);line-height:1.72;font-weight:400;}
 
-/* ── FEATURES ── */
 .features{background:var(--fog);color:var(--ink);padding:104px 48px;}
 .fh{margin-bottom:56px;}
 .fl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
@@ -223,7 +215,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .ftt{font-size:17px;font-weight:500;color:var(--ink);margin-bottom:12px;line-height:1.3;}
 .fb{font-size:13px;color:var(--muted);line-height:1.75;font-weight:400;}
 
-/* ── CTA ── */
 .cta{background:var(--ink2);padding:104px 48px;}
 .cta-i{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1160px;margin:0 auto;}
 .cl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:18px;}
@@ -241,31 +232,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .fsb:hover{opacity:.86;}
 .fno{font-size:12px;color:rgba(255,255,255,.2);text-align:center;}
 
-/* ── FOOTER ── */
 footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;}
 .ftb{font-size:14px;font-weight:500;color:rgba(255,255,255,.32);}
 .ftb span{color:var(--green-l);}
 .ftc{font-size:12px;color:rgba(255,255,255,.16);}
 .ftm{font-size:13px;color:rgba(255,255,255,.2);max-width:40ch;text-align:center;line-height:1.65;font-weight:300;}
 
-/* ── UTILS ── */
 .container{max-width:1160px;margin:0 auto;}
-.sec-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-.sec-head{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:72px;max-width:22ch;}
 
-/* ── ANIMATIONS ── */
 @keyframes fup{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
 @keyframes subtlePulse{0%,100%{box-shadow:0 0 0 0 rgba(26,107,74,.4);}50%{box-shadow:0 0 0 6px rgba(26,107,74,0);}}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-/* ── RESPONSIVE ── */
 @media(max-width:900px){
   nav{padding:0 24px;}
-  .hero{grid-template-columns:1fr;height:auto;padding:100px 24px 64px;}
-  .hero-left{padding-right:0;padding-bottom:0;}
-  .hero-right{display:none;}
+  .hero-wrap{flex-direction:column;padding:100px 24px 64px;}
+  .hero-left{flex:none;padding-right:0;padding-bottom:40px;}
+  .hero-right{flex:none;width:100%;}
   .how,.features,.cta{padding:80px 24px;}
   .fx-band{padding:60px 24px 48px;}
   .fx-card-wrap{padding:0 24px 72px;}
@@ -275,7 +260,7 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
   footer{flex-direction:column;gap:20px;text-align:center;padding:36px 24px;}
 }
 @media(max-width:640px){
-  .hero h1{font-size:40px;}
+  .hero-left h1{font-size:42px;}
   .steps{grid-template-columns:1fr;}
   .nr .nl{display:none;}
   .fr{grid-template-columns:1fr;}
@@ -284,7 +269,6 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nb">TrueMile<span>.AI</span></div>
   <div class="nr">
@@ -294,65 +278,62 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
   </div>
 </nav>
 
-<!-- HERO — Fleetline layout: text bottom-left, window right half -->
 <div class="hero-wrap">
-  <section class="hero">
-    <!-- LEFT: text at bottom -->
-    <div class="hero-left">
-      <div class="eyebrow"><div class="ed"></div><span class="et">AI-Powered Dispatch Intelligence</span></div>
-      <h1>Every mile.<br><em>Optimized.</em></h1>
-      <p class="hero-sub">TrueMile simulates billions of possibilities — not just for your next load, but for all of them. We run the math, you run the fleet.</p>
-      <div class="hbtns">
-        <a href="#contact" class="bp">Get Started →</a>
-        <a href="#features" class="bs">See how it works</a>
-      </div>
+  <!-- LEFT: text anchored to bottom -->
+  <div class="hero-left">
+    <div class="eyebrow"><div class="ed"></div><span class="et">AI-Powered Dispatch Intelligence</span></div>
+    <h1>Every mile.<br><em>Optimized.</em></h1>
+    <p class="hero-sub">TrueMile simulates billions of possibilities — not just for your next load, but for all of them. We run the math, you run the fleet.</p>
+    <div class="hbtns">
+      <a href="#contact" class="bp">Get Started →</a>
+      <a href="#features" class="bs">See how it works</a>
     </div>
+  </div>
 
-    <!-- RIGHT: tall window fills column -->
-    <div class="hero-right">
-      <div class="hero-glow"></div>
-      <div class="hero-window">
-        <div class="hero-window-bar">
-          <div class="hero-window-dots">
-            <div class="hero-window-dot"></div>
-            <div class="hero-window-dot"></div>
-            <div class="hero-window-dot"></div>
-          </div>
-          <span class="hero-window-url">truemile.ai/dashboard</span>
+  <!-- RIGHT: tall window flush, metrics card at bottom-right -->
+  <div class="hero-right">
+    <div class="hero-glow"></div>
+    <div class="hero-window">
+      <div class="hero-window-bar">
+        <div class="hero-window-dots">
+          <div class="hero-window-dot"></div>
+          <div class="hero-window-dot"></div>
+          <div class="hero-window-dot"></div>
         </div>
-        <div class="hero-window-body">
-          <div class="hero-metrics-card">
-            <div class="hmc-bar">
-              <div class="hmc-dot"></div>
-              <span class="hmc-title">Fleet Performance — Live Metrics</span>
+        <span class="hero-window-url">truemile.ai/dashboard</span>
+      </div>
+      <div class="hero-window-body">
+        <div class="hero-metrics-card">
+          <div class="hmc-bar">
+            <div class="hmc-dot"></div>
+            <span class="hmc-title">Fleet Performance — Live Metrics</span>
+          </div>
+          <div class="hmc-grid">
+            <div class="hm">
+              <div class="hm-tag">avg. across fleet</div>
+              <div class="hm-val">1.4x</div>
+              <div class="hm-label">Revenue increases</div>
             </div>
-            <div class="hmc-grid">
-              <div class="hm">
-                <div class="hm-tag">avg. across fleet</div>
-                <div class="hm-val">1.4x</div>
-                <div class="hm-label">Revenue increases</div>
-              </div>
-              <div class="hm">
-                <div class="hm-tag">trucks loaded</div>
-                <div class="hm-val">15%</div>
-                <div class="hm-label">Utilization increases</div>
-              </div>
-              <div class="hm">
-                <div class="hm-tag">rate per mile</div>
-                <div class="hm-val">+20%</div>
-                <div class="hm-label">RPM improvement</div>
-              </div>
-              <div class="hm">
-                <div class="hm-tag">per dispatcher</div>
-                <div class="hm-val">50%</div>
-                <div class="hm-label">Less time dispatching</div>
-              </div>
+            <div class="hm">
+              <div class="hm-tag">trucks loaded</div>
+              <div class="hm-val">15%</div>
+              <div class="hm-label">Utilization increases</div>
+            </div>
+            <div class="hm">
+              <div class="hm-tag">rate per mile</div>
+              <div class="hm-val">+20%</div>
+              <div class="hm-label">RPM improvement</div>
+            </div>
+            <div class="hm">
+              <div class="hm-tag">per dispatcher</div>
+              <div class="hm-val">50%</div>
+              <div class="hm-label">Less time dispatching</div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
 
 <!-- LOAD OPTIMIZER -->
@@ -435,7 +416,6 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
 <section class="how">
   <div class="container">
     <div class="how-top reveal">
@@ -451,7 +431,6 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features">
   <div class="container">
     <div class="fh">
@@ -466,7 +445,6 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
   </div>
 </section>
 
-<!-- CTA -->
 <div class="cta" id="contact">
   <div class="cta-i">
     <div>
@@ -497,17 +475,11 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 </footer>
 
 <script>
-// Scroll reveal
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
-},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Load board animation
 let lbAnimated=false;
-const lbObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting&&!lbAnimated){lbAnimated=true;runLBAnimation();}});
-},{threshold:.3});
+const lbObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!lbAnimated){lbAnimated=true;runLBAnimation();}});},{threshold:.3});
 const lbCard=document.getElementById('lbCard');
 if(lbCard)lbObs.observe(lbCard);
 
@@ -515,28 +487,19 @@ function runLBAnimation(){
   ['row1','row2','row3','rowWinner'].forEach((id,i)=>{
     setTimeout(()=>{const el=document.getElementById(id);if(el)el.classList.add('show');},{0:400,1:900,2:1400,3:2100}[i]);
   });
-  setTimeout(()=>{
-    const wb=document.getElementById('winBadge'),wr=document.getElementById('rowWinner');
-    if(wb)wb.classList.add('show');if(wr)wr.classList.add('winner');
-  },2500);
+  setTimeout(()=>{const wb=document.getElementById('winBadge'),wr=document.getElementById('rowWinner');if(wb)wb.classList.add('show');if(wr)wr.classList.add('winner');},2500);
   setTimeout(()=>{
     const sb=document.getElementById('scoreBar');if(sb)sb.classList.add('show');
     setTimeout(()=>{const sf=document.getElementById('scoreFill');if(sf)sf.style.width='88%';},100);
     const ss=document.getElementById('scanStatus');
     if(ss)ss.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#22c47a;display:inline-block;margin-right:6px;"></span> Best load found';
   },3000);
-  setTimeout(()=>{
-    const ep=document.getElementById('emailPreview'),btn=document.getElementById('epBtn');
-    if(ep)ep.classList.add('show');if(btn)btn.classList.add('show');
-  },3600);
+  setTimeout(()=>{const ep=document.getElementById('emailPreview'),btn=document.getElementById('epBtn');if(ep)ep.classList.add('show');if(btn)btn.classList.add('show');},3600);
 }
 
-// Email typewriter
 const emailLines=`Hi Team,\n\nI'd like to book your load posting.\n\nPlease send the carrier packet and we'll get it filled out shortly.\n\n<strong>LOAD DETAILS:</strong>\nMC: 048737 · Ref: 2491042\nWichita Falls, TX → Philadelphia, PA\n1,536 miles · $4,501 ($2.93/mi)\nReefer · 40,000 lbs · 53 ft\n\n<strong>EQUIPMENT:</strong>\nTruck: 2023 Freightliner Cascadia 126 #107\nTrailer: 2022 Great Dane 53ft S-700 TK\n\n— Sarah Mitchell, TrueMile Logistics`;
 let emailAnimated=false;
-const emailObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting&&!emailAnimated){emailAnimated=true;typeEmail();}});
-},{threshold:.3});
+const emailObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!emailAnimated){emailAnimated=true;typeEmail();}});},{threshold:.3});
 const emailCard=document.getElementById('emailCard');
 if(emailCard)emailObs.observe(emailCard);
 function typeEmail(){
@@ -551,13 +514,10 @@ function typeEmail(){
   },18);
 }
 
-// Send
 document.getElementById('sendBtn')?.addEventListener('click',function(){
   this.textContent='Sent ✓';this.style.background='#155c3d';
   const st=document.getElementById('statusText');if(st)st.textContent='Email delivered · Awaiting broker response';
 });
-
-// Submit
 document.getElementById('submitBtn')?.addEventListener('click',function(e){
   e.preventDefault();this.textContent='Submitted ✓';
   this.style.cssText+=';background:#22c47a;color:#0a1f12;';
