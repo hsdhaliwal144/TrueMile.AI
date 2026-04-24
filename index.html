@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>TrueMile.AI — Turn Every Mile Into Predictable Profit</title>
+<title>TrueMile.AI — AI Dispatch Optimization for Trucking Fleets</title>
+<meta name="description" content="TrueMile is the AI dispatch engine for mid-size trucking fleets. Plan every driver for the full week. Fill every backhaul. Cut planning time in half. See your revenue lift before you sign anything."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0a0a0a;--ink2:#111;--ink3:#1c1c1c;
@@ -52,7 +53,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 
 .hero-left{
   position:relative;z-index:2;
-  flex:1 1 auto;max-width:600px;
+  flex:1 1 auto;max-width:620px;
   display:flex;flex-direction:column;justify-content:center;
 }
 
@@ -60,16 +61,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .ed{width:5px;height:5px;border-radius:50%;background:var(--blue-l);}
 .et{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.6);}
 
-.hero-left h1{font-family:var(--serif);font-size:clamp(54px,6.5vw,96px);font-weight:800;line-height:.96;letter-spacing:-.035em;margin-bottom:24px;opacity:0;animation:fup .8s .4s ease forwards;}
+.hero-left h1{font-family:var(--serif);font-size:clamp(52px,6.2vw,92px);font-weight:800;line-height:.96;letter-spacing:-.035em;margin-bottom:20px;opacity:0;animation:fup .8s .4s ease forwards;}
 .hero-left h1 em{font-style:italic;color:rgba(255,255,255,.38);}
 
-.hero-sub{font-size:16px;color:rgba(255,255,255,.75);line-height:1.75;max-width:46ch;font-weight:400;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
+.hero-tag{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--blue-l);margin-bottom:20px;font-weight:500;opacity:0;animation:fup .8s .5s ease forwards;}
 
-.hbtns{display:flex;gap:16px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
-.bp{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:#1a2a4a;color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;border:1px solid rgba(59,130,246,.3);transition:background .2s,transform .2s;}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.78);line-height:1.7;max-width:52ch;font-weight:400;margin-bottom:36px;opacity:0;animation:fup .8s .6s ease forwards;}
+.hero-sub strong{color:var(--white);font-weight:500;}
+
+.hbtns{display:flex;gap:16px;align-items:center;margin-bottom:32px;opacity:0;animation:fup .8s .8s ease forwards;}
+.bp{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:#1a2a4a;color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;border:1px solid rgba(59,130,246,.3);transition:background .2s,transform .2s;}
 .bp:hover{background:#1e3260;transform:translateY(-1px);}
 .bs{font-size:14px;color:rgba(255,255,255,.5);text-decoration:none;font-weight:500;transition:color .2s;}
 .bs:hover{color:var(--white);}
+
+/* Trust strip below CTAs */
+.hero-trust{display:flex;flex-direction:column;gap:10px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);opacity:0;animation:fup .8s 1s ease forwards;}
+.htl{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.14em;text-transform:uppercase;}
+.htr{display:flex;gap:28px;flex-wrap:wrap;}
+.hti{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.55);font-weight:400;}
+.htc{color:var(--green-l);font-weight:600;font-family:var(--mono);font-size:11px;}
 
 /* HERO RIGHT — metrics dashboard */
 .hero-right{
@@ -138,13 +149,28 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .dr-route{font-size:9px;color:rgba(255,255,255,.3);font-family:var(--mono);margin-top:1px;}
 .dr-rev{font-size:10px;font-weight:700;color:#22c47a;font-family:var(--mono);}
 
+/* THE PROBLEM BAND — operator-voice */
+.problem{background:#0f0f10;padding:88px 48px;border-bottom:1px solid rgba(255,255,255,.05);}
+.problem-wrap{max-width:1160px;margin:0 auto;}
+.problem-top{margin-bottom:48px;max-width:800px;}
+.problem-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;}
+.problem-h{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.12;letter-spacing:-.02em;margin-bottom:16px;color:var(--white);}
+.problem-h em{font-style:italic;color:rgba(255,255,255,.32);}
+.problem-d{font-size:16px;color:rgba(255,255,255,.6);line-height:1.72;max-width:60ch;font-weight:400;}
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden;}
+.pcell{background:#0f0f10;padding:28px 26px;}
+.pcell-n{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.1em;margin-bottom:14px;}
+.pcell-q{font-family:var(--serif);font-size:19px;line-height:1.4;font-style:italic;color:rgba(255,255,255,.85);margin-bottom:12px;font-weight:400;}
+.pcell-a{font-size:13px;color:rgba(255,255,255,.48);line-height:1.65;font-weight:400;}
+
 /* SECTIONS */
 .fx-section{padding:0;}
-.fx-band{padding:80px 64px 56px;max-width:1160px;margin:0 auto;}
+.fx-band{padding:88px 64px 56px;max-width:1160px;margin:0 auto;}
 .fx-band-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
 .fx-band-head{font-family:var(--serif);font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:16px;color:var(--ink);}
 .fx-band-head em{font-style:italic;color:rgba(10,10,10,.28);}
-.fx-band-body{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;}
+.fx-band-body{font-size:16px;color:var(--muted);line-height:1.75;max-width:54ch;}
+.fx-band-body strong{color:var(--ink);font-weight:500;}
 .fx-card-wrap{padding:0 64px 96px;max-width:1160px;margin:0 auto;}
 
 .ui-card{background:var(--white);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.1),0 4px 16px rgba(0,0,0,.06);overflow:hidden;width:100%;position:relative;z-index:1;}
@@ -185,19 +211,33 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .how-top{margin-bottom:56px;}
 .how-h{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:22ch;margin-bottom:16px;color:var(--ink);}
 .how-h em{font-style:italic;color:rgba(10,10,10,.28);}
-.how-d{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;font-weight:400;}
+.how-d{font-size:16px;color:var(--muted);line-height:1.75;max-width:54ch;font-weight:400;}
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fog3);border:1px solid var(--fog3);border-radius:6px;overflow:hidden;}
 .step{background:var(--fog);padding:36px 28px;}
 .step:nth-child(even){background:var(--white);}
 .sn{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:26px;opacity:.5;}
-.st{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.3;}
+.st{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.3;}
 .sb{font-size:13px;color:var(--muted);line-height:1.72;font-weight:400;}
+
+/* WHY WE'RE DIFFERENT */
+.why{background:var(--ink);color:var(--white);padding:104px 48px;border-top:1px solid rgba(255,255,255,.05);}
+.why-top{max-width:1160px;margin:0 auto 56px;}
+.why-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px;}
+.why-h{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:20ch;color:var(--white);margin-bottom:16px;}
+.why-h em{font-style:italic;color:rgba(255,255,255,.32);}
+.why-d{font-size:16px;color:rgba(255,255,255,.55);line-height:1.72;max-width:58ch;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:6px;overflow:hidden;max-width:1160px;margin:0 auto;}
+.why-cell{background:#0f0f10;padding:36px 30px;}
+.why-n{font-family:var(--mono);font-size:10px;color:var(--blue-l);letter-spacing:.1em;margin-bottom:20px;}
+.why-t{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--white);margin-bottom:12px;line-height:1.2;}
+.why-t em{font-style:italic;color:rgba(255,255,255,.4);}
+.why-b{font-size:14px;color:rgba(255,255,255,.6);line-height:1.7;font-weight:400;}
 
 /* FEATURES */
 .features{background:var(--fog);color:var(--ink);padding:104px 48px;}
 .fh{margin-bottom:56px;}
 .fl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
-.fhh{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:20ch;color:var(--ink);}
+.fhh{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:22ch;color:var(--ink);}
 .fhh em{font-style:italic;color:rgba(10,10,10,.28);}
 .fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--fog3);border:1px solid var(--fog3);border-radius:6px;overflow:hidden;}
 .fc{background:var(--fog);padding:36px 30px;transition:background .18s;}
@@ -205,7 +245,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .fc:hover{background:var(--fog2);}
 .fc:nth-child(2):hover{background:var(--fog);}
 .fn{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:24px;opacity:.5;}
-.ftt{font-size:17px;font-weight:500;color:var(--ink);margin-bottom:12px;line-height:1.3;}
+.ftt{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:12px;line-height:1.3;}
 .fb{font-size:13px;color:var(--muted);line-height:1.75;font-weight:400;}
 
 /* CTA */
@@ -214,7 +254,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .cl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:18px;}
 .ch{font-family:var(--serif);font-size:clamp(32px,3.5vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:18px;}
 .ch em{font-style:italic;color:rgba(255,255,255,.28);}
-.cd{font-size:15px;color:rgba(255,255,255,.36);line-height:1.72;font-weight:300;}
+.cd{font-size:15px;color:rgba(255,255,255,.5);line-height:1.72;font-weight:400;margin-bottom:28px;}
+.cd strong{color:var(--white);font-weight:500;}
+.cta-bullets{list-style:none;padding:0;}
+.cta-bullets li{font-size:13px;color:rgba(255,255,255,.5);padding:8px 0;display:flex;align-items:flex-start;gap:10px;}
+.cta-bullets li::before{content:'→';color:var(--blue-l);font-weight:600;flex-shrink:0;}
 .cf{display:flex;flex-direction:column;gap:10px;}
 .fi,.fs{width:100%;padding:12px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:3px;color:var(--white);font-size:14px;font-family:var(--sans);font-weight:300;transition:border-color .18s;appearance:none;}
 .fi::placeholder{color:rgba(255,255,255,.26);}
@@ -230,7 +274,7 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 .ftb{font-size:14px;font-weight:500;color:rgba(255,255,255,.32);}
 .ftb span{color:var(--blue-l);}
 .ftc{font-size:12px;color:rgba(255,255,255,.16);}
-.ftm{font-size:13px;color:rgba(255,255,255,.2);max-width:40ch;text-align:center;line-height:1.65;font-weight:300;}
+.ftm{font-size:13px;color:rgba(255,255,255,.22);max-width:42ch;text-align:center;line-height:1.65;font-weight:300;}
 
 .container{max-width:1160px;margin:0 auto;}
 
@@ -243,11 +287,11 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
   nav{padding:0 24px;}
   .hero-wrap{flex-direction:column;padding:100px 24px 64px;gap:48px;}
   .hero-right{flex:none;width:100%;}
-  .how,.features,.cta{padding:80px 24px;}
+  .how,.features,.cta,.why,.problem{padding:80px 24px;}
   .fx-band{padding:60px 24px 48px;}
   .fx-card-wrap{padding:0 24px 72px;}
   .steps{grid-template-columns:repeat(2,1fr);}
-  .fg{grid-template-columns:1fr;}
+  .fg,.why-grid,.problem-grid{grid-template-columns:1fr;}
   .cta-i{grid-template-columns:1fr;gap:48px;}
   footer{flex-direction:column;gap:20px;text-align:center;padding:36px 24px;}
 }
@@ -264,8 +308,9 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 <nav>
   <div class="nb">TrueMile<span>.AI</span></div>
   <div class="nr">
+    <a href="#how" class="nl">How it works</a>
     <a href="#features" class="nl">Product</a>
-    <a href="#results" class="nl">Results</a>
+    <a href="#why" class="nl">Why TrueMile</a>
     <a href="#contact" class="nc">Book Demo</a>
   </div>
 </nav>
@@ -273,12 +318,22 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 <!-- ── HERO ── -->
 <div class="hero-wrap">
   <div class="hero-left">
-    <div class="eyebrow"><div class="ed"></div><span class="et">AI Fleet Optimization · Route Planning · Backhaul Intelligence</span></div>
-    <h1>Every mile.<br><em>Optimized.</em></h1>
-    <p class="hero-sub">TrueMile simulates millions of possibilities — not just for your next load, but for all of them. We run the math, you run the fleet.</p>
+    <div class="eyebrow"><div class="ed"></div><span class="et">AI Dispatch Optimization · Built for Mid-Size Fleets</span></div>
+    <h1>Plan every truck.<br><em>Every week.</em><br>Automatically.</h1>
+    <p class="hero-tag">// Dispatch optimization · Backhaul intelligence · Weekly planning</p>
+    <p class="hero-sub">TrueMile is the AI dispatch engine for trucking fleets running 50 to 1,000 trucks. We plug into your TMS and ELD, <strong>run the math on every driver, every lane, every hour of the week</strong> — and deliver the plan that grows revenue, cuts empty miles, and gets your drivers home on time.</p>
     <div class="hbtns">
-      <a href="#contact" class="bp">Book a Demo →</a>
-      <a href="#features" class="bs">See how it works</a>
+      <a href="#contact" class="bp">See your fleet's revenue lift →</a>
+      <a href="#how" class="bs">How it works</a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="htl">What you get in a demo</div>
+      <div class="htr">
+        <div class="hti"><span class="htc">✓</span> Historical simulation on your fleet's data</div>
+        <div class="hti"><span class="htc">✓</span> Exact revenue &amp; utilization opportunity</div>
+        <div class="hti"><span class="htc">✓</span> No commitment until you see the numbers</div>
+      </div>
     </div>
   </div>
 
@@ -291,12 +346,12 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
           <div class="hero-window-dot"></div>
           <div class="hero-window-dot"></div>
         </div>
-        <span class="hero-window-url">truemile.ai/fleet-plan</span>
+        <span class="hero-window-url">truemile.ai/dispatch-plan</span>
       </div>
       <div class="hero-window-body">
         <div class="fleet-plan-card">
           <div class="fpc-header">
-            <span class="fpc-title">Weekly Fleet Plan — Optimized</span>
+            <span class="fpc-title">Weekly Dispatch Plan — Optimized</span>
             <span class="fpc-live"><span class="fpc-dot"></span>Live</span>
           </div>
           <div class="fpc-metrics">
@@ -354,12 +409,41 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
   </div>
 </div>
 
-<!-- ── SECTION 1: WEEKLY FLEET PLANNING ── -->
+<!-- ── THE PROBLEM BAND ── -->
+<section class="problem">
+  <div class="problem-wrap">
+    <div class="problem-top reveal">
+      <div class="problem-label">The problem every fleet leader knows</div>
+      <div class="problem-h">Your trucks aren't earning<br><em>what they should.</em></div>
+      <div class="problem-d">For a 300-truck fleet running 70% dedicated and 30% spot, the difference between a good weekly plan and a great one is <strong style="color:white;">millions of dollars a year</strong>. Your dispatchers are smart and working hard — but the math is bigger than any human can hold in their head.</div>
+    </div>
+
+    <div class="problem-grid reveal">
+      <div class="pcell">
+        <div class="pcell-n">01 / UTILIZATION</div>
+        <div class="pcell-q">"Why are my trucks sitting for hours between loads?"</div>
+        <div class="pcell-a">Every empty hour is revenue you already paid for — truck payment, insurance, driver wages — with nothing coming back. A 5% utilization gain on a 300-truck fleet is roughly $3M/year.</div>
+      </div>
+      <div class="pcell">
+        <div class="pcell-n">02 / BACKHAUL</div>
+        <div class="pcell-q">"We keep deadheading back to base."</div>
+        <div class="pcell-a">Dispatchers don't have time to work every lane, every broker, every load board to fill return legs. So drivers come back empty — when $2–3/mile was sitting on the board they never saw.</div>
+      </div>
+      <div class="pcell">
+        <div class="pcell-n">03 / PLANNING</div>
+        <div class="pcell-q">"Planning the week takes 12 hours — and it's wrong by Tuesday."</div>
+        <div class="pcell-a">Rate sheets, spreadsheets, driver calendars, maintenance windows — rebuilt by hand every Monday, broken by the first delay, and no one has time to re-optimize the rest of the week.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 1: WEEKLY DISPATCH PLAN ── -->
 <div class="fx-section" id="features" style="background:var(--white);">
   <div class="fx-band reveal">
-    <div class="fx-band-label">Weekly Fleet Planning</div>
-    <div class="fx-band-head">Stop planning in<br><em>spreadsheets.</em></div>
-    <div class="fx-band-body">For fleets running 70–80% dedicated freight, the biggest opportunity isn't on the load board — it's in how you plan the rest. TrueMile simulates millions of possible weekly assignments and selects the optimal plan — balancing contract commitments, driver schedules, HOS, and home-time windows automatically.</div>
+    <div class="fx-band-label">Weekly Dispatch Planning</div>
+    <div class="fx-band-head">One plan.<br><em>Every driver. Every day.</em></div>
+    <div class="fx-band-body">Stop planning in spreadsheets. TrueMile takes your dedicated commitments, driver schedules, HOS limits, and home-time windows — then runs the math on <strong>millions of possible weekly assignments</strong> and delivers the plan that makes your fleet the most money while keeping every driver legal and every appointment met.</div>
   </div>
   <div class="fx-card-wrap reveal">
     <div class="ui-card" id="planCard" style="max-width:760px;margin:0 auto;">
@@ -368,7 +452,7 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
         <span class="ui-url">truemile.ai/weekly-plan</span>
       </div>
       <div class="plan-header">
-        <span class="plan-title">Weekly Fleet Plan </span>
+        <span class="plan-title">Weekly Dispatch Plan</span>
         <span class="plan-status"><span class="plan-dot"></span> Optimizing assignments...</span>
       </div>
 
@@ -409,9 +493,9 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 <!-- ── SECTION 2: BACKHAUL OPTIMIZATION ── -->
 <div style="background:var(--fog2);">
   <div class="fx-band reveal">
-    <div class="fx-band-label">Backhaul Optimization</div>
+    <div class="fx-band-label">Backhaul Intelligence</div>
     <div class="fx-band-head">Empty miles are<br><em>lost revenue.</em></div>
-    <div class="fx-band-body">TrueMile aggregates every major load board into a single view and dynamically decides which drivers should fill backhaul capacity — based on your lanes, home-time windows, and current market conditions. Stop deadheading back to base when profit is sitting on the board.</div>
+    <div class="fx-band-body">Your trucks are already paid for. Every mile they run empty is money walking off your lot. TrueMile aggregates every load board and broker relationship into one view, then <strong>matches the right backhaul to the right driver</strong> — based on your lanes, their HOS, their home-time, and which loads actually pay.</div>
   </div>
   <div class="fx-card-wrap reveal">
     <div class="ui-card" style="max-width:760px;margin:0 auto;">
@@ -421,20 +505,20 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--fog3);">
         <div style="padding:16px 18px;border-right:1px solid var(--fog3);">
-          <div style="font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">Without TrueMile</div>
+          <div style="font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;">Today · Without TrueMile</div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="padding:10px 12px;background:rgba(220,38,38,.05);border:1px solid rgba(220,38,38,.2);border-radius:5px;">
               <div style="font-size:11px;font-weight:600;color:#b91c1c;">Driver 12 · ATL → DAL</div>
-              <div style="font-size:10px;color:#b91c1c;margin-top:2px;font-family:var(--mono);">650mi deadhead · $1,332 revenue · $2.05/mi</div>
+              <div style="font-size:10px;color:#b91c1c;margin-top:2px;font-family:var(--mono);">Deadhead home · 650mi empty · $1,332 rev</div>
             </div>
             <div style="padding:10px 12px;background:rgba(220,38,38,.05);border:1px solid rgba(220,38,38,.2);border-radius:5px;">
               <div style="font-size:11px;font-weight:600;color:#b91c1c;">Driver 19 · CHI → DAL</div>
-              <div style="font-size:10px;color:#b91c1c;margin-top:2px;font-family:var(--mono);">575mi deadhead · $1,207 revenue · $2.1/mi</div>
+              <div style="font-size:10px;color:#b91c1c;margin-top:2px;font-family:var(--mono);">Deadhead home · 575mi empty · $1,207 rev</div>
             </div>
           </div>
           <div style="margin-top:12px;padding:10px 12px;background:rgba(220,38,38,.08);border:1px solid rgba(220,38,38,.2);border-radius:5px;text-align:center;">
             <div style="font-size:18px;font-weight:800;color:#b91c1c;font-family:var(--serif);">−$2,539</div>
-            <div style="font-size:10px;color:#b91c1c;margin-top:2px;">in missed backhaul revenue</div>
+            <div style="font-size:10px;color:#b91c1c;margin-top:2px;">in backhaul revenue left on the table</div>
           </div>
         </div>
         <div style="padding:16px 18px;">
@@ -442,11 +526,11 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
           <div style="display:flex;flex-direction:column;gap:8px;">
             <div style="padding:10px 12px;background:rgba(0,102,255,.05);border:1px solid rgba(0,102,255,.2);border-radius:5px;">
               <div style="font-size:11px;font-weight:600;color:#0066ff;">Driver 12 · ATL → DAL</div>
-              <div style="font-size:10px;color:#0066ff;margin-top:2px;font-family:var(--mono);">Backhaul fill · $2,015 · $3.10/mi</div>
+              <div style="font-size:10px;color:#0066ff;margin-top:2px;font-family:var(--mono);">Backhaul fill · $2,015 rev · $3.10/mi</div>
             </div>
             <div style="padding:10px 12px;background:rgba(0,102,255,.05);border:1px solid rgba(0,102,255,.2);border-radius:5px;">
               <div style="font-size:11px;font-weight:600;color:#0066ff;">Driver 19 · CHI → DAL</div>
-              <div style="font-size:10px;color:#0066ff;margin-top:2px;font-family:var(--mono);">Spot fill · $2,185 · $3.8/mi</div>
+              <div style="font-size:10px;color:#0066ff;margin-top:2px;font-family:var(--mono);">Spot fill · $2,185 rev · $3.80/mi</div>
             </div>
           </div>
           <div style="margin-top:12px;padding:10px 12px;background:rgba(34,196,122,.1);border:1px solid rgba(34,196,122,.3);border-radius:5px;text-align:center;">
@@ -455,41 +539,64 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
           </div>
         </div>
       </div>
-      <div style="padding:12px 16px;display:flex;align-items:center;gap:8px;">
-    
-      </div>
     </div>
   </div>
 </div>
 
 <!-- ── HOW IT WORKS ── -->
-<section class="how" id="results">
+<section class="how" id="how">
   <div class="container">
     <div class="how-top reveal">
       <div class="how-h">From your data <em>to an optimized plan.</em></div>
-      <div class="how-d">TrueMile integrates with your existing TMS and ELD — no operational disruption. Your dispatchers keep their workflow. They just get a smarter plan to execute.</div>
+      <div class="how-d">No rip-and-replace. TrueMile plugs into your existing TMS and ELD and starts delivering smarter dispatch plans. Your dispatchers keep their workflow — they just get a better plan to execute every Monday.</div>
     </div>
     <div class="steps reveal">
       <div class="step">
         <div class="sn">01</div>
-        <div class="st">Ingest Ground-Level Data</div>
-        <div class="sb">We connect to your TMS and ELD to understand committed demand, driver locations, HOS status, and scheduling constraints in real time.</div>
+        <div class="st">Connect your systems</div>
+        <div class="sb">We plug into your TMS and ELD — McLeod, TMW, Samsara, KeepTruckin, Motive. Read-only. No operational disruption. Typical integration: 30 days.</div>
       </div>
       <div class="step">
         <div class="sn">02</div>
-        <div class="st">Aggregate Opportunities</div>
-        <div class="sb">We unify your load boards, broker relationships, and demand forecasts with home-time windows to surface every viable backhaul opportunity.</div>
+        <div class="st">We learn your fleet</div>
+        <div class="sb">We ingest your committed lanes, driver schedules, home-time rules, broker relationships, and load board access. Your operation — not a generic template.</div>
       </div>
       <div class="step">
         <div class="sn">03</div>
-        <div class="st">Optimize the Weekly Plan</div>
-        <div class="sb">Using your fleet's specific constraints, we simulate millions of possible assignments and identify the most profitable, executable plan for the week.</div>
+        <div class="st">Optimize the week</div>
+        <div class="sb">We run the math on every driver, every day, every lane — and surface the plan that maximizes profit while respecting HOS, home-time, and every commitment you've made.</div>
       </div>
       <div class="step">
         <div class="sn">04</div>
-        <div class="st">Track Results</div>
-        <div class="sb">Your analytics dashboard shows utilization, revenue per truck, and planning time — week over week — so you see exactly what TrueMile delivers.</div>
+        <div class="st">Measure the lift</div>
+        <div class="sb">Revenue per truck, utilization, planning time, RPM — tracked week over week in your dashboard. You see exactly what TrueMile is worth to your fleet.</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY TRUEMILE ── -->
+<section class="why" id="why">
+  <div class="why-top reveal">
+    <div class="why-label">Why TrueMile</div>
+    <div class="why-h">Built by operators.<br>Engineered for <em>your economics.</em></div>
+    <div class="why-d">There are tools that rank individual loads. There are enterprise platforms that require $1M+ implementations. Neither was built for the 50 to 1,000-truck fleet that runs most of America's freight. That's us.</div>
+  </div>
+  <div class="why-grid reveal">
+    <div class="why-cell">
+      <div class="why-n">01</div>
+      <div class="why-t">Your plan is<br><em>yours.</em></div>
+      <div class="why-b">Every fleet has tribal knowledge — drivers who won't run certain lanes, customers who always pay late, brokers worth fighting for. TrueMile captures all of it. Your plan reflects how you actually operate, not a textbook model.</div>
+    </div>
+    <div class="why-cell">
+      <div class="why-n">02</div>
+      <div class="why-t">See the lift<br><em>before you sign.</em></div>
+      <div class="why-b">We run a historical simulation on your actual fleet data — 90 days of your real dispatch decisions vs. what TrueMile would have done. You see the exact revenue and utilization opportunity before any commitment.</div>
+    </div>
+    <div class="why-cell">
+      <div class="why-n">03</div>
+      <div class="why-t">No rip<br><em>and replace.</em></div>
+      <div class="why-b">TrueMile augments your dispatchers — it doesn't replace them, and it doesn't require a new TMS. Your team keeps the workflow they know. We deliver a smarter plan they execute. Live in 30 days.</div>
     </div>
   </div>
 </section>
@@ -498,39 +605,39 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 <section class="features">
   <div class="container">
     <div class="fh">
-      <div class="fl reveal">Built for enterprise fleets</div>
-      <div class="fhh reveal">Every tool your<br>planners <em>actually need.</em></div>
+      <div class="fl reveal">What's inside the platform</div>
+      <div class="fhh reveal">Everything your planners<br><em>actually need.</em></div>
     </div>
     <div class="fg reveal">
       <div class="fc">
         <div class="fn">01</div>
-        <div class="ftt">Contract Load Assignment</div>
-        <div class="fb">Assign dedicated lanes optimally to maximize core KPIs while respecting real-time constraints. Plans move seamlessly from planners to dispatchers.</div>
+        <div class="ftt">Dedicated Lane Assignment</div>
+        <div class="fb">Match every committed lane to the right driver — balancing utilization, home-time, equipment type, and driver preferences. Every contract gets covered; no truck runs short.</div>
       </div>
       <div class="fc">
         <div class="fn">02</div>
-        <div class="ftt">Backhaul & Spot Optimization</div>
-        <div class="fb">Fill empty capacity with the highest-paying spot loads that fit your operation. See contract and spot freight together to identify and fill every gap in your schedule.</div>
+        <div class="ftt">Backhaul &amp; Spot Optimization</div>
+        <div class="fb">See every dedicated and spot opportunity in one view. TrueMile surfaces the highest-paying fills that match your drivers' locations, hours, and home-base windows.</div>
       </div>
       <div class="fc">
         <div class="fn">03</div>
-        <div class="ftt">TMS & ELD Integration</div>
-        <div class="fb">Plugs directly into your existing systems — no rip and replace. McLeod, TMW, Samsara, KeepTruckin and more. Live in 30 days.</div>
+        <div class="ftt">HOS &amp; Home-Time Compliance</div>
+        <div class="fb">Every plan respects driver hours, 34-hour resets, and home-time cadence automatically. Fewer compliance issues, better retention, no surprises for your drivers.</div>
       </div>
       <div class="fc">
         <div class="fn">04</div>
-        <div class="ftt">Driver Schedule Compliance</div>
-        <div class="fb">Home time, HOS limits, and driver preferences built into every assignment. Better plans, better retention, fewer compliance issues.</div>
+        <div class="ftt">Live Replanning</div>
+        <div class="fb">A truck breaks down. A load cancels. A driver takes unplanned time off. TrueMile adjusts the week around the disruption without forcing your team to start over.</div>
       </div>
       <div class="fc">
         <div class="fn">05</div>
-        <div class="ftt">Performance Analytics</div>
-        <div class="fb">Actionable insights into network health, utilization, and profitability. Visualize tradeoffs and make data-driven decisions with confidence.</div>
+        <div class="ftt">Performance Dashboard</div>
+        <div class="fb">Revenue per truck, utilization, RPM, planning time, on-time delivery — tracked weekly, visible to leadership, exportable for board and customer reviews.</div>
       </div>
       <div class="fc">
         <div class="fn">06</div>
-        <div class="ftt">Hands-On Onboarding</div>
-        <div class="fb">Custom planning logic built around your fleet's specific constraints. Hands-on, in-person training to ensure your team succeeds from day one.</div>
+        <div class="ftt">White-Glove Onboarding</div>
+        <div class="fb">We don't drop software and leave. Our team configures the platform around your lanes, customers, and drivers — with in-person training so your dispatchers succeed from week one.</div>
       </div>
     </div>
   </div>
@@ -540,9 +647,15 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 <div class="cta" id="contact">
   <div class="cta-i">
     <div>
-      <div class="cl">Start with a free ROI evaluation</div>
-      <div class="ch">See the revenue you're <em>leaving behind.</em></div>
-      <div class="cd">TrueMile runs a historical simulation on your actual data before you commit to anything. You'll see the exact revenue and utilization opportunity — then decide.</div>
+      <div class="cl">Free ROI evaluation · No commitment</div>
+      <div class="ch">See the money your fleet<br>is <em>leaving on the table.</em></div>
+      <div class="cd">Send us the shape of your operation. We'll run a historical simulation on your actual dispatch data and show you — with real numbers — what TrueMile would have earned you over the last 90 days.</div>
+      <ul class="cta-bullets">
+        <li>Revenue opportunity, per truck and fleet-wide</li>
+        <li>Utilization and RPM lift, lane by lane</li>
+        <li>Backhaul revenue you missed, with proof</li>
+        <li>All before you sign a single thing</li>
+      </ul>
     </div>
     <div class="cf">
       <input class="fi" type="email" placeholder="Work email" required/>
@@ -560,14 +673,14 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
       <input class="fi" type="text" placeholder="MC #"/>
       <input class="fi" type="text" placeholder="TMS system (e.g. McLeod, TMW, Samsara)"/>
       <button class="fsb" id="submitBtn">Book Free ROI Evaluation →</button>
-      <div class="fno">No commitment · Results before you sign anything</div>
+      <div class="fno">No commitment. Results before you sign anything.</div>
     </div>
   </div>
 </div>
 
 <footer>
   <div class="ftb">TrueMile<span>.AI</span></div>
-  <div class="ftm">We're building the operational intelligence layer for modern trucking fleets — where every lane, driver, and load decision is optimized automatically.</div>
+  <div class="ftm">The dispatch optimization engine for mid-size trucking fleets. Every lane, every driver, every load — optimized.</div>
   <div class="ftc">© 2026 TrueMile.AI</div>
 </footer>
 
@@ -575,7 +688,6 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Weekly plan animation
 let planAnimated=false;
 const planObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!planAnimated){planAnimated=true;runPlanAnimation();}});},{threshold:.3});
 const planCard=document.getElementById('planCard');
