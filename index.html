@@ -3,1732 +3,528 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>TrueMile.AI — AI Dispatch Optimization for Trucking Fleets</title>
-<meta name="description" content="TrueMile is the AI dispatch engine for trucking fleets running 50 to 1,000 trucks. Plan every driver for the full week. Fill every backhaul. See your revenue lift on 90 days of your own data — before you sign anything."/>
+<title>TrueMile.AI — Turn Every Mile Into Predictable Profit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   DESIGN SYSTEM — matched to V2 architecture doc
-   ============================================================ */
 :root{
-  /* Backgrounds — exact match to arch doc */
-  --bg: #0e0f11;
-  --bg-panel: #131416;
-  --bg-elev: #17181b;
-  --bg-deep: #08090a;
-
-  /* Ink — matched */
-  --ink: #e8e8ea;
-  --ink-dim: #a1a1a6;
-  --ink-faint: #6b6b72;
-  --ink-ghost: #3d3d42;
-
-  /* Rules */
-  --rule: #24252a;
-  --rule-soft: #1b1c20;
-
-  /* Accents — considered blue, not SaaS cobalt */
-  --accent: #5b8dd9;       /* muted confident blue */
-  --accent-soft: #3e5f8f;  /* deeper blue for depth */
-  --signal: #7fb3d5;       /* cool blue — data flow */
-  --warn: #b87878;         /* muted rose — constraints */
-  --grow: #8bbf9f;         /* muted sage — impact */
-
-  /* Signal colors for deltas */
-  --good: #8bbf9f;
-  --bad:  #b87878;
-
-  /* Type — enterprise-mature pairing
-     Instrument Serif: display headlines & large numbers (restrained, editorial)
-     Newsreader: mid-size serif moments (pull quotes, secondary headlines)
-     Inter: all body, UI, functional
-     JetBrains Mono: labels, data, route notation
-  */
-  --serif-display: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
-  --serif: 'Newsreader', Georgia, serif;
-  --sans: 'Inter', -apple-system, system-ui, sans-serif;
-  --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  --ink:#0a0a0a;--ink2:#111;--ink3:#1c1c1c;
+  --fog:#f4f2ef;--fog2:#eae7e2;--fog3:#dbd7d0;
+  --white:#fff;
+  --green:#1a6b4a;--green-l:#22c47a;--green-m:rgba(26,107,74,.1);
+  --muted:#6b6866;--bl:rgba(255,255,255,.07);
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
 }
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+body{font-family:var(--sans);background:var(--ink);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:60px;background:rgba(10,10,10,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--bl);}
+.nb{font-weight:600;font-size:15px;color:var(--white);letter-spacing:.01em;}
+.nb span{color:var(--green-l);}
+.nr{display:flex;gap:36px;align-items:center;}
+.nl{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none;transition:color .2s;}
+.nl:hover{color:var(--white);}
+.nc{font-size:13px;font-weight:500;color:var(--ink);background:var(--white);padding:8px 18px;border-radius:3px;text-decoration:none;transition:opacity .2s;}
+.nc:hover{opacity:.86;}
+
+/* HERO */
+.hero-wrap{
+  height:100vh;
+  position:relative;
+  background:var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 48px;
+  gap:96px;
+  overflow:hidden;
+}
+.hero-wrap::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 50% 60% at 75% 50%,rgba(10,40,80,.35) 0%,transparent 65%);
+  pointer-events:none;
 }
 
-/* Subtle grid texture — same as arch doc */
-body::before{
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--rule-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px);
-  background-size: 40px 40px;
-  opacity: 0.35;
-  pointer-events: none;
-  z-index: 0;
-}
-main, nav, footer{ position: relative; z-index: 1; }
-
-/* ─────────── NAV ─────────── */
-nav{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 48px;
-  height: 64px;
-  background: rgba(14, 15, 17, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid transparent;
-  transition: border-color .3s;
-}
-nav.scrolled{ border-bottom-color: var(--rule); }
-.nb{
-  font-family: var(--serif);
-  font-weight: 600;
-  font-size: 19px;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-.nb em{
-  font-style: italic;
-  font-weight: 400;
-  color: var(--accent-soft);
-}
-.nr{ display: flex; gap: 36px; align-items: center; }
-.nl{
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--ink-dim);
-  text-decoration: none;
-  transition: color .2s;
-  text-transform: uppercase;
-}
-.nl:hover{ color: var(--ink); }
-.nc{
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--bg);
-  background: var(--accent);
-  padding: 9px 18px;
-  border-radius: 2px;
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  transition: background .2s, transform .2s;
-}
-.nc:hover{ background: var(--ink); transform: translateY(-1px); }
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero{
-  min-height: 100vh;
-  padding: 120px 48px 80px;
-  max-width: 1400px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+/* LEFT */
+.hero-left{
+  position:relative;
+  z-index:2;
+  flex:1 1 auto;
+  max-width:620px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-right:0;
 }
 
-.hero-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--rule);
-  opacity: 0; animation: rise .8s .2s ease forwards;
-}
-.eyebrow{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
-.eyebrow .dot{
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--accent);
-}
-.hero-meta{
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-faint);
-  letter-spacing: 0.14em;
-}
+/* EYEBROW — full white, bolder */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;opacity:0;animation:fup .7s .2s ease forwards;}
+.ed{width:5px;height:5px;border-radius:50%;background:var(--green-l);}
+.et{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.75);}
 
-.hero-body{
-  display: grid;
-  grid-template-columns: 1.3fr 1fr;
-  gap: 80px;
-  margin-top: 72px;
-  align-items: center;
-}
+/* H1 — italic fully white, weight bumped */
+.hero-left h1{font-family:var(--serif);font-size:clamp(62px,7.5vw,108px);font-weight:800;line-height:.96;letter-spacing:-.035em;margin-bottom:24px;opacity:0;animation:fup .8s .4s ease forwards;}
+.hero-left h1 em{font-style:italic;color:var(--white);}
 
-.hero-left{ opacity: 0; animation: rise .9s .4s ease forwards; }
-.hero-h1{
-  font-family: var(--serif-display);
-  font-weight: 400;
-  font-size: clamp(54px, 7vw, 108px);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  margin-bottom: 28px;
-}
-.hero-h1 em{
-  font-style: italic;
-  font-weight: 400;
-  color: var(--accent-soft);
-}
+/* SUBTEXT — full white, slightly heavier */
+.hero-sub{font-size:16px;color:rgba(255,255,255,.9);line-height:1.72;max-width:44ch;font-weight:400;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
 
-.hero-tag{
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--ink-dim);
-  letter-spacing: 0.08em;
-  margin-bottom: 24px;
-  font-weight: 500;
-}
+.hbtns{display:flex;gap:16px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
+.bp{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:#1e1e1e;color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:background .2s,transform .2s;}
+.bp:hover{background:#2a2a2a;transform:translateY(-1px);}
+.bs{font-size:14px;color:rgba(255,255,255,.65);text-decoration:none;font-weight:500;transition:color .2s;}
+.bs:hover{color:var(--white);}
 
-.hero-sub{
-  font-size: 17px;
-  line-height: 1.65;
-  color: var(--ink-dim);
-  max-width: 48ch;
-  margin-bottom: 36px;
-  font-weight: 400;
-}
-.hero-sub strong{ color: var(--ink); font-weight: 500; }
-
-.hero-cta-row{
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  margin-bottom: 40px;
-}
-.bp{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 24px;
-  background: var(--accent);
-  color: var(--bg);
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  border-radius: 3px;
-  letter-spacing: 0.01em;
-  transition: transform .2s, background .2s;
-}
-.bp:hover{ transform: translateY(-1px); background: var(--ink); }
-.bp-arrow{ transition: transform .2s; }
-.bp:hover .bp-arrow{ transform: translateX(3px); }
-.bs{
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--ink-dim);
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: 3px;
-  transition: color .2s, border-color .2s;
-}
-.bs:hover{ color: var(--ink); border-color: var(--accent); }
-
-.hero-trust{
-  padding-top: 24px;
-  border-top: 1px solid var(--rule);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.ht-label{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.ht-row{
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.ht-item{
-  font-size: 13px;
-  color: var(--ink-dim);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.ht-check{
-  color: var(--accent);
-  font-family: var(--mono);
-  font-weight: 600;
-  font-size: 11px;
-}
-
-/* ─────────── HERO RIGHT — Product mockup panel ─────────── */
+/* RIGHT */
 .hero-right{
-  opacity: 0;
-  animation: rise 1s .6s ease forwards;
-  position: relative;
+  flex:0 0 auto;
+  width:530px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  animation:fup 1s .4s ease forwards;
+}
+.hero-glow{
+  position:absolute;top:50%;left:50%;
+  width:500px;height:500px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(37,99,235,.15) 0%,transparent 65%);
+  pointer-events:none;filter:blur(60px);z-index:0;
 }
 .hero-window{
-  background: var(--bg-panel);
-  border: 1px solid var(--rule);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,.5);
+  position:relative;z-index:1;
+  width:100%;
+  max-width:480px;
+  background:#0d1b2e;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:12px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 24px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);
 }
-.hw-bar{
-  padding: 10px 16px;
-  background: var(--bg-elev);
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.hero-window-bar{
+  display:flex;align-items:center;gap:8px;
+  padding:11px 16px;
+  background:rgba(5,10,20,.95);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  flex-shrink:0;
 }
-.hw-dots{ display: flex; gap: 6px; }
-.hw-dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--rule); }
-.hw-url{
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-faint);
-  letter-spacing: 0.03em;
-  margin-left: 6px;
+.hero-window-dots{display:flex;gap:6px;}
+.hero-window-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12);}
+.hero-window-url{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.22);margin-left:4px;}
+.hero-window-body{
+  position:relative;
+  background:radial-gradient(ellipse 130% 90% at 55% 25%, rgba(10,75,100,.7) 0%, rgba(5,28,60,.8) 45%, rgba(4,8,20,1) 100%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 24px;
 }
-.hw-body{ padding: 20px; }
+.hero-window-body::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+.hero-metrics-card{
+  position:relative;z-index:1;
+  width:100%;
+  background:rgba(8,14,32,.9);
+  border:1px solid rgba(37,99,235,.28);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 0 0 1px rgba(37,99,235,.08),0 16px 48px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.hmc-bar{padding:10px 14px;background:rgba(37,99,235,.08);border-bottom:1px solid rgba(37,99,235,.14);display:flex;align-items:center;gap:8px;}
+.hmc-dot{width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
+.hmc-title{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.28);letter-spacing:.06em;}
+.hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.05);}
+.hm{background:rgba(8,14,32,.92);padding:26px 22px;transition:background .2s;}
+.hm:hover{background:rgba(37,99,235,.1);}
+.hm-tag{display:inline-block;margin-bottom:8px;padding:2px 8px;background:rgba(37,99,235,.2);color:#60a5fa;border-radius:20px;font-size:9px;font-weight:500;letter-spacing:.04em;}
+.hm-val{font-family:var(--serif);font-size:38px;font-weight:800;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:5px;}
+.hm-label{font-size:11px;color:rgba(255,255,255,.34);font-weight:400;}
 
-.hw-header{
-  padding: 10px 14px;
-  margin: -20px -20px 16px;
-  background: rgba(91,141,217,0.06);
-  border-bottom: 1px solid rgba(91,141,217,0.15);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.hw-title{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  color: var(--ink-dim);
-  text-transform: uppercase;
-}
-.hw-status{
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--accent);
-  font-weight: 500;
-}
-.hw-pulse{
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 1.6s infinite;
-}
+/* FEATURE SECTIONS */
+.fx-section{padding:0;}
+.fx-band{padding:80px 64px 64px;max-width:1160px;margin:0 auto;}
+.fx-band-label{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.fx-band-head{font-family:var(--serif);font-size:clamp(36px,4vw,56px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:16px;color:var(--ink);}
+.fx-band-head em{font-style:italic;color:rgba(10,10,10,.3);}
+.fx-band-body{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;}
+.fx-card-wrap{padding:0 64px 96px;max-width:1160px;margin:0 auto;}
 
-.hw-metrics{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  margin-bottom: 16px;
-}
-.hw-metric{
-  background: var(--bg-panel);
-  padding: 18px 16px;
-}
-.hwm-label{
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-.hwm-val{
-  font-family: var(--serif-display);
-  font-size: 32px;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-  margin-bottom: 4px;
-}
-.hwm-val em{ font-style: normal; color: var(--ink-faint); font-weight: 400; font-size: 0.65em; }
-.hwm-sub{
-  font-size: 10px;
-  color: var(--ink-faint);
-}
+.ui-card{background:var(--white);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.1),0 4px 16px rgba(0,0,0,.06);overflow:hidden;width:100%;position:relative;z-index:1;}
+.ui-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--fog);border-bottom:1px solid var(--fog3);}
+.ui-dots{display:flex;gap:5px;}
+.ui-dot{width:8px;height:8px;border-radius:50%;background:var(--fog3);}
+.ui-url{font-family:var(--mono);font-size:10px;color:var(--muted);margin-left:4px;}
+.lb-header{padding:12px 16px;border-bottom:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;}
+.lb-title{font-size:13px;font-weight:600;color:var(--ink);}
+.lb-scanning{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--green);font-weight:500;}
+.scan-dot{width:6px;height:6px;border-radius:50%;background:var(--green-l);animation:pulse 1.4s infinite;}
+.lb-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:12px 16px;border-bottom:1px solid var(--fog2);align-items:center;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease,background .3s,border-color .3s;}
+.lb-row.show{opacity:1;transform:translateY(0);}
+.lb-row.winner{background:rgba(26,107,74,.06);border-left:3px solid var(--green-l);padding-left:13px;}
+.lb-row.winner .lb-rate{color:var(--green);}
+.lb-row-route{font-size:12px;font-weight:500;color:var(--ink);line-height:1.4;}
+.lb-row-meta{font-size:11px;color:var(--muted);margin-top:2px;font-family:var(--mono);}
+.lb-rate{font-size:14px;font-weight:700;color:var(--ink);text-align:right;}
+.lb-rpm{font-size:10px;color:var(--muted);text-align:right;font-family:var(--mono);margin-top:2px;}
+.lb-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;background:var(--green-m);color:var(--green);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .4s .2s;}
+.lb-badge.show{opacity:1;}
+.score-bar{padding:12px 16px;border-top:1px solid var(--fog3);display:flex;align-items:center;justify-content:space-between;opacity:0;transition:opacity .5s;}
+.score-bar.show{opacity:1;}
+.score-label{font-size:11px;color:var(--muted);font-weight:500;}
+.score-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--green);}
+.score-track{height:4px;background:var(--fog3);border-radius:2px;flex:1;margin:0 12px;overflow:hidden;}
+.score-fill{height:100%;background:var(--green-l);border-radius:2px;width:0%;transition:width 1.2s ease;}
+.email-preview{padding:14px 16px;background:#eff6ff;border-top:1px solid #dbeafe;opacity:0;transition:opacity .5s .3s;}
+.email-preview.show{opacity:1;}
+.ep-tag{font-size:10px;font-weight:600;color:#1a5eb8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+.ep-body{font-size:11px;line-height:1.6;color:#374151;}
+.ep-body strong{color:var(--ink);}
+.ep-btn{margin-top:10px;width:100%;padding:9px;background:var(--green);color:white;border:none;border-radius:4px;font-size:12px;font-weight:600;font-family:var(--sans);cursor:pointer;opacity:0;transition:opacity .4s .6s;}
+.ep-btn.show{opacity:1;animation:subtlePulse 2s 1s ease-in-out infinite;}
 
-.hw-rows{ display: flex; flex-direction: column; gap: 6px; }
-.hw-row{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 12px;
-  background: var(--bg-elev);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-}
-.hw-status-dot{
-  width: 6px;
-  height: 6px;
-  min-width: 6px;
-  border-radius: 50%;
-  background: var(--grow);
-  flex: 0 0 6px;
-}
-.hw-status-dot.backhaul{ background: var(--accent); }
-.hw-info{ flex: 1; min-width: 0; }
-.hw-driver{
-  font-size: 11px;
-  color: var(--ink);
-  font-weight: 500;
-}
-.hw-route{
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--ink-faint);
-  margin-top: 2px;
-  letter-spacing: 0.02em;
-}
-.hw-rev{
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--grow);
-  font-weight: 500;
-  flex-shrink: 0;
-}
+.how{background:var(--fog);color:var(--ink);padding:104px 48px;}
+.how-top{margin-bottom:56px;}
+.how-h{font-family:var(--serif);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:22ch;margin-bottom:16px;color:var(--ink);}
+.how-h em{font-style:italic;color:rgba(10,10,10,.3);}
+.how-d{font-size:16px;color:var(--muted);line-height:1.75;max-width:52ch;font-weight:400;}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--fog3);border:1px solid var(--fog3);border-radius:6px;overflow:hidden;}
+.step{background:var(--fog);padding:36px 28px;}
+.step:nth-child(even){background:var(--white);}
+.sn{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;margin-bottom:26px;opacity:.5;}
+.st{font-size:15px;font-weight:500;color:var(--ink);margin-bottom:10px;line-height:1.3;}
+.sb{font-size:13px;color:var(--muted);line-height:1.72;font-weight:400;}
 
-/* ============================================================
-   NUMBER HERO — the big stats section
-   ============================================================ */
-.nums{
-  padding: 120px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
-.section-top{
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 56px;
-  gap: 40px;
-}
-.section-eyebrow{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent-soft);
-  margin-bottom: 18px;
-  font-weight: 500;
-}
-.section-h{
-  font-family: var(--serif-display);
-  font-weight: 400;
-  font-size: clamp(36px, 4vw, 56px);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  max-width: 20ch;
-}
-.section-h em{ font-style: italic; color: var(--accent-soft); font-weight: 400; }
+.features{background:var(--fog);color:var(--ink);padding:104px 48px;}
+.fh{margin-bottom:56px;}
+.fl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;}
+.fhh{font-family:var(--serif);font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1.08;letter-spacing:-.02em;max-width:20ch;color:var(--ink);}
+.fhh em{font-style:italic;color:rgba(10,10,10,.3);}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--fog3);border:1px solid var(--fog3);border-radius:6px;overflow:hidden;}
+.fc{background:var(--fog);padding:36px 30px;transition:background .18s;}
+.fc:nth-child(2){background:var(--white);}
+.fc:hover{background:var(--fog2);}
+.fc:nth-child(2):hover{background:var(--fog);}
+.fn{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.1em;margin-bottom:24px;opacity:.5;}
+.ftt{font-size:17px;font-weight:500;color:var(--ink);margin-bottom:12px;line-height:1.3;}
+.fb{font-size:13px;color:var(--muted);line-height:1.75;font-weight:400;}
 
-.section-context{
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-faint);
-  letter-spacing: 0.08em;
-  line-height: 1.6;
-  max-width: 30ch;
-  text-align: right;
-}
+.cta{background:var(--ink2);padding:104px 48px;}
+.cta-i{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1160px;margin:0 auto;}
+.cl{font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:18px;}
+.ch{font-family:var(--serif);font-size:clamp(32px,3.5vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin-bottom:18px;}
+.ch em{font-style:italic;color:rgba(255,255,255,.28);}
+.cd{font-size:15px;color:rgba(255,255,255,.36);line-height:1.72;font-weight:300;}
+.cf{display:flex;flex-direction:column;gap:10px;}
+.fi,.fs{width:100%;padding:12px 15px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:3px;color:var(--white);font-size:14px;font-family:var(--sans);font-weight:300;transition:border-color .18s;appearance:none;}
+.fi::placeholder{color:rgba(255,255,255,.26);}
+.fs{color:rgba(255,255,255,.26);}
+.fs option{background:var(--ink2);color:white;}
+.fi:focus,.fs:focus{outline:none;border-color:rgba(255,255,255,.25);}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.fsb{padding:14px;background:var(--white);color:var(--ink);font-size:14px;font-weight:600;border:none;border-radius:3px;cursor:pointer;transition:opacity .18s;margin-top:4px;font-family:var(--sans);}
+.fsb:hover{opacity:.86;}
+.fno{font-size:12px;color:rgba(255,255,255,.2);text-align:center;}
 
-.nums-grid{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.num-cell{
-  background: var(--bg-panel);
-  padding: 40px 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 280px;
-  transition: background .2s;
-}
-.num-cell:hover{ background: var(--bg-elev); }
-.nc-label{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  font-weight: 500;
-  margin-bottom: 32px;
-}
-.nc-num{
-  font-family: var(--serif-display);
-  font-weight: 400;
-  font-size: clamp(60px, 6.5vw, 96px);
-  line-height: 1;
-  letter-spacing: -0.035em;
-  color: var(--ink);
-  font-feature-settings: "tnum";
-  margin-bottom: 12px;
-}
-.nc-num em{ font-style: normal; color: var(--ink); font-weight: 400; }
-.nc-unit{
-  font-size: 0.4em;
-  color: var(--ink-faint);
-  font-style: normal;
-  vertical-align: baseline;
-  margin-left: 2px;
-  font-weight: 400;
-}
-.nc-desc{
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ink-dim);
-  font-weight: 400;
-}
-.nc-desc strong{ color: var(--ink); font-weight: 500; }
+footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;display:flex;align-items:center;justify-content:space-between;}
+.ftb{font-size:14px;font-weight:500;color:rgba(255,255,255,.32);}
+.ftb span{color:var(--green-l);}
+.ftc{font-size:12px;color:rgba(255,255,255,.16);}
+.ftm{font-size:13px;color:rgba(255,255,255,.2);max-width:40ch;text-align:center;line-height:1.65;font-weight:300;}
 
-/* ============================================================
-   PROBLEM SECTION
-   ============================================================ */
-.problem{
-  padding: 120px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
-.prob-grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.prob-cell{
-  background: var(--bg-panel);
-  padding: 36px 32px;
-}
-.pc-num{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  font-weight: 500;
-  margin-bottom: 24px;
-}
-.pc-q{
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 1.3;
-  color: var(--ink);
-  margin-bottom: 18px;
-  max-width: 22ch;
-  letter-spacing: -0.01em;
-}
-.pc-a{
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--ink-dim);
-  font-weight: 400;
-}
-.pc-a strong{ color: var(--ink); font-weight: 500; }
+.container{max-width:1160px;margin:0 auto;}
 
-/* ============================================================
-   PRODUCT — WEEKLY PLAN
-   ============================================================ */
-.product{
-  padding: 120px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
+@keyframes fup{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
+@keyframes subtlePulse{0%,100%{box-shadow:0 0 0 0 rgba(26,107,74,.4);}50%{box-shadow:0 0 0 6px rgba(26,107,74,0);}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
 
-.plan-card{
-  margin-top: 56px;
-  background: var(--bg-panel);
-  border: 1px solid var(--rule);
-  border-radius: 4px;
-  overflow: hidden;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.plan-head{
-  padding: 14px 20px;
-  background: var(--bg-elev);
-  border-bottom: 1px solid var(--rule);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.plan-head-l{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
-.plan-head-r{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
-}
-.plan-pulse{
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 1.6s infinite;
-}
-
-.plan-row{
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--rule-soft);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .5s ease, transform .5s ease, background .3s, border-left-color .3s;
-  border-left: 3px solid transparent;
-}
-.plan-row.show{ opacity: 1; transform: translateY(0); }
-.plan-row.optimal{
-  background: rgba(91,141,217,0.06);
-  border-left-color: var(--accent);
-}
-.plan-row:last-of-type{ border-bottom: none; }
-.pr-info{
-  flex: 0 0 160px;
-  min-width: 0;
-}
-.pr-type-cell{
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-}
-.pr-badge-cell{
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-width: 0;
-}
-.pr-rev-wrap{
-  flex: 0 0 auto;
-  text-align: right;
-  margin-left: auto;
-}
-.pr-driver{
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink);
-}
-.pr-route{
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-faint);
-  margin-top: 3px;
-  letter-spacing: 0.02em;
-}
-.pr-type{
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-weight: 500;
-  padding: 4px 9px;
-  border-radius: 2px;
-  white-space: nowrap;
-  line-height: 1.4;
-  display: inline-block;
-}
-.pr-type.dedicated{
-  background: var(--bg-elev);
-  color: var(--signal);
-  border: 1px solid rgba(127,179,213,0.3);
-}
-.pr-type.backhaul{
-  background: var(--bg-elev);
-  color: var(--accent);
-  border: 1px solid rgba(91,141,217,0.35);
-}
-.pr-type.spot{
-  background: var(--accent);
-  color: var(--bg);
-}
-.pr-badge{
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--accent);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 500;
-  opacity: 0;
-  transition: opacity .5s .2s;
-  white-space: nowrap;
-}
-.pr-badge.show{ opacity: 1; }
-.pr-rev{
-  font-family: var(--serif);
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--ink);
-  letter-spacing: -0.015em;
-  font-feature-settings: "tnum";
-}
-.pr-rev.best{ color: var(--accent); }
-.pr-rpm{
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-faint);
-  margin-top: 2px;
-  letter-spacing: 0.03em;
-}
-
-.plan-foot{
-  padding: 14px 20px;
-  border-top: 1px solid var(--rule);
-  background: var(--bg-elev);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  opacity: 0;
-  transition: opacity .5s;
-}
-.plan-foot.show{ opacity: 1; }
-.pf-l{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-}
-.pf-track{
-  flex: 1;
-  height: 2px;
-  background: var(--rule);
-  margin: 0 20px;
-  overflow: hidden;
-  position: relative;
-}
-.pf-fill{
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  background: var(--accent);
-  width: 0%;
-  transition: width 1.4s cubic-bezier(.2,.7,.3,1);
-}
-.pf-r{
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--accent);
-  font-weight: 500;
-  letter-spacing: 0.03em;
-}
-
-/* ============================================================
-   BACKHAUL COMPARISON
-   ============================================================ */
-.backhaul-section{
-  padding: 120px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
-.bh-wrap{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  margin-top: 56px;
-}
-.bh-col{
-  background: var(--bg-panel);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  padding: 32px 28px;
-}
-.bh-col.after{
-  border-color: rgba(91,141,217,0.4);
-  background: linear-gradient(180deg, var(--bg-panel) 0%, rgba(91,141,217,0.03) 100%);
-}
-.bh-label{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-  font-weight: 500;
-}
-.bh-col .bh-label{ color: var(--warn); }
-.bh-col.after .bh-label{ color: var(--accent); }
-
-.bh-row{
-  padding: 16px 0;
-  border-bottom: 1px solid var(--rule-soft);
-}
-.bh-row:last-of-type{ border-bottom: none; padding-bottom: 24px; }
-.bh-driver{
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-.bh-detail{
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-faint);
-  letter-spacing: 0.02em;
-}
-
-.bh-total{
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid var(--rule);
-}
-.bh-total-label{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  margin-bottom: 8px;
-}
-.bh-total-num{
-  font-family: var(--serif-display);
-  font-weight: 400;
-  font-size: clamp(44px, 5vw, 72px);
-  line-height: 1;
-  letter-spacing: -0.025em;
-  font-feature-settings: "tnum";
-}
-.bh-col .bh-total-num{ color: var(--warn); }
-.bh-col.after .bh-total-num{ color: var(--accent); }
-
-/* ============================================================
-   ROI — the Fleetline-killer section
-   ============================================================ */
-.roi{
-  padding: 120px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
-.roi-inner{
-  background: var(--bg-panel);
-  border: 1px solid var(--accent);
-  border-radius: 4px;
-  padding: 64px 56px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  position: relative;
-  overflow: hidden;
-}
-.roi-inner::before{
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(91,141,217,0.12) 0%, transparent 65%);
-  pointer-events: none;
-}
-.roi-left{ position: relative; }
-.roi-label{
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-.roi-h{
-  font-family: var(--serif-display);
-  font-weight: 400;
-  font-size: clamp(36px, 4vw, 56px);
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  margin-bottom: 20px;
-  max-width: 14ch;
-}
-.roi-h em{ font-style: italic; color: var(--accent-soft); font-weight: 400; }
-.roi-body{
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--ink-dim);
-  margin-bottom: 28px;
-  max-width: 42ch;
-}
-.roi-bullets{ list-style: none; counter-reset: roi-c; }
-.roi-bullets li{
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ink-dim);
-  padding: 12px 0;
-  border-bottom: 1px solid var(--rule-soft);
-  display: flex;
-  gap: 16px;
-  align-items: baseline;
-}
-.roi-bullets li::before{
-  counter-increment: roi-c;
-  content: "0" counter(roi-c);
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--accent);
-  letter-spacing: 0.1em;
-  flex-shrink: 0;
-  width: 20px;
-  font-weight: 500;
-}
-.roi-bullets li:last-child{ border-bottom: none; }
-
-/* ROI Form */
-.roi-right{ position: relative; }
-.rf-label{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-dim);
-  margin-bottom: 20px;
-  font-weight: 500;
-}
-.rf{
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.rf-input,
-.rf-select{
-  width: 100%;
-  padding: 13px 14px;
-  background: var(--bg);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 14px;
-  transition: border-color .2s;
-  appearance: none;
-}
-.rf-input::placeholder{ color: var(--ink-faint); }
-.rf-input:focus,
-.rf-select:focus{ outline: none; border-color: var(--accent); }
-.rf-select{
-  color: var(--ink-faint);
-  cursor: pointer;
-}
-.rf-select option{ background: var(--bg); color: var(--ink); }
-.rf-row{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-.rf-submit{
-  margin-top: 8px;
-  padding: 14px;
-  background: var(--accent);
-  color: var(--bg);
-  border: none;
-  font-family: var(--sans);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  border-radius: 3px;
-  transition: background .2s, transform .2s;
-}
-.rf-submit:hover{ background: var(--ink); transform: translateY(-1px); }
-.rf-note{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-  text-align: center;
-  margin-top: 4px;
-}
-
-/* ============================================================
-   HOW IT WORKS
-   ============================================================ */
-.how{
-  padding: 120px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
-.how-grid{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-top: 56px;
-}
-.how-cell{
-  background: var(--bg-panel);
-  padding: 36px 28px;
-  transition: background .2s;
-}
-.how-cell:hover{ background: var(--bg-elev); }
-.hc-num{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: var(--ink-dim);
-  margin-bottom: 28px;
-  font-weight: 500;
-}
-.hc-t{
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
-}
-.hc-b{
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--ink-dim);
-  font-weight: 400;
-}
-
-/* ============================================================
-   FEATURES — kept minimal, 3 x 2 grid matching deck
-   ============================================================ */
-.features{
-  padding: 120px 48px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
-.fg{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--rule);
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  overflow: hidden;
-  margin-top: 56px;
-}
-.fc{
-  background: var(--bg-panel);
-  padding: 36px 30px;
-  transition: background .2s;
-}
-.fc:hover{ background: var(--bg-elev); }
-.fc-n{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: var(--ink-dim);
-  margin-bottom: 24px;
-  font-weight: 500;
-}
-.fc-t{
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 12px;
-  letter-spacing: -0.01em;
-}
-.fc-b{
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--ink-dim);
-  font-weight: 400;
-}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.closer{
-  padding: 120px 48px 40px;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--rule);
-}
-.closer-pull{
-  font-family: var(--serif);
-  font-style: italic;
-  font-weight: 400;
-  font-size: clamp(28px, 3.2vw, 44px);
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  color: var(--ink);
-  max-width: 28ch;
-  margin-bottom: 80px;
-}
-.closer-pull em{ color: var(--accent-soft); font-style: normal; font-weight: 500; }
-
-.foot{
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px;
-  padding-top: 48px;
-  border-top: 1px solid var(--rule);
-  align-items: start;
-}
-.foot-brand{
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 14px;
-  letter-spacing: -0.015em;
-}
-.foot-brand em{ font-style: italic; font-weight: 400; color: var(--ink-faint); }
-.foot-tag{
-  font-size: 13px;
-  color: var(--ink-dim);
-  line-height: 1.6;
-  max-width: 36ch;
-}
-.foot-col-t{
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  margin-bottom: 14px;
-  font-weight: 500;
-}
-.foot-col a{
-  display: block;
-  font-size: 13px;
-  color: var(--ink-dim);
-  text-decoration: none;
-  padding: 4px 0;
-  transition: color .2s;
-}
-.foot-col a:hover{ color: var(--accent); }
-.foot-bot{
-  margin-top: 64px;
-  padding-top: 24px;
-  border-top: 1px solid var(--rule-soft);
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink-faint);
-  letter-spacing: 0.08em;
-}
-
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
-@keyframes rise{ from{ opacity: 0; transform: translateY(20px); } to{ opacity: 1; transform: translateY(0); } }
-@keyframes pulse{ 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: 0.4; transform: scale(0.85); } }
-
-.reveal{ opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
-.reveal.visible{ opacity: 1; transform: translateY(0); }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 1000px){
-  nav{ padding: 0 24px; }
-  .hero, .nums, .problem, .product, .backhaul-section, .roi, .how, .features, .closer{
-    padding-left: 24px; padding-right: 24px; padding-top: 90px; padding-bottom: 80px;
-  }
-  .hero{ padding-top: 110px; }
-  .hero-body{ grid-template-columns: 1fr; gap: 48px; margin-top: 48px; }
-  .section-top{ flex-direction: column; align-items: flex-start; }
-  .section-context{ text-align: left; }
-  .nums-grid{ grid-template-columns: repeat(2, 1fr); }
-  .prob-grid, .fg{ grid-template-columns: 1fr; }
-  .how-grid{ grid-template-columns: repeat(2, 1fr); }
-  .bh-wrap{ grid-template-columns: 1fr; gap: 20px; }
-  .roi-inner{ grid-template-columns: 1fr; gap: 48px; padding: 40px 32px; }
-  .foot{ grid-template-columns: 1fr 1fr; gap: 32px; }
-  .foot-bot{ flex-direction: column; gap: 12px; }
-  .plan-row{
-    flex-wrap: wrap;
-    gap: 10px 16px;
-  }
-  .pr-info{ flex: 1 1 auto; }
-  .pr-rev-wrap{ margin-left: auto; }
-  .pr-type-cell, .pr-badge-cell{ flex: 0 0 auto; }
-  .pr-badge-cell{ justify-content: flex-start; }
-  .nr{ gap: 20px; }
-  .nl{ display: none; }
-}
-@media (max-width: 540px){
-  .nums-grid, .how-grid{ grid-template-columns: 1fr; }
-  .rf-row{ grid-template-columns: 1fr; }
-  .hero-cta-row{ flex-direction: column; align-items: flex-start; gap: 16px; }
+@media(max-width:900px){
+  nav{padding:0 24px;}
+  .hero-wrap{flex-direction:column;justify-content:flex-start;padding:100px 24px 64px;gap:48px;height:auto;min-height:100vh;}
+  .hero-left{flex:none;padding-right:0;}
+  .hero-right{flex:none;width:100%;}
+  .how,.features,.cta{padding:80px 24px;}
+  .fx-band{padding:60px 24px 48px;}
+  .fx-card-wrap{padding:0 24px 72px;}
+  .steps{grid-template-columns:repeat(2,1fr);}
+  .fg{grid-template-columns:1fr;}
+  .cta-i{grid-template-columns:1fr;gap:48px;}
+  footer{flex-direction:column;gap:20px;text-align:center;padding:36px 24px;}
+}
+@media(max-width:640px){
+  .hero-left h1{font-size:42px;}
+  .steps{grid-template-columns:1fr;}
+  .nr .nl{display:none;}
+  .fr{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
-<!-- ─────────── NAV ─────────── -->
-<nav id="nav">
-  <div class="nb">TrueMile<em>.ai</em></div>
+<nav>
+  <div class="nb">TrueMile<span>.AI</span></div>
   <div class="nr">
-    <a href="#problem" class="nl">Problem</a>
-    <a href="#product" class="nl">Product</a>
-    <a href="#how" class="nl">Method</a>
-    <a href="#roi" class="nc">Free ROI Study →</a>
+    <a href="#features" class="nl">Product</a>
+    <a href="#results" class="nl">Results</a>
+    <a href="#contact" class="nc">Book Demo</a>
   </div>
 </nav>
 
-<main>
-
-<!-- ─────────── HERO ─────────── -->
-<section class="hero">
-  <div>
-    <div class="hero-top">
-      <span class="eyebrow"><span class="dot"></span>AI Dispatch Optimization · Built for 50–1,000 Truck Fleets</span>
-      <span class="hero-meta">V2 · Apr 2026</span>
+<div class="hero-wrap">
+  <div class="hero-left">
+    <div class="eyebrow"><div class="ed"></div><span class="et">AI-Powered Dispatch Intelligence for Trucking Carriers.</span></div>
+    <h1>Every mile.<br><em>Optimized.</em></h1>
+    <p class="hero-sub">TrueMile simulates billions of possibilities — not just for your next load, but for all of them. We run the math, you run the fleet.</p>
+    <div class="hbtns">
+      <a href="#contact" class="bp">Get Started →</a>
+      <a href="#features" class="bs">See how it works</a>
     </div>
+  </div>
 
-    <div class="hero-body">
-      <div class="hero-left">
-        <h1 class="hero-h1">The dispatch decision,<br><em>solved.</em></h1>
-        <div class="hero-tag">// Weekly planning · Backhaul intelligence · Live replanning</div>
-        <p class="hero-sub">
-          TrueMile is the AI dispatch engine for trucking fleets. We plug into your TMS and ELD, <strong>run the math on every driver, every lane, every hour of the week</strong> — and deliver the plan that grows revenue, cuts empty miles, and gets your drivers home on time.
-        </p>
-        <div class="hero-cta-row">
-          <a href="#roi" class="bp">
-            See your fleet's lift
-            <span class="bp-arrow">→</span>
-          </a>
-          <a href="#product" class="bs">How it works</a>
+  <div class="hero-right">
+    <div class="hero-glow"></div>
+    <div class="hero-window">
+      <div class="hero-window-bar">
+        <div class="hero-window-dots">
+          <div class="hero-window-dot"></div>
+          <div class="hero-window-dot"></div>
+          <div class="hero-window-dot"></div>
         </div>
-        <div class="hero-trust">
-          <div class="ht-label">What you get in a demo</div>
-          <div class="ht-row">
-            <div class="ht-item"><span class="ht-check">✓</span> 90-day simulation on your fleet's data</div>
-            <div class="ht-item"><span class="ht-check">✓</span> Exact revenue opportunity</div>
-            <div class="ht-item"><span class="ht-check">✓</span> No commitment</div>
-          </div>
-        </div>
+        <span class="hero-window-url">truemile.ai/dashboard</span>
       </div>
-
-      <!-- Hero product mockup -->
-      <div class="hero-right">
-        <div class="hero-window">
-          <div class="hw-bar">
-            <div class="hw-dots"><div class="hw-dot"></div><div class="hw-dot"></div><div class="hw-dot"></div></div>
-            <span class="hw-url">truemile.ai / fleet · live plan</span>
+      <div class="hero-window-body">
+        <div class="hero-metrics-card">
+          <div class="hmc-bar">
+            <div class="hmc-dot"></div>
+            <span class="hmc-title">Fleet Performance — Live Metrics</span>
           </div>
-          <div class="hw-body">
-            <div class="hw-header">
-              <span class="hw-title">Weekly Dispatch Plan · Fleet #1</span>
-              <span class="hw-status"><span class="hw-pulse"></span> Optimized</span>
+          <div class="hmc-grid">
+            <div class="hm">
+              <div class="hm-tag">avg. across fleet</div>
+              <div class="hm-val">1.3x</div>
+              <div class="hm-label">Revenue increases</div>
             </div>
-            <div class="hw-rows">
-              <div class="hw-row">
-                <div class="hw-status-dot"></div>
-                <div class="hw-info">
-                  <div class="hw-driver">Driver 01 · Dallas → Atlanta</div>
-                  <div class="hw-route">Dedicated · on schedule · home Fri</div>
-                </div>
-                <div class="hw-rev">$4,200</div>
-              </div>
-              <div class="hw-row">
-                <div class="hw-status-dot backhaul"></div>
-                <div class="hw-info">
-                  <div class="hw-driver">Driver 02 · Atlanta → Dallas</div>
-                  <div class="hw-route">Backhaul · $3.10/mi · 780mi</div>
-                </div>
-                <div class="hw-rev">$2,420</div>
-              </div>
-              <div class="hw-row">
-                <div class="hw-status-dot"></div>
-                <div class="hw-info">
-                  <div class="hw-driver">Driver 03 · Dallas → Chicago</div>
-                  <div class="hw-route">Dedicated · 960mi · home Sun</div>
-                </div>
-                <div class="hw-rev">$3,800</div>
-              </div>
+            <div class="hm">
+              <div class="hm-tag">trucks loaded</div>
+              <div class="hm-val">15%</div>
+              <div class="hm-label">Utilization increases</div>
+            </div>
+            <div class="hm">
+              <div class="hm-tag">rate per mile</div>
+              <div class="hm-val">+20%</div>
+              <div class="hm-label">RPM improvement</div>
+            </div>
+            <div class="hm">
+              <div class="hm-tag">per dispatcher</div>
+              <div class="hm-val">50%</div>
+              <div class="hm-label">Less time dispatching</div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ─────────── NUMBER HERO ─────────── -->
-<section class="nums" id="numbers">
-  <div class="section-top">
-    <div>
-      <div class="section-eyebrow">The numbers</div>
-      <h2 class="section-h">What TrueMile delivers on<br><em>a 300-truck fleet.</em></h2>
-    </div>
-    <div class="section-context">
-      Year-one projections · validated with mid-size fleet operators
+<!-- LOAD OPTIMIZER -->
+<div class="fx-section" id="features" style="background:var(--white);">
+  <div class="fx-band reveal">
+    <div class="fx-band-label">Load Optimizer</div>
+    <div class="fx-band-head">Scans every load board.<br><em>Surfaces the one.</em></div>
+    <div class="fx-band-body">TrueMile uses major loadboards and broker networks simultaneously — evaluating all loads against your fleet schedule, cost structure, and driver cycle. The highest cycle-profit load rises to the top automatically.</div>
+  </div>
+  <div class="fx-card-wrap reveal">
+    <div class="ui-card" id="lbCard" style="max-width:720px;margin:0 auto;">
+      <div class="ui-bar">
+        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+        <span class="ui-url">truemile.ai/loads</span>
+      </div>
+      <div class="lb-header">
+        <span class="lb-title">Load Board</span>
+        <span class="lb-scanning" id="scanStatus"><span class="scan-dot"></span> Scanning all loads...</span>
+      </div>
+      <div class="lb-row" id="row1">
+        <div></div>
+        <div><div class="lb-row-route">Dallas, TX → Portland, OR</div><div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div></div>
+        <div><div class="lb-rate">$3,600</div><div class="lb-rpm">$1.69/mi</div></div>
+      </div>
+      <div class="lb-row" id="row2">
+        <div></div>
+        <div><div class="lb-row-route">Tyler, TX → Sparks, NV</div><div class="lb-row-meta">1,752 mi · Van · 42k lbs</div></div>
+        <div><div class="lb-rate">$3,750</div><div class="lb-rpm">$2.14/mi</div></div>
+      </div>
+      <div class="lb-row" id="row3">
+        <div></div>
+        <div><div class="lb-row-route">Dallas, TX → Hartford, CT</div><div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div></div>
+        <div><div class="lb-rate">$4,300</div><div class="lb-rpm">$2.58/mi</div></div>
+      </div>
+      <div class="lb-row" id="rowWinner">
+        <div><span class="lb-badge" id="winBadge">✓ Best</span></div>
+        <div><div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div><div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div></div>
+        <div><div class="lb-rate" id="winRate">$4,501</div><div class="lb-rpm">$2.93/mi</div></div>
+      </div>
+      <div class="score-bar" id="scoreBar">
+        <span class="score-label">Cycle Profit Score</span>
+        <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
+        <span class="score-val">88 / 100</span>
+      </div>
+      <div class="email-preview" id="emailPreview">
+        <div class="ep-tag">AI-Generated Outreach — Ready to Send</div>
+        <div class="ep-body">Hi Team, I'd like to book your load: <strong>Wichita Falls, TX → Philadelphia, PA</strong> · $4,501 · MC: 048737. Please send the carrier packet. — TrueMile Logistics</div>
+        <button class="ep-btn" id="epBtn">Email Broker Now →</button>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="nums-grid reveal">
-    <div class="num-cell">
-      <div class="nc-label">01 · Revenue / truck</div>
-      <div>
-        <div class="nc-num">+12<span class="nc-unit">%</span></div>
-        <div class="nc-desc">On a fleet grossing $22M/year, that's <strong>~$2.6M additional revenue</strong> with the same drivers and the same trucks.</div>
+<!-- BROKER CONTACT -->
+<div style="background:var(--fog2);">
+  <div class="fx-band reveal">
+    <div class="fx-band-label">Broker Contact</div>
+    <div class="fx-band-head">One click.<br><em>Broker contacted.</em></div>
+    <div class="fx-band-body">TrueMile generates a professional, carrier-ready outreach email with your MC number, equipment details, and load specifics pre-filled. You approve — it sends. No copy-paste, no phone tag.</div>
+  </div>
+  <div class="fx-card-wrap reveal">
+    <div class="ui-card" id="emailCard" style="max-width:720px;margin:0 auto;">
+      <div class="ui-bar">
+        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+        <span class="ui-url">truemile.ai/outreach</span>
       </div>
-    </div>
-    <div class="num-cell">
-      <div class="nc-label">02 · Utilization</div>
-      <div>
-        <div class="nc-num">+10<span class="nc-unit">%</span></div>
-        <div class="nc-desc">Trucks earning more of the week. Idle time down. <strong>A 5-point gain on 300 trucks is a 7-figure line item.</strong></div>
+      <div style="padding:20px 18px;border-bottom:1px solid var(--fog3);">
+        <div style="font-size:11px;font-weight:600;color:#1a5eb8;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px;">AI-Generated Outreach</div>
+        <div style="font-size:13px;line-height:1.85;color:#374151;" id="emailText"></div>
       </div>
-    </div>
-    <div class="num-cell">
-      <div class="nc-label">03 · Planning time</div>
-      <div>
-        <div class="nc-num"><em>−50</em><span class="nc-unit">%</span></div>
-        <div class="nc-desc">The engine pre-sequences every load. Dispatchers handle exceptions — not math. <strong>Twelve-hour weeks become six.</strong></div>
+      <div style="padding:14px 18px;display:flex;gap:10px;">
+        <button style="flex:1;padding:10px;background:var(--fog2);color:var(--ink);border:1px solid var(--fog3);border-radius:4px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);">Edit Draft</button>
+        <button style="flex:2;padding:10px;background:var(--green);color:white;border:none;border-radius:4px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);" id="sendBtn">Send Email →</button>
       </div>
-    </div>
-    <div class="num-cell">
-      <div class="nc-label">04 · Driver attrition</div>
-      <div>
-        <div class="nc-num">−15<span class="nc-unit">%</span></div>
-        <div class="nc-desc">Better cycle sequencing, better home-time hit rate, fewer surprises. <strong>The recruiting line item drops with it.</strong></div>
+      <div style="padding:10px 18px;background:var(--fog);border-top:1px solid var(--fog3);display:flex;align-items:center;gap:8px;">
+        <span style="font-size:11px;color:var(--muted);">Status:</span>
+        <span style="font-size:11px;font-weight:600;color:var(--green);" id="statusText">Awaiting approval</span>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ─────────── PROBLEM ─────────── -->
-<section class="problem" id="problem">
-  <div class="section-top">
-    <div>
-      <div class="section-eyebrow">The problem every fleet leader knows</div>
-      <h2 class="section-h">Your trucks aren't earning<br>what <em>they should.</em></h2>
+<section class="how">
+  <div class="container">
+    <div class="how-top reveal">
+      <div class="how-h">From billions of options <em>to one.</em></div>
+      <div class="how-d">TrueMile evaluates every available load against your fleet schedule, cost structure, driver cycle, and destination market — then surfaces the single best move.</div>
     </div>
-    <div class="section-context">
-      Mid-size fleets face a problem that resets every week
-    </div>
-  </div>
-
-  <div class="prob-grid reveal">
-    <div class="prob-cell">
-      <div class="pc-num">01 · Utilization</div>
-      <div class="pc-q">"Why are my trucks sitting between loads?"</div>
-      <div class="pc-a">Every empty hour is revenue you already paid for — truck payment, insurance, driver wages — with nothing coming back. <strong>A 5% utilization gain on 300 trucks is ~$3M/year.</strong></div>
-    </div>
-    <div class="prob-cell">
-      <div class="pc-num">02 · Backhaul</div>
-      <div class="pc-q">"We keep deadheading back to base."</div>
-      <div class="pc-a">Dispatchers don't have time to work every lane, every broker, every board to fill return legs. Drivers come back empty — while <strong>$2–3/mi was sitting on the board they never saw.</strong></div>
-    </div>
-    <div class="prob-cell">
-      <div class="pc-num">03 · Planning</div>
-      <div class="pc-q">"The plan takes twelve hours and it's wrong by Tuesday."</div>
-      <div class="pc-a">Spreadsheets, rate sheets, driver calendars — rebuilt by hand every Monday, broken by the first delay. <strong>No one has time to re-optimize.</strong></div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────── PRODUCT · WEEKLY PLAN ─────────── -->
-<section class="product" id="product">
-  <div class="section-top">
-    <div>
-      <div class="section-eyebrow">01 · Weekly Dispatch Planning</div>
-      <h2 class="section-h">One plan. Every driver.<br><em>Every day.</em></h2>
-    </div>
-    <div class="section-context">
-      Millions of possible assignments · one optimal plan · delivered in minutes
-    </div>
-  </div>
-
-  <p style="font-size:16px; line-height:1.65; color: var(--ink-dim); max-width: 65ch; margin: 0 auto; text-align: center;">
-    Stop planning in spreadsheets. TrueMile takes your committed lanes, driver schedules, HOS limits, and home-time windows — and delivers the plan that makes your fleet <strong style="color: var(--ink); font-weight: 500;">the most money while keeping every driver legal and every appointment met.</strong>
-  </p>
-
-  <div class="plan-card" id="planCard">
-    <div class="plan-head">
-      <span class="plan-head-l">Weekly Dispatch Plan</span>
-      <span class="plan-head-r" id="planStatus"><span class="plan-pulse"></span> Optimizing assignments...</span>
-    </div>
-
-    <div class="plan-row" id="pr1">
-      <div class="pr-info">
-        <div class="pr-driver">Driver 07</div>
-        <div class="pr-route">DAL → ATL · 780mi</div>
-      </div>
-      <div class="pr-type-cell"><span class="pr-type dedicated">Dedicated</span></div>
-      <div class="pr-badge-cell"></div>
-      <div class="pr-rev-wrap">
-        <div class="pr-rev">$3,900</div>
-        <div class="pr-rpm">$5.00 / mi</div>
-      </div>
-    </div>
-
-    <div class="plan-row" id="pr2">
-      <div class="pr-info">
-        <div class="pr-driver">Driver 12</div>
-        <div class="pr-route">ATL → DAL · 780mi</div>
-      </div>
-      <div class="pr-type-cell"><span class="pr-type backhaul">Backhaul</span></div>
-      <div class="pr-badge-cell"></div>
-      <div class="pr-rev-wrap">
-        <div class="pr-rev">$2,418</div>
-        <div class="pr-rpm">$3.10 / mi</div>
-      </div>
-    </div>
-
-    <div class="plan-row" id="pr3">
-      <div class="pr-info">
-        <div class="pr-driver">Driver 34</div>
-        <div class="pr-route">DAL → CHI · 960mi</div>
-      </div>
-      <div class="pr-type-cell"><span class="pr-type dedicated">Dedicated</span></div>
-      <div class="pr-badge-cell"></div>
-      <div class="pr-rev-wrap">
-        <div class="pr-rev">$4,320</div>
-        <div class="pr-rpm">$4.50 / mi</div>
-      </div>
-    </div>
-
-    <div class="plan-row" id="pr4">
-      <div class="pr-info">
-        <div class="pr-driver">Driver 19</div>
-        <div class="pr-route">CHI → DAL · 960mi</div>
-      </div>
-      <div class="pr-type-cell"><span class="pr-type spot">Spot fill</span></div>
-      <div class="pr-badge-cell"><span class="pr-badge" id="pb4">↳ Best match</span></div>
-      <div class="pr-rev-wrap">
-        <div class="pr-rev best">$3,648</div>
-        <div class="pr-rpm">$3.80 / mi</div>
-      </div>
-    </div>
-
-    <div class="plan-foot" id="planFoot">
-      <span class="pf-l">Weekly utilization</span>
-      <div class="pf-track"><div class="pf-fill" id="pfFill"></div></div>
-      <span class="pf-r">94%</span>
+    <div class="steps reveal">
+      <div class="step"><div class="sn">01</div><div class="st">Set Your Fleet Profile</div><div class="sb">Cost structure, driver schedules, home-time windows, RPM floors. One-time setup.</div></div>
+      <div class="step"><div class="sn">02</div><div class="st">Scan Load Boards</div><div class="sb">Pulls major loadboards and broker networks in real time — all available loads evaluated per search.</div></div>
+      <div class="step"><div class="sn">03</div><div class="st">Rank by Cycle Profit</div><div class="sb">Scored by projected cycle profit — not just RPM. Deadhead, dwell, and continuation lanes all factor in.</div></div>
+      <div class="step"><div class="sn">04</div><div class="st">Contact Broker</div><div class="sb">One click generates a professional outreach email. You approve, TrueMile executes.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ─────────── BACKHAUL ─────────── -->
-<section class="backhaul-section">
-  <div class="section-top">
-    <div>
-      <div class="section-eyebrow">02 · Backhaul Intelligence</div>
-      <h2 class="section-h">Empty miles are<br><em>lost revenue.</em></h2>
-    </div>
-    <div class="section-context">
-      Your trucks are already paid for. Every empty mile is money walking off your lot.
-    </div>
-  </div>
-
-  <div class="bh-wrap reveal">
-    <div class="bh-col">
-      <div class="bh-label">Today · without TrueMile</div>
-      <div class="bh-row">
-        <div class="bh-driver">Driver 12 · ATL → DAL</div>
-        <div class="bh-detail">Deadhead home · 650mi empty · $1,332</div>
-      </div>
-      <div class="bh-row">
-        <div class="bh-driver">Driver 19 · CHI → DAL</div>
-        <div class="bh-detail">Deadhead home · 575mi empty · $1,207</div>
-      </div>
-      <div class="bh-total">
-        <div class="bh-total-label">Revenue left on the table</div>
-        <div class="bh-total-num">−$2,539</div>
-      </div>
-    </div>
-
-    <div class="bh-col after">
-      <div class="bh-label">With TrueMile</div>
-      <div class="bh-row">
-        <div class="bh-driver">Driver 12 · ATL → DAL</div>
-        <div class="bh-detail">Backhaul fill · $2,015 · $3.10/mi</div>
-      </div>
-      <div class="bh-row">
-        <div class="bh-driver">Driver 19 · CHI → DAL</div>
-        <div class="bh-detail">Spot fill · $2,185 · $3.80/mi</div>
-      </div>
-      <div class="bh-total">
-        <div class="bh-total-label">Backhaul revenue captured</div>
-        <div class="bh-total-num">+$4,200</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────── ROI SECTION (the Fleetline-killer) ─────────── -->
-<section class="roi" id="roi">
-  <div class="roi-inner">
-    <div class="roi-left">
-      <div class="roi-label">Free · No commitment</div>
-      <h2 class="roi-h">See the money<br>you're <em>leaving behind.</em></h2>
-      <p class="roi-body">
-        We run a historical simulation on 90 days of your actual dispatch data. You see — with real numbers from your own operation — exactly what TrueMile would have earned you last quarter.
-      </p>
-      <ul class="roi-bullets">
-        <li>Revenue opportunity, per truck and fleet-wide</li>
-        <li>Utilization lift, measured lane by lane</li>
-        <li>Backhaul revenue you missed, with the specific loads</li>
-        <li>Delivered in two weeks. Then you decide.</li>
-      </ul>
-    </div>
-
-    <div class="roi-right">
-      <div class="rf-label">Start the study</div>
-      <div class="rf">
-        <input class="rf-input" type="email" placeholder="Work email">
-        <input class="rf-input" type="text" placeholder="Company name">
-        <div class="rf-row">
-          <select class="rf-select" required>
-            <option value="" disabled selected>Fleet size</option>
-            <option>Under 50 trucks</option>
-            <option>50–100 trucks</option>
-            <option>100–500 trucks</option>
-            <option>500–1,000 trucks</option>
-            <option>1,000+ trucks</option>
-          </select>
-          <input class="rf-input" type="text" placeholder="MC #">
-        </div>
-        <input class="rf-input" type="text" placeholder="TMS system (McLeod, TMW, Samsara, …)">
-        <button class="rf-submit" id="submitBtn">Book the free ROI study →</button>
-        <div class="rf-note">Numbers before you sign anything</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────── HOW IT WORKS ─────────── -->
-<section class="how" id="how">
-  <div class="section-top">
-    <div>
-      <div class="section-eyebrow">The method</div>
-      <h2 class="section-h">From your data<br>to an <em>optimized week.</em></h2>
-    </div>
-    <div class="section-context">
-      No rip-and-replace · live in 30 days · dispatchers keep their workflow
-    </div>
-  </div>
-
-  <div class="how-grid reveal">
-    <div class="how-cell">
-      <div class="hc-num">STEP 01</div>
-      <div class="hc-t">Connect</div>
-      <div class="hc-b">Plug into your TMS and ELD — McLeod, TMW, Samsara, KeepTruckin, Motive. Read-only. No disruption.</div>
-    </div>
-    <div class="how-cell">
-      <div class="hc-num">STEP 02</div>
-      <div class="hc-t">Learn your fleet</div>
-      <div class="hc-b">Ingest your committed lanes, driver schedules, home-time rules, broker relationships. Your operation — not a template.</div>
-    </div>
-    <div class="how-cell">
-      <div class="hc-num">STEP 03</div>
-      <div class="hc-t">Optimize</div>
-      <div class="hc-b">Run the math on every driver, every day, every lane. Surface the plan that maximizes profit — HOS, home-time, every commitment respected.</div>
-    </div>
-    <div class="how-cell">
-      <div class="hc-num">STEP 04</div>
-      <div class="hc-t">Measure</div>
-      <div class="hc-b">Revenue per truck, utilization, planning time, RPM — tracked weekly in your dashboard. You see what TrueMile is worth.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────── FEATURES ─────────── -->
 <section class="features">
-  <div class="section-top">
-    <div>
-      <div class="section-eyebrow">What's inside the platform</div>
-      <h2 class="section-h">Everything your planners<br><em>actually need.</em></h2>
+  <div class="container">
+    <div class="fh">
+      <div class="fl reveal">More than optimization</div>
+      <div class="fhh reveal">Built for operators<br><em>who run on numbers.</em></div>
     </div>
-    <div class="section-context">
-      Built by operators · engineered for mid-size fleet economics
-    </div>
-  </div>
-
-  <div class="fg reveal">
-    <div class="fc">
-      <div class="fc-n">01</div>
-      <div class="fc-t">Dedicated Lane Assignment</div>
-      <div class="fc-b">Match every committed lane to the right driver — balancing utilization, home-time, equipment, and preferences. Every contract covered.</div>
-    </div>
-    <div class="fc">
-      <div class="fc-n">02</div>
-      <div class="fc-t">Backhaul &amp; Spot Fill</div>
-      <div class="fc-b">See every dedicated and spot opportunity in one view. TrueMile surfaces the highest-paying fills that match your drivers' locations and hours.</div>
-    </div>
-    <div class="fc">
-      <div class="fc-n">03</div>
-      <div class="fc-t">HOS &amp; Home-Time</div>
-      <div class="fc-b">Every plan respects driver hours, 34-hour resets, and home-time cadence automatically. Fewer compliance issues, better retention.</div>
-    </div>
-    <div class="fc">
-      <div class="fc-n">04</div>
-      <div class="fc-t">Live Replanning</div>
-      <div class="fc-b">A truck breaks down. A load cancels. TrueMile adjusts the rest of the week around the disruption without forcing your team to start over.</div>
-    </div>
-    <div class="fc">
-      <div class="fc-n">05</div>
-      <div class="fc-t">Performance Analytics</div>
-      <div class="fc-b">Revenue per truck, utilization, RPM, on-time delivery — tracked weekly, visible to leadership, exportable for board reviews.</div>
-    </div>
-    <div class="fc">
-      <div class="fc-n">06</div>
-      <div class="fc-t">White-Glove Onboarding</div>
-      <div class="fc-b">We don't drop software and leave. Our team configures around your lanes, customers, drivers — with in-person training.</div>
+    <div class="fg reveal">
+      <div class="fc"><div class="fn">01</div><div class="ftt">Load Optimizer</div><div class="fb">Scans every load board in real time. Scores loads by cycle profit — accounting for deadhead, dwell time, and destination market strength.</div></div>
+      <div class="fc"><div class="fn">02</div><div class="ftt">Cycle-Based Ranking</div><div class="fb">Goes beyond single-load RPM. Projects profit across the full driver cycle — remaining OTR days, continuation lanes, and home deadline.</div></div>
+      <div class="fc"><div class="fn">03</div><div class="ftt">Automated Outreach</div><div class="fb">Generates professional broker emails in one click. You approve — TrueMile sends, tracks, and follows up automatically.</div></div>
     </div>
   </div>
 </section>
 
-<!-- ─────────── CLOSER / FOOTER ─────────── -->
-<section class="closer">
-  <div class="closer-pull reveal">
-    "The best dispatch plan isn't the one a human can find in twelve hours. It's the one a machine can find in three minutes — <em>and execute every week.</em>"
-  </div>
-
-  <div class="foot">
+<div class="cta" id="contact">
+  <div class="cta-i">
     <div>
-      <div class="foot-brand">TrueMile<em>.ai</em></div>
-      <div class="foot-tag">AI dispatch optimization for trucking fleets running 50 to 1,000 trucks. Every lane, every driver, every load — optimized.</div>
+      <div class="cl">Partner with us</div>
+      <div class="ch">Unlock your fleet's <em>full potential.</em></div>
+      <div class="cd">Book a demo and see TrueMile in action with your actual data. Early access pricing — per-truck, cancel anytime.</div>
     </div>
-    <div class="foot-col">
-      <div class="foot-col-t">Product</div>
-      <a href="#product">Weekly planning</a>
-      <a href="#product">Backhaul intelligence</a>
-      <a href="#how">Integrations</a>
-      <a href="#roi">ROI study</a>
-    </div>
-    <div class="foot-col">
-      <div class="foot-col-t">Company</div>
-      <a href="#">About</a>
-      <a href="#">Careers</a>
-      <a href="#">Contact</a>
-    </div>
-    <div class="foot-col">
-      <div class="foot-col-t">Contact</div>
-      <a href="mailto:harpreet@truemile.ai">harpreet@truemile.ai</a>
-      <a href="#roi">Book a demo</a>
+    <div class="cf">
+      <input class="fi" type="email" placeholder="Work email" required/>
+      <div class="fr">
+        <input class="fi" type="text" placeholder="Company name" required/>
+        <select class="fs" required>
+          <option value="" disabled selected>Fleet size</option>
+          <option>1–5 trucks</option><option>5–10 trucks</option><option>10–20 trucks</option><option>20–50 trucks</option><option>50+ trucks</option>
+        </select>
+      </div>
+      <input class="fi" type="text" placeholder="MC #"/>
+      <button class="fsb" id="submitBtn">Book Demo →</button>
+      <div class="fno">Early access · No commitment</div>
     </div>
   </div>
+</div>
 
-  <div class="foot-bot">
-    <span>© 2026 TrueMile, Inc.</span>
-    <span>San Francisco, CA</span>
-  </div>
-</section>
-
-</main>
+<footer>
+  <div class="ftb">TrueMile<span>.AI</span></div>
+  <div class="ftm">We're building the operational infrastructure for modern trucking — where every mile, load, and dollar is measured and intelligently directed.</div>
+  <div class="ftc">© 2025 TrueMile.AI</div>
+</footer>
 
 <script>
-// Nav scroll state
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if(window.scrollY > 20) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// Reveal on scroll
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-      obs.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+let lbAnimated=false;
+const lbObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!lbAnimated){lbAnimated=true;runLBAnimation();}});},{threshold:.3});
+const lbCard=document.getElementById('lbCard');
+if(lbCard)lbObs.observe(lbCard);
 
-// Plan animation
-let planAnimated = false;
-const planCard = document.getElementById('planCard');
-const planObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting && !planAnimated){
-      planAnimated = true;
-      runPlan();
-    }
+function runLBAnimation(){
+  ['row1','row2','row3','rowWinner'].forEach((id,i)=>{
+    setTimeout(()=>{const el=document.getElementById(id);if(el)el.classList.add('show');},{0:400,1:900,2:1400,3:2100}[i]);
   });
-}, { threshold: 0.3 });
-if(planCard) planObs.observe(planCard);
-
-function runPlan(){
-  const rows = ['pr1','pr2','pr3','pr4'];
-  const delays = [300, 750, 1200, 1750];
-  rows.forEach((id, i) => {
-    setTimeout(() => {
-      document.getElementById(id)?.classList.add('show');
-    }, delays[i]);
-  });
-  setTimeout(() => {
-    document.getElementById('pb4')?.classList.add('show');
-    document.getElementById('pr4')?.classList.add('optimal');
-  }, 2150);
-  setTimeout(() => {
-    document.getElementById('planFoot')?.classList.add('show');
-    setTimeout(() => {
-      const f = document.getElementById('pfFill');
-      if(f) f.style.width = '94%';
-    }, 120);
-    const ps = document.getElementById('planStatus');
-    if(ps) ps.innerHTML = '<span class="plan-pulse" style="background: var(--grow);"></span> Plan optimized';
-  }, 2650);
+  setTimeout(()=>{const wb=document.getElementById('winBadge'),wr=document.getElementById('rowWinner');if(wb)wb.classList.add('show');if(wr)wr.classList.add('winner');},2500);
+  setTimeout(()=>{
+    const sb=document.getElementById('scoreBar');if(sb)sb.classList.add('show');
+    setTimeout(()=>{const sf=document.getElementById('scoreFill');if(sf)sf.style.width='88%';},100);
+    const ss=document.getElementById('scanStatus');
+    if(ss)ss.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#22c47a;display:inline-block;margin-right:6px;"></span> Best load found';
+  },3000);
+  setTimeout(()=>{const ep=document.getElementById('emailPreview'),btn=document.getElementById('epBtn');if(ep)ep.classList.add('show');if(btn)btn.classList.add('show');},3600);
 }
 
-// Form submit
-document.getElementById('submitBtn')?.addEventListener('click', function(e){
-  e.preventDefault();
-  this.textContent = '✓  Submitted — we\'ll be in touch';
-  setTimeout(() => { this.textContent = 'Book the free ROI study →'; }, 4000);
+const emailLines=`Hi Team,\n\nI'd like to book your load posting.\n\nPlease send the carrier packet and we'll get it filled out shortly.\n\n<strong>LOAD DETAILS:</strong>\nMC: 048737 · Ref: 2491042\nWichita Falls, TX → Philadelphia, PA\n1,536 miles · $4,501 ($2.93/mi)\nReefer · 40,000 lbs · 53 ft\n\n<strong>EQUIPMENT:</strong>\nTruck: 2023 Freightliner Cascadia 126 #107\nTrailer: 2022 Great Dane 53ft S-700 TK\n\n— Sarah Mitchell, TrueMile Logistics`;
+let emailAnimated=false;
+const emailObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!emailAnimated){emailAnimated=true;typeEmail();}});},{threshold:.3});
+const emailCard=document.getElementById('emailCard');
+if(emailCard)emailObs.observe(emailCard);
+function typeEmail(){
+  const el=document.getElementById('emailText');if(!el)return;
+  const lines=emailLines.split('\n');let lineIdx=0,charIdx=0,html='';
+  const iv=setInterval(()=>{
+    if(lineIdx>=lines.length){clearInterval(iv);return;}
+    const line=lines[lineIdx];
+    if(charIdx<line.length){html+=line[charIdx];charIdx++;}
+    else{html+='<br>';lineIdx++;charIdx=0;}
+    el.innerHTML=html+'<span style="opacity:.6">|</span>';
+  },18);
+}
+
+document.getElementById('sendBtn')?.addEventListener('click',function(){
+  this.textContent='Sent ✓';this.style.background='#155c3d';
+  const st=document.getElementById('statusText');if(st)st.textContent='Email delivered · Awaiting broker response';
+});
+document.getElementById('submitBtn')?.addEventListener('click',function(e){
+  e.preventDefault();this.textContent='Submitted ✓';
+  this.style.cssText+=';background:#22c47a;color:#0a1f12;';
+  setTimeout(()=>{this.textContent='Book Demo →';this.style.cssText='';},3000);
 });
 </script>
 </body>
