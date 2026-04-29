@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>TrueMile.AI — Turn Every Mile Into Predictable Profit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#0a0a0a;--ink2:#111;--ink3:#1c1c1c;
@@ -61,17 +61,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
   padding-right:0;
 }
 
-/* EYEBROW — full white, bolder */
+/* EYEBROW */
 .eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;opacity:0;animation:fup .7s .2s ease forwards;}
 .ed{width:5px;height:5px;border-radius:50%;background:var(--green-l);}
 .et{font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.75);}
 
-/* H1 — italic fully white, weight bumped */
-.hero-left h1{font-family:var(--serif);font-size:clamp(62px,7.5vw,108px);font-weight:800;line-height:.96;letter-spacing:-.035em;margin-bottom:24px;opacity:0;animation:fup .8s .4s ease forwards;}
-.hero-left h1 em{font-style:italic;color:var(--white);}
+/* H1 — clean operator-focused, DM Sans, no italic */
+.hero-left h1{
+  font-family:var(--sans);
+  font-size:clamp(56px,6.8vw,96px);
+  font-weight:600;
+  line-height:1.02;
+  letter-spacing:-.04em;
+  margin-bottom:24px;
+  color:var(--white);
+  opacity:0;
+  animation:fup .8s .4s ease forwards;
+}
+.hero-left h1 em{
+  font-style:normal;
+  font-weight:600;
+  color:rgba(255,255,255,.55);
+}
 
-/* SUBTEXT — full white, slightly heavier */
-.hero-sub{font-size:16px;color:rgba(255,255,255,.9);line-height:1.72;max-width:44ch;font-weight:400;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
+/* SUBTEXT */
+.hero-sub{font-size:16px;color:rgba(255,255,255,.9);line-height:1.72;max-width:48ch;font-weight:400;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
 
 .hbtns{display:flex;gap:16px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
 .bp{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:#1e1e1e;color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:background .2s,transform .2s;}
@@ -286,8 +300,8 @@ footer{background:var(--ink);border-top:1px solid var(--bl);padding:40px 48px;di
 <div class="hero-wrap">
   <div class="hero-left">
     <div class="eyebrow"><div class="ed"></div><span class="et">AI-Powered Dispatch Intelligence for Trucking Carriers.</span></div>
-    <h1>Every mile.<br><em>Optimized.</em></h1>
-    <p class="hero-sub">TrueMile simulates billions of possibilities — not just for your next load, but for all of them. We run the math, you run the fleet.</p>
+    <h1>Every mile.<br><em>Decided.</em></h1>
+    <p class="hero-sub">A weekly plan isn't a list of loads — it's a system. TrueMile is the only engine that solves it as one.</p>
     <div class="hbtns">
       <a href="#contact" class="bp">Get Started →</a>
       <a href="#features" class="bs">See how it works</a>
