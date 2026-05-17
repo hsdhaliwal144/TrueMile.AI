@@ -1169,8 +1169,8 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
 
   const stages = [
     { at: 0,    text: 'Reading driver schedules and HOS…' },
-    { at: 0.20, text: 'Anchoring dedicated contracts · CP-SAT' },
-    { at: 0.42, text: 'Solving spot capacity · LNS iterations' },
+    { at: 0.20, text: 'Anchoring dedicated contracts' },
+    { at: 0.42, text: 'Solving spot capacity' },
     { at: 0.65, text: 'HOS feasibility check · all drivers' },
     { at: 0.85, text: 'Stress-testing plan · 8,000 scenarios' }
   ];
@@ -1246,7 +1246,7 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
     // Stage 3: replanning
     showStage(stage3);
     stateLabel.textContent = 'Re-planning';
-    stateMeta.textContent = 'CP-SAT · LNS · 8,000 scenarios';
+    stateMeta.textContent = '1,000,000,000 scenarios';
 
     const duration = 2600;
     const stepMs = 60;
