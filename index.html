@@ -379,10 +379,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 
 /* METRICS BANNER */
 .metrics-band{background:var(--paper);padding:0 48px 96px;max-width:1200px;margin:0 auto;}
-.metrics-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:12px;overflow:hidden;}
-.metric{background:var(--white);padding:28px 24px;display:flex;flex-direction:column;gap:6px;}
+.metrics-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:12px;overflow:hidden;}
+.metric{background:var(--white);padding:28px 22px;display:flex;flex-direction:column;gap:6px;}
 .metric-label{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;font-weight:600;}
-.metric-value{font-size:34px;font-weight:600;color:var(--ink);letter-spacing:-.03em;line-height:1;}
+.metric-value{font-size:32px;font-weight:600;color:var(--ink);letter-spacing:-.03em;line-height:1;}
 .metric-value em{font-style:normal;color:var(--orange);}
 .metric-desc{font-size:12.5px;color:var(--ink-dim);line-height:1.4;margin-top:2px;}
 
@@ -579,13 +579,19 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
+@media(max-width:1200px){
+  .metrics-strip{grid-template-columns:repeat(5,1fr);}
+  .metric{padding:24px 18px;}
+  .metric-value{font-size:28px;}
+}
 @media(max-width:1000px){
   .hero-wrap{padding:120px 32px 48px;}
   .hero-inner{flex-direction:column;gap:64px;}
   .hero-left{max-width:100%;}
   .hero-right{width:100%;max-width:490px;}
   .metrics-band{padding:0 32px 80px;}
-  .metrics-strip{grid-template-columns:repeat(2,1fr);}
+  .metrics-strip{grid-template-columns:repeat(3,1fr);}
+  .metric:nth-child(4),.metric:nth-child(5){grid-column:span 1;}
   .how,.features,.cta{padding:80px 32px;}
   .fx-band{padding:64px 32px 40px;}
   .fx-card-wrap{padding:0 32px 72px;}
@@ -757,6 +763,11 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
       <div class="metric-label">Rate per mile</div>
       <div class="metric-value"><em>+9%</em></div>
       <div class="metric-desc">Smarter load selection</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Driver retention</div>
+      <div class="metric-value"><em>+20%</em></div>
+      <div class="metric-desc">Home time &amp; preferences priced in</div>
     </div>
     <div class="metric">
       <div class="metric-label">Dispatcher time</div>
