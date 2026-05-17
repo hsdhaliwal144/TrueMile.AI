@@ -78,32 +78,308 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .bs{display:inline-flex;align-items:center;padding:14px 24px;background:transparent;color:var(--ink-dim);font-size:14px;font-weight:500;border:1px solid var(--paper-line);border-radius:6px;text-decoration:none;transition:border-color .2s,color .2s;}
 .bs:hover{border-color:var(--charcoal);color:var(--ink);}
 
-.hero-right{flex:0 0 auto;width:540px;position:relative;display:flex;align-items:center;justify-content:center;opacity:0;animation:fup 1s .4s ease forwards;}
-.hero-glow{position:absolute;top:50%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(232,80,30,.10) 0%,transparent 65%);pointer-events:none;filter:blur(60px);z-index:0;}
+/* ===========================================
+   HERO — DISPATCHER WORKFLOW ANIMATION
+   Stage 1: chat input (typing) → suggestion chips
+   Stage 2: re-optimize button highlighted → clicked
+   Stage 3: re-planning the week (progress bar)
+   Stage 4: plan updated (done state)
+   Stage 5: notify queue card surfaces
+   =========================================== */
+.hero-right{flex:0 0 auto;width:540px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:18px;opacity:0;animation:fup 1s .4s ease forwards;min-height:560px;}
+.hero-glow{position:absolute;top:30%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(232,80,30,.10) 0%,transparent 65%);pointer-events:none;filter:blur(60px);z-index:0;}
 
-.agent-feed-card{position:relative;z-index:1;width:100%;max-width:490px;background:var(--white);border:1px solid var(--paper-line);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(26,26,26,.10),0 8px 24px rgba(26,26,26,.04);}
-.agent-feed-head{padding:13px 18px;border-bottom:1px solid var(--paper-line);display:flex;align-items:center;justify-content:space-between;}
-.agent-feed-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);}
-.agent-pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(14,131,120,.18);animation:agentPulse 1.8s ease-in-out infinite;}
+.agent-card{
+  position:relative;z-index:1;width:100%;max-width:490px;
+  background:var(--white);
+  border:1px solid var(--paper-line);
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(26,26,26,.10),0 8px 24px rgba(26,26,26,.04);
+}
+.agent-card-head{
+  padding:13px 18px;
+  border-bottom:1px solid var(--paper-line);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.agent-card-title{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:600;color:var(--ink);
+}
+.agent-pulse{
+  width:7px;height:7px;border-radius:50%;background:var(--teal);
+  box-shadow:0 0 0 4px rgba(14,131,120,.18);
+  animation:agentPulse 1.8s ease-in-out infinite;
+}
 @keyframes agentPulse{0%,100%{box-shadow:0 0 0 4px rgba(14,131,120,.18);}50%{box-shadow:0 0 0 8px rgba(14,131,120,.04);}}
-.agent-feed-meta{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.06em;text-transform:uppercase;}
-.agent-feed-body{max-height:440px;overflow:hidden;}
-.alert{padding:14px 18px 14px 38px;border-bottom:1px solid var(--paper-line-soft);position:relative;opacity:0;transform:translateY(-8px);animation:alertIn .5s ease forwards;}
-.alert::before{content:'';position:absolute;left:18px;top:18px;width:8px;height:8px;border-radius:50%;}
-.alert.eld::before{background:var(--amber);box-shadow:0 0 0 3px var(--amber-soft);}
-.alert.tms::before{background:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
-.alert.mci::before{background:var(--teal);box-shadow:0 0 0 3px var(--teal-soft);}
-.alert.maint::before{background:var(--red);box-shadow:0 0 0 3px var(--red-soft);}
-.alert.broker::before{background:var(--orange);box-shadow:0 0 0 3px var(--orange-soft);}
-.alert-src{font-family:var(--mono);font-size:9px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;font-weight:600;}
-.alert-msg{font-size:12.5px;color:var(--ink);line-height:1.45;}
-.alert-msg strong{font-weight:600;}
-.alert-meta{font-family:var(--mono);font-size:10px;color:var(--ink-mute);margin-top:5px;line-height:1.4;}
-@keyframes alertIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-.alert:nth-child(1){animation-delay:1.2s;}
-.alert:nth-child(2){animation-delay:1.9s;}
-.alert:nth-child(3){animation-delay:2.6s;}
-.alert:nth-child(4){animation-delay:3.3s;}
+.agent-card-meta{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.06em;text-transform:uppercase;}
+
+/* STAGE 1: chat input panel */
+.hero-stage{padding:20px;display:flex;flex-direction:column;gap:14px;}
+.hero-stage.hidden{display:none;}
+.hero-stage-label{
+  font-family:var(--mono);font-size:10px;color:var(--teal);
+  letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-stage-label::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);
+  animation:agentPulse 1.2s ease-in-out infinite;
+}
+.hero-stage-heading{font-size:14px;font-weight:600;color:var(--ink);line-height:1.3;}
+
+.hero-input-wrap{
+  display:flex;gap:8px;align-items:stretch;
+  padding:6px;
+  background:var(--paper-warm);
+  border:1px solid var(--paper-line);
+  border-radius:8px;
+  transition:border-color .3s ease,background .3s ease;
+}
+.hero-input-wrap.focused{border-color:var(--teal);background:var(--white);}
+.hero-input{
+  flex:1;display:flex;align-items:center;
+  padding:8px 10px;
+  font-family:var(--sans);font-size:13px;color:var(--ink);
+  font-weight:500;min-height:30px;
+}
+.hero-input.placeholder{color:var(--ink-mute);font-weight:400;}
+.hero-input-cursor{
+  display:inline-block;width:1.5px;height:14px;background:var(--ink);
+  vertical-align:middle;margin-left:1px;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{0%,50%{opacity:1;}51%,100%{opacity:0;}}
+.hero-send-btn{
+  padding:8px 16px;background:var(--charcoal);color:white;
+  border:none;border-radius:6px;
+  font-size:12px;font-weight:600;font-family:var(--sans);
+  cursor:default;display:flex;align-items:center;
+}
+
+.hero-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.hero-chip{
+  padding:5px 11px;
+  background:var(--white);
+  border:1px solid var(--paper-line);
+  border-radius:100px;
+  font-size:11px;color:var(--ink-dim);
+  font-weight:500;
+  transition:all .2s ease;
+  opacity:0;animation:chipFadeIn .4s ease forwards;
+}
+.hero-chip:nth-child(1){animation-delay:.1s;}
+.hero-chip:nth-child(2){animation-delay:.2s;}
+.hero-chip:nth-child(3){animation-delay:.3s;}
+.hero-chip:nth-child(4){animation-delay:.4s;}
+.hero-chip.selected{
+  background:var(--teal-soft);
+  border-color:var(--teal);
+  color:var(--teal);
+}
+@keyframes chipFadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+/* STAGE 2: pending re-optimize banner */
+.hero-pending{
+  padding:14px 18px;
+  background:var(--amber-soft);
+  border-top:1px solid var(--paper-line);
+  border-bottom:1px solid var(--paper-line);
+  display:none;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.hero-pending.show{display:block;opacity:1;}
+.hero-pending-label{
+  font-family:var(--mono);font-size:9px;color:#9c7a2e;
+  letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  margin-bottom:6px;
+}
+.hero-pending-msg{
+  font-size:12.5px;color:var(--ink);line-height:1.4;font-weight:500;
+  margin-bottom:10px;
+}
+.hero-pending-msg strong{font-weight:600;}
+.hero-reopt-btn{
+  width:100%;padding:11px;
+  background:var(--teal);color:white;
+  border:none;border-radius:6px;
+  font-size:13px;font-weight:600;font-family:var(--sans);
+  cursor:default;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:transform .15s ease,box-shadow .15s ease;
+  position:relative;
+}
+.hero-reopt-btn.pressed{
+  transform:scale(.97);
+  box-shadow:0 0 0 4px rgba(14,131,120,.18);
+}
+
+/* STAGE 3: re-planning progress */
+.hero-replan{
+  padding:24px 22px;
+  display:none;
+  flex-direction:column;gap:12px;
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.hero-replan.show{display:flex;opacity:1;}
+.hero-replan-eyebrow{
+  font-family:var(--mono);font-size:10px;color:var(--teal);
+  letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  display:flex;align-items:center;gap:8px;
+}
+.hero-replan-eyebrow::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);
+  animation:agentPulse 1.2s ease-in-out infinite;
+}
+.hero-replan-title{
+  font-size:17px;font-weight:600;color:var(--ink);line-height:1.3;
+}
+.hero-replan-bar{
+  height:6px;background:var(--paper-warm);border-radius:999px;
+  overflow:hidden;margin-top:2px;
+}
+.hero-replan-fill{
+  height:100%;background:var(--teal);width:0%;
+  border-radius:999px;
+  transition:width .12s linear;
+}
+.hero-replan-status{
+  font-family:var(--mono);font-size:11px;color:var(--ink-dim);
+  line-height:1.4;min-height:15px;
+}
+.hero-replan-summary{
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;color:var(--ink);
+  margin-top:2px;opacity:0;
+  transition:opacity .3s ease;
+}
+.hero-replan-summary.show{opacity:1;}
+.hero-replan-summary-check{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--teal-soft);
+  display:inline-flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.hero-replan-summary strong{font-weight:600;}
+
+/* STAGE 4: notify queue card */
+.hero-notify{
+  display:none;flex-direction:column;
+  opacity:0;
+  transition:opacity .4s ease;
+}
+.hero-notify.show{display:flex;opacity:1;}
+.hero-notify-head{
+  padding:14px 18px;
+  border-bottom:1px solid var(--paper-line);
+  background:var(--paper-warm);
+}
+.hero-notify-eyebrow{
+  font-family:var(--mono);font-size:9px;color:var(--amber);
+  letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  display:flex;align-items:center;gap:6px;margin-bottom:4px;
+}
+.hero-notify-eyebrow svg{flex-shrink:0;}
+.hero-notify-title{
+  font-size:15px;font-weight:600;color:var(--ink);line-height:1.2;
+}
+.hero-notify-sub{
+  font-family:var(--mono);font-size:10.5px;color:var(--ink-dim);
+  margin-top:3px;line-height:1.4;
+}
+
+.hero-notify-card{
+  padding:16px 18px;
+  background:var(--red-soft);
+  border-top:1px solid rgba(184,90,82,.18);
+  position:relative;
+}
+.hero-notify-card::before{
+  content:'';position:absolute;
+  left:0;top:0;bottom:0;width:3px;
+  background:var(--red);
+}
+.hero-notify-tag{
+  font-family:var(--mono);font-size:9px;color:var(--red);
+  letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+  margin-bottom:8px;
+  display:flex;justify-content:space-between;
+}
+.hero-notify-tag-count{
+  background:rgba(184,90,82,.18);color:var(--red);
+  padding:1px 7px;border-radius:100px;font-size:8.5px;
+}
+.hero-notify-name{
+  font-size:13px;font-weight:600;color:var(--ink);
+  display:flex;align-items:center;gap:6px;
+}
+.hero-notify-status{
+  font-family:var(--mono);font-size:9px;color:var(--ink-mute);
+  text-transform:uppercase;letter-spacing:.06em;font-weight:600;
+  margin-top:2px;margin-bottom:8px;
+}
+.hero-notify-detail{
+  font-size:12px;color:var(--ink);line-height:1.4;
+}
+.hero-notify-detail strong{font-weight:600;}
+.hero-notify-actions{
+  display:flex;gap:6px;margin-top:10px;
+}
+.hero-notify-btn{
+  padding:5px 10px;
+  background:var(--white);border:1px solid var(--paper-line);
+  border-radius:6px;
+  font-size:11px;color:var(--ink);font-weight:500;
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--sans);
+}
+.hero-notify-btn-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--ink);
+}
+
+/* COMPACT LIVE AGENT FEED — under workflow card */
+.hero-feed-card{
+  position:relative;z-index:1;width:100%;max-width:490px;
+  background:var(--white);
+  border:1px solid var(--paper-line);
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(26,26,26,.06),0 4px 12px rgba(26,26,26,.03);
+}
+.hero-feed-head{
+  padding:11px 18px;
+  border-bottom:1px solid var(--paper-line);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.hero-feed-title{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:600;color:var(--ink);
+}
+.hero-feed-meta{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.06em;text-transform:uppercase;}
+
+.feed-item{
+  padding:11px 16px 11px 34px;
+  border-bottom:1px solid var(--paper-line-soft);
+  position:relative;
+  opacity:0;
+  transition:opacity .4s ease;
+}
+.feed-item.show{opacity:1;}
+.feed-item:last-child{border-bottom:none;}
+.feed-item::before{
+  content:'';position:absolute;left:16px;top:14px;
+  width:8px;height:8px;border-radius:50%;
+}
+.feed-item.eld::before{background:var(--amber);box-shadow:0 0 0 3px var(--amber-soft);}
+.feed-item.maint::before{background:var(--red);box-shadow:0 0 0 3px var(--red-soft);}
+.feed-item.mci::before{background:var(--teal);box-shadow:0 0 0 3px var(--teal-soft);}
+.feed-item.broker::before{background:var(--orange);box-shadow:0 0 0 3px var(--orange-soft);}
+.feed-item-src{
+  font-family:var(--mono);font-size:9px;color:var(--ink-mute);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px;font-weight:600;
+}
+.feed-item-msg{font-size:12px;color:var(--ink);line-height:1.4;}
+.feed-item-msg strong{font-weight:600;}
 
 /* METRICS BANNER */
 .metrics-band{background:var(--paper);padding:0 48px 96px;max-width:1200px;margin:0 auto;}
@@ -132,9 +408,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .section-warm{background:var(--paper-warm);}
 .section-paper{background:var(--paper);}
 
-/* ===========================================
-   HOW IT WORKS — moved up, comes right after metrics
-   =========================================== */
+/* HOW IT WORKS */
 .how{background:var(--paper);color:var(--ink);padding:112px 48px;}
 .how-top{margin-bottom:64px;}
 .how-eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
@@ -156,9 +430,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .agent-tile-io-line.in::before{content:'IN';color:var(--blue);font-weight:700;background:var(--blue-soft);padding:1px 5px;border-radius:3px;font-size:9px;}
 .agent-tile-io-line.out::before{content:'OUT';color:var(--orange);font-weight:700;background:var(--orange-soft);padding:1px 5px;border-radius:3px;font-size:9px;}
 
-/* ===========================================
-   PLAN THE WEEK — timeline
-   =========================================== */
+/* PLAN THE WEEK — timeline */
 .timeline-card{padding:0;}
 .timeline-head{padding:16px 20px;border-bottom:1px solid var(--paper-line);display:flex;justify-content:space-between;align-items:center;}
 .timeline-title{font-size:13px;font-weight:600;color:var(--ink);}
@@ -184,9 +456,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .agent-thought-head{font-family:var(--mono);font-size:10px;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;font-weight:600;display:flex;align-items:center;gap:6px;}
 .agent-thought-head::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:agentPulse 1.8s ease-in-out infinite;}
 
-/* ===========================================
-   ADAPT IN REAL TIME — slip + broker modal
-   =========================================== */
+/* ADAPT IN REAL TIME — slip + modal */
 .slip-card{padding:0;}
 .slip-event{padding:16px 20px;background:var(--red-soft);border-bottom:1px solid var(--paper-line);display:flex;align-items:flex-start;gap:12px;}
 .slip-event-icon{width:32px;height:32px;border-radius:50%;background:var(--red);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
@@ -242,9 +512,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .modal-action-btn.secondary{background:var(--white);color:var(--ink);border:1px solid var(--paper-line);}
 .modal-action-btn.secondary:hover{background:var(--paper);border-color:var(--charcoal);}
 
-/* ===========================================
-   FILL IDLE TIME WITH REVENUE (load fit)
-   =========================================== */
+/* FILL IDLE TIME */
 .lb-header{padding:14px 18px;border-bottom:1px solid var(--paper-line);display:flex;align-items:center;justify-content:space-between;}
 .lb-title{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
 .lb-scanning{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--teal);font-weight:600;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;}
@@ -265,19 +533,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .fit-cell-value{font-size:12px;color:var(--ink);font-weight:600;line-height:1.35;}
 .fit-cell-value.good{color:var(--teal);}
 
-/* Idle gap indicator above load board */
-.idle-callout{
-  padding:14px 18px;
-  background:var(--amber-soft);
-  border-bottom:1px solid var(--paper-line);
-  display:flex;align-items:center;gap:12px;
-}
-.idle-callout-icon{
-  width:28px;height:28px;border-radius:50%;
-  background:var(--amber);color:white;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;font-weight:700;flex-shrink:0;
-}
+.idle-callout{padding:14px 18px;background:var(--amber-soft);border-bottom:1px solid var(--paper-line);display:flex;align-items:center;gap:12px;}
+.idle-callout-icon{width:28px;height:28px;border-radius:50%;background:var(--amber);color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
 .idle-callout-content{flex:1;}
 .idle-callout-label{font-family:var(--mono);font-size:9px;color:#9c7a2e;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:2px;}
 .idle-callout-msg{font-size:12.5px;color:var(--ink);font-weight:500;line-height:1.4;}
@@ -373,7 +630,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO with animated agentic flow -->
 <div class="hero-wrap">
   <div class="hero-inner">
     <div class="hero-left">
@@ -388,35 +645,96 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
 
     <div class="hero-right">
       <div class="hero-glow"></div>
-      <div class="agent-feed-card">
-        <div class="agent-feed-head">
-          <div class="agent-feed-title">
+      <div class="agent-card">
+        <div class="agent-card-head">
+          <div class="agent-card-title">
+            <span class="agent-pulse"></span>
+            <span id="hero-state-label">Dispatcher · Live</span>
+          </div>
+          <span class="agent-card-meta" id="hero-state-meta">375 trucks · monitoring</span>
+        </div>
+
+        <!-- STAGE 1: chat input -->
+        <div class="hero-stage" id="hero-stage-1">
+          <div class="hero-stage-label">Tell the agent what changed</div>
+          <div class="hero-input-wrap" id="hero-input-wrap">
+            <div class="hero-input placeholder" id="hero-input"><span id="hero-input-text"></span><span class="hero-input-cursor" id="hero-input-cursor"></span></div>
+            <button class="hero-send-btn" id="hero-send-btn">Send</button>
+          </div>
+        </div>
+
+        <!-- STAGE 2: pending re-optimize -->
+        <div class="hero-pending" id="hero-pending">
+          <div class="hero-pending-label">1 change pending</div>
+          <div class="hero-pending-msg"><strong>Max</strong> called in sick · 2 loads need coverage</div>
+          <button class="hero-reopt-btn" id="hero-reopt-btn">
+            Re-optimize week
+            <span style="font-family:monospace;">→</span>
+          </button>
+        </div>
+
+        <!-- STAGE 3: re-planning progress -->
+        <div class="hero-replan" id="hero-replan">
+          <div class="hero-replan-eyebrow"><span id="hero-replan-eyebrow-text">Re-planning</span></div>
+          <div class="hero-replan-title" id="hero-replan-title">Re-planning the week</div>
+          <div class="hero-replan-bar">
+            <div class="hero-replan-fill" id="hero-replan-fill"></div>
+          </div>
+          <div class="hero-replan-status" id="hero-replan-status">Reading driver schedules and HOS…</div>
+          <div class="hero-replan-summary" id="hero-replan-summary">
+            <span class="hero-replan-summary-check">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#0E8378" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span><strong id="hero-replan-summary-count">10</strong> drivers' schedules updated.</span>
+          </div>
+        </div>
+
+        <!-- STAGE 4: notify queue -->
+        <div class="hero-notify" id="hero-notify">
+          <div class="hero-notify-head">
+            <div class="hero-notify-eyebrow">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Plan updates · Notify queue
+            </div>
+            <div class="hero-notify-title">Notify queue</div>
+            <div class="hero-notify-sub">2 changes from this re-plan — notify the affected parties below.</div>
+          </div>
+          <div class="hero-notify-card">
+            <div class="hero-notify-tag">
+              <span>↔ Sick callout · Max → Morales</span>
+              <span class="hero-notify-tag-count">2 DRIVERS</span>
+            </div>
+            <div class="hero-notify-name">Max · Truck #1108</div>
+            <div class="hero-notify-status">Off · sick</div>
+            <div class="hero-notify-detail">Loads reassigned across same-terminal drivers. <strong>Morales</strong> covers Mon–Tue · Max resumes Wed.</div>
+            <div class="hero-notify-actions">
+              <span class="hero-notify-btn"><span class="hero-notify-btn-dot"></span> Notify driver</span>
+              <span class="hero-notify-btn">✉ Notify broker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compact live agent feed — under main workflow card -->
+      <div class="hero-feed-card">
+        <div class="hero-feed-head">
+          <div class="hero-feed-title">
             <span class="agent-pulse"></span>
             Live agent feed
           </div>
-          <span class="agent-feed-meta">4 actions · last 12 min</span>
+          <span class="hero-feed-meta" id="hero-feed-meta">Watching · 375 trucks</span>
         </div>
-        <div class="agent-feed-body">
-          <div class="alert eld">
-            <div class="alert-src">ELD · Hours of service</div>
-            <div class="alert-msg"><strong>G. Sandhu (Truck #1042)</strong> running low on hours.</div>
-            <div class="alert-meta">Will need a forced 10-hr break Wednesday. Plan re-solved.</div>
-          </div>
-          <div class="alert maint">
-            <div class="alert-src">Telematics · Truck health</div>
-            <div class="alert-msg"><strong>Truck #1213</strong> engine warning detected.</div>
-            <div class="alert-meta">Pull truck Tuesday for 2-day repair. Loads reassigned to #2154.</div>
-          </div>
-          <div class="alert mci">
-            <div class="alert-src">Market intelligence</div>
-            <div class="alert-msg">Lane upgrade: <strong>Dallas → Phoenix</strong> spot rates 14% above average.</div>
-            <div class="alert-meta">T. Bauer is in Dallas Tuesday morning. Offer drafted.</div>
-          </div>
-          <div class="alert broker">
-            <div class="alert-src">Broker · Outreach</div>
-            <div class="alert-msg"><strong>Mike Reilly</strong> (CH Robinson) countered $785 on KC → Tulsa.</div>
-            <div class="alert-meta">Agent recommends accepting. Net cycle profit: +$340.</div>
-          </div>
+        <div class="feed-item" id="feed-1">
+          <div class="feed-item-src">ELD · Hours of service</div>
+          <div class="feed-item-msg"><strong>G. Sandhu (Truck #1042)</strong> low on hours · Wed break scheduled.</div>
+        </div>
+        <div class="feed-item" id="feed-2">
+          <div class="feed-item-src">Market intelligence</div>
+          <div class="feed-item-msg">Lane upgrade: <strong>Dallas → Phoenix</strong> spot rates 14% above avg.</div>
+        </div>
+        <div class="feed-item" id="feed-3">
+          <div class="feed-item-src">Broker · Outreach</div>
+          <div class="feed-item-msg"><strong>Mike Reilly</strong> countered $785 on KC → Tulsa.</div>
         </div>
       </div>
     </div>
@@ -428,17 +746,17 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   <div class="metrics-strip">
     <div class="metric">
       <div class="metric-label">Revenue per truck</div>
-      <div class="metric-value"><em>+30%</em></div>
+      <div class="metric-value"><em>+15%</em></div>
       <div class="metric-desc">Average lift across pilot fleets</div>
     </div>
     <div class="metric">
       <div class="metric-label">Utilization</div>
-      <div class="metric-value"><em>+15%</em></div>
+      <div class="metric-value"><em>+12%</em></div>
       <div class="metric-desc">More trucks loaded, fewer idle days</div>
     </div>
     <div class="metric">
       <div class="metric-label">Rate per mile</div>
-      <div class="metric-value"><em>+10%</em></div>
+      <div class="metric-value"><em>+9%</em></div>
       <div class="metric-desc">Smarter load selection, not faster</div>
     </div>
     <div class="metric">
@@ -449,7 +767,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   </div>
 </div>
 
-<!-- HOW IT WORKS — moved up -->
+<!-- HOW IT WORKS -->
 <section class="how" id="how">
   <div class="container">
     <div class="how-top reveal">
@@ -533,13 +851,11 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   </div>
 </section>
 
-<!-- ============================================
-     01 — PLAN THE WEEK
-     ============================================ -->
+<!-- 01 PLAN THE WEEK -->
 <div class="fx-section section-warm">
   <div class="fx-band reveal">
     <div class="fx-band-label">01 · Plan the week</div>
-    <div class="fx-band-head">Reads your data<br><em>Plans the week.</em></div>
+    <div class="fx-band-head">Reads your fleet.<br><em>Solves the week.</em></div>
     <div class="fx-band-body">Every Sunday night, Planner reads live data from your ELD and TMS — driver hours, truck positions, customer commitments. Then solves the full week as one system. Every truck, every driver, every load.</div>
   </div>
   <div class="fx-card-wrap reveal">
@@ -550,18 +866,15 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
       </div>
       <div class="timeline-card">
         <div class="timeline-head">
-          <div class="timeline-title">Weekly plan · 356 trucks</div>
-          <div class="timeline-status"><span class="agent-pulse"></span> Solved 3.7s · 2,806 assignments</div>
+          <div class="timeline-title">Weekly plan · 375 trucks</div>
+          <div class="timeline-status"><span class="agent-pulse"></span> Solved 3.7s · 2,908 assignments</div>
         </div>
         <div class="timeline-body">
           <div class="timeline-days">
             <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
           </div>
           <div class="timeline-row">
-            <div class="timeline-truck">
-              <div class="timeline-truck-name">#1042</div>
-              <div class="timeline-truck-driver">G. Sandhu</div>
-            </div>
+            <div class="timeline-truck"><div class="timeline-truck-name">#1042</div><div class="timeline-truck-driver">G. Sandhu</div></div>
             <div class="timeline-bar">
               <div class="timeline-seg load" style="flex:2;">DAL→PHX</div>
               <div class="timeline-seg load-light" style="flex:1;">PHX→KC</div>
@@ -571,10 +884,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
             </div>
           </div>
           <div class="timeline-row">
-            <div class="timeline-truck">
-              <div class="timeline-truck-name">#2154</div>
-              <div class="timeline-truck-driver">D. Castro</div>
-            </div>
+            <div class="timeline-truck"><div class="timeline-truck-name">#2154</div><div class="timeline-truck-driver">D. Castro</div></div>
             <div class="timeline-bar">
               <div class="timeline-seg load" style="flex:1.5;">TUC→PHX</div>
               <div class="timeline-seg load-light" style="flex:2;">PHX→DAL</div>
@@ -583,10 +893,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
             </div>
           </div>
           <div class="timeline-row">
-            <div class="timeline-truck">
-              <div class="timeline-truck-name">#1213</div>
-              <div class="timeline-truck-driver">J. Anderson</div>
-            </div>
+            <div class="timeline-truck"><div class="timeline-truck-name">#1213</div><div class="timeline-truck-driver">J. Anderson</div></div>
             <div class="timeline-bar">
               <div class="timeline-seg load" style="flex:1.5;">SEA→PDX</div>
               <div class="timeline-seg maint" style="flex:2;">MAINT</div>
@@ -596,10 +903,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
             </div>
           </div>
           <div class="timeline-row">
-            <div class="timeline-truck">
-              <div class="timeline-truck-name">#3024</div>
-              <div class="timeline-truck-driver">A. Singh</div>
-            </div>
+            <div class="timeline-truck"><div class="timeline-truck-name">#3024</div><div class="timeline-truck-driver">A. Singh</div></div>
             <div class="timeline-bar">
               <div class="timeline-seg load" style="flex:2;">CHI→NYC</div>
               <div class="timeline-seg load-light" style="flex:1.5;">NYC→BOS</div>
@@ -608,10 +912,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
             </div>
           </div>
           <div class="timeline-row">
-            <div class="timeline-truck">
-              <div class="timeline-truck-name">#4083</div>
-              <div class="timeline-truck-driver">T. Jackson</div>
-            </div>
+            <div class="timeline-truck"><div class="timeline-truck-name">#4083</div><div class="timeline-truck-driver">T. Jackson</div></div>
             <div class="timeline-bar">
               <div class="timeline-seg load" style="flex:1.5;">CLT→JAX</div>
               <div class="timeline-seg load" style="flex:1.5;">JAX→MIA</div>
@@ -630,9 +931,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   </div>
 </div>
 
-<!-- ============================================
-     02 — ADAPT IN REAL TIME (with broker modal)
-     ============================================ -->
+<!-- 02 ADAPT IN REAL TIME -->
 <div class="section-paper">
   <div class="fx-band reveal">
     <div class="fx-band-label">02 · Adapt in real time</div>
@@ -708,18 +1007,9 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
       </div>
     </div>
     <div class="modal-broker-meta">
-      <div class="modal-broker-row">
-        <span class="modal-broker-label">To</span>
-        <span class="modal-broker-val">Tom Henderson · JB Hunt · MC 252323</span>
-      </div>
-      <div class="modal-broker-row">
-        <span class="modal-broker-label">Load</span>
-        <span class="modal-broker-val">#2491042 · Tucson → Phoenix · Wed pickup</span>
-      </div>
-      <div class="modal-broker-row">
-        <span class="modal-broker-label">Subject</span>
-        <span class="modal-broker-val">Truck #2154 · Load #2491042 · driver swap</span>
-      </div>
+      <div class="modal-broker-row"><span class="modal-broker-label">To</span><span class="modal-broker-val">Tom Henderson · JB Hunt · MC 252323</span></div>
+      <div class="modal-broker-row"><span class="modal-broker-label">Load</span><span class="modal-broker-val">#2491042 · Tucson → Phoenix · Wed pickup</span></div>
+      <div class="modal-broker-row"><span class="modal-broker-label">Subject</span><span class="modal-broker-val">Truck #2154 · Load #2491042 · driver swap</span></div>
     </div>
     <div class="modal-email-body">Tom,
 
@@ -736,9 +1026,7 @@ Please advise.
   </div>
 </div>
 
-<!-- ============================================
-     03 — FILL IDLE TIME WITH REVENUE
-     ============================================ -->
+<!-- 03 FILL IDLE TIME -->
 <div class="fx-section section-warm" id="features">
   <div class="fx-band reveal">
     <div class="fx-band-label">03 · Fill idle time with revenue</div>
@@ -762,45 +1050,17 @@ Please advise.
         <span class="lb-title">Load candidates · ranked by fleet fit</span>
         <span class="lb-scanning"><span class="agent-pulse"></span> Best fit found</span>
       </div>
-      <div class="lb-row">
-        <div></div>
-        <div><div class="lb-row-route">Dallas, TX → Portland, OR</div><div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div></div>
-        <div><div class="lb-rate">$3,600</div><div class="lb-rpm">$1.69/mi</div></div>
-      </div>
-      <div class="lb-row">
-        <div></div>
-        <div><div class="lb-row-route">Tyler, TX → Sparks, NV</div><div class="lb-row-meta">1,752 mi · Van · 42k lbs</div></div>
-        <div><div class="lb-rate">$3,750</div><div class="lb-rpm">$2.14/mi</div></div>
-      </div>
-      <div class="lb-row">
-        <div></div>
-        <div><div class="lb-row-route">Dallas, TX → Hartford, CT</div><div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div></div>
-        <div><div class="lb-rate">$4,300</div><div class="lb-rpm">$2.58/mi</div></div>
-      </div>
-      <div class="lb-row winner">
-        <div><span class="lb-badge">✓ Best fit</span></div>
-        <div><div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div><div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div></div>
-        <div><div class="lb-rate">$4,501</div><div class="lb-rpm">$2.93/mi</div></div>
-      </div>
+      <div class="lb-row"><div></div><div><div class="lb-row-route">Dallas, TX → Portland, OR</div><div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div></div><div><div class="lb-rate">$3,600</div><div class="lb-rpm">$1.69/mi</div></div></div>
+      <div class="lb-row"><div></div><div><div class="lb-row-route">Tyler, TX → Sparks, NV</div><div class="lb-row-meta">1,752 mi · Van · 42k lbs</div></div><div><div class="lb-rate">$3,750</div><div class="lb-rpm">$2.14/mi</div></div></div>
+      <div class="lb-row"><div></div><div><div class="lb-row-route">Dallas, TX → Hartford, CT</div><div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div></div><div><div class="lb-rate">$4,300</div><div class="lb-rpm">$2.58/mi</div></div></div>
+      <div class="lb-row winner"><div><span class="lb-badge">✓ Best fit</span></div><div><div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div><div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div></div><div><div class="lb-rate">$4,501</div><div class="lb-rpm">$2.93/mi</div></div></div>
       <div class="fit-reasoning">
         <div class="fit-reasoning-head">Why this load · Find &amp; Fill reasoning</div>
         <div class="fit-grid">
-          <div class="fit-cell">
-            <div class="fit-cell-label">Home-time</div>
-            <div class="fit-cell-value good">Honors Sun deadline</div>
-          </div>
-          <div class="fit-cell">
-            <div class="fit-cell-label">Pickup</div>
-            <div class="fit-cell-value good">2.1 hrs · zero rush</div>
-          </div>
-          <div class="fit-cell">
-            <div class="fit-cell-label">Empty mile</div>
-            <div class="fit-cell-value good">Continuation lane available</div>
-          </div>
-          <div class="fit-cell">
-            <div class="fit-cell-label">Market position</div>
-            <div class="fit-cell-value good">PHL outbound · strong</div>
-          </div>
+          <div class="fit-cell"><div class="fit-cell-label">Home-time</div><div class="fit-cell-value good">Honors Sun deadline</div></div>
+          <div class="fit-cell"><div class="fit-cell-label">Pickup</div><div class="fit-cell-value good">2.1 hrs · zero rush</div></div>
+          <div class="fit-cell"><div class="fit-cell-label">Empty mile</div><div class="fit-cell-value good">Continuation lane available</div></div>
+          <div class="fit-cell"><div class="fit-cell-label">Market position</div><div class="fit-cell-value good">PHL outbound · strong</div></div>
         </div>
       </div>
     </div>
@@ -882,6 +1142,225 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
   this.style.cssText+=';background:#1A1A1A;color:white;';
   setTimeout(()=>{this.textContent='Book demo →';this.style.cssText='';},3000);
 });
+
+// ============================================
+// HERO ANIMATION — full dispatcher workflow
+// Stage 1: types "J. Dhaliwal called in sick"
+// Stage 2: send → pending re-optimize banner
+// Stage 3: re-optimize click → progress bar
+// Stage 4: notify queue card surfaces
+// ============================================
+(function(){
+  const stage1 = document.getElementById('hero-stage-1');
+  const stage2 = document.getElementById('hero-pending');
+  const stage3 = document.getElementById('hero-replan');
+  const stage4 = document.getElementById('hero-notify');
+
+  const input = document.getElementById('hero-input');
+  const inputText = document.getElementById('hero-input-text');
+  const inputCursor = document.getElementById('hero-input-cursor');
+  const inputWrap = document.getElementById('hero-input-wrap');
+  const sendBtn = document.getElementById('hero-send-btn');
+  const reoptBtn = document.getElementById('hero-reopt-btn');
+
+  const replanFill = document.getElementById('hero-replan-fill');
+  const replanStatus = document.getElementById('hero-replan-status');
+  const replanTitle = document.getElementById('hero-replan-title');
+  const replanEyebrow = document.getElementById('hero-replan-eyebrow-text');
+  const replanSummary = document.getElementById('hero-replan-summary');
+
+  const stateLabel = document.getElementById('hero-state-label');
+  const stateMeta = document.getElementById('hero-state-meta');
+
+  const stages = [
+    { at: 0,    text: 'Reading driver schedules and HOS…' },
+    { at: 0.20, text: 'Anchoring dedicated contracts · CP-SAT' },
+    { at: 0.42, text: 'Solving spot capacity · LNS iterations' },
+    { at: 0.65, text: 'HOS feasibility check · all drivers' },
+    { at: 0.85, text: 'Stress-testing plan · 8,000 scenarios' }
+  ];
+
+  // Initial placeholder
+  inputText.textContent = 'e.g. "Max called in sick"';
+
+  function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
+
+  async function typeText(text, speed=55){
+    input.classList.remove('placeholder');
+    inputText.textContent = '';
+    for(let i=0; i<=text.length; i++){
+      inputText.textContent = text.substring(0, i);
+      await sleep(speed + Math.random()*30);
+    }
+  }
+
+  async function runFlow(){
+    await sleep(1400);
+
+    // Stage 1a: focus input (border turns teal)
+    inputWrap.classList.add('focused');
+    await sleep(600);
+
+    // Stage 1b: typing the message
+    await typeText('Max called in sick');
+    await sleep(500);
+
+    // Stage 1d: send button press
+    sendBtn.style.background = 'var(--orange)';
+    sendBtn.style.transform = 'scale(.96)';
+    await sleep(200);
+    sendBtn.style.transform = 'scale(1)';
+    await sleep(300);
+
+    // Stage 2: transition to pending
+    stage1.classList.add('hidden');
+    stage2.classList.add('show');
+    stateLabel.textContent = '1 change pending';
+    stateMeta.textContent = 'Awaiting re-optimize';
+    await sleep(1100);
+
+    // Stage 2b: re-optimize button press
+    reoptBtn.classList.add('pressed');
+    await sleep(220);
+    reoptBtn.classList.remove('pressed');
+    await sleep(200);
+
+    // Stage 3: transition to replanning
+    stage2.classList.remove('show');
+    await sleep(280);
+    stage2.style.display = 'none';
+    stage3.classList.add('show');
+    stateLabel.textContent = 'Re-planning';
+    stateMeta.textContent = 'CP-SAT · LNS · 8,000 scenarios';
+
+    // Animate progress bar through ~2.6s
+    const duration = 2600;
+    const stepMs = 60;
+    const totalSteps = duration / stepMs;
+    let lastStageText = '';
+
+    for (let i = 0; i <= totalSteps; i++) {
+      const frac = i / totalSteps;
+      replanFill.style.width = (frac * 100) + '%';
+      const stage = stages.slice().reverse().find(s => frac >= s.at);
+      if (stage && stage.text !== lastStageText) {
+        replanStatus.textContent = stage.text;
+        lastStageText = stage.text;
+      }
+      await sleep(stepMs);
+    }
+    replanFill.style.width = '100%';
+
+    // Done state
+    replanEyebrow.textContent = 'Done';
+    replanTitle.textContent = 'Plan updated';
+    replanStatus.textContent = 'Picking the best moves…';
+    replanSummary.classList.add('show');
+    stateLabel.textContent = 'Plan updated';
+    stateMeta.textContent = '10 drivers · 2 brokers';
+
+    await sleep(1400);
+
+    // Stage 4: notify queue surfaces
+    stage3.classList.remove('show');
+    await sleep(280);
+    stage3.style.display = 'none';
+    stage4.classList.add('show');
+    stateLabel.textContent = 'Notify queue';
+    stateMeta.textContent = '2 changes · awaiting send';
+  }
+
+  setTimeout(runFlow, 600);
+})();
+
+// ============================================
+// LIVE AGENT FEED — constantly cycling alerts
+// ============================================
+(function(){
+  const feedItems = [
+    { id: 'feed-1', kind: 'eld', src: 'ELD · Hours of service', msg: '<strong>G. Sandhu (Truck #1042)</strong> low on hours · Wed break scheduled.' },
+    { id: 'feed-2', kind: 'mci', src: 'Market intelligence', msg: 'Lane upgrade: <strong>Dallas → Phoenix</strong> spot rates 14% above avg.' },
+    { id: 'feed-3', kind: 'broker', src: 'Broker · Outreach', msg: '<strong>Mike Reilly</strong> countered $785 on KC → Tulsa.' }
+  ];
+
+  // Pool of alerts to rotate through — pulled from the demo's actual alert seed data
+  const pool = [
+    { kind: 'eld', src: 'ELD · Driver tracking', msg: '<strong>J. Morales (Truck #1213)</strong> still unloading in Chicago.' },
+    { kind: 'maint', src: 'Telematics · Truck health', msg: '<strong>Truck #3024</strong> brake job scheduled · Friday yard return.' },
+    { kind: 'mci', src: 'Market intelligence', msg: 'Markets to avoid: <strong>Boise, Albuquerque, OKC south</strong> · thin backhaul.' },
+    { kind: 'broker', src: 'Broker · TQL', msg: '<strong>Sarah Chen</strong> released paired backhaul OKC↔DFW · fits A. Singh.' },
+    { kind: 'eld', src: 'ELD · Hours of service', msg: '<strong>G. Mathews (Truck #1342)</strong> 30 min from 11-hr drive limit.' },
+    { kind: 'mci', src: 'Market intelligence', msg: 'Strong outbound: <strong>Atlanta, Chicago, Dallas</strong> · position Monday AM.' },
+    { kind: 'broker', src: 'Broker · JB Hunt', msg: '<strong>Tom Henderson</strong> confirmed Chicago → St. Louis · Thu 8 AM pickup.' },
+    { kind: 'eld', src: 'ELD · Driver tracking', msg: '<strong>T. Jackson (Truck #4083)</strong> delivered Charlotte · ready for next load.' },
+    { kind: 'maint', src: 'Telematics · Truck health', msg: '<strong>Truck #2118</strong> oil pressure trending low · preventive check queued.' },
+    { kind: 'mci', src: 'Market intelligence', msg: 'Lane softening: <strong>Seattle → SF</strong> rates dropped 8% this week.' },
+    { kind: 'broker', src: 'Broker · CH Robinson', msg: '<strong>Mike Reilly</strong> reposted SBD → Phoenix · A. Gurung eligible.' },
+    { kind: 'eld', src: 'ELD · Driver tracking', msg: '<strong>J. Rivera (Truck #2244)</strong> detention 1h 12m at Oakland port.' }
+  ];
+
+  let poolIdx = 0;
+
+  function getFeedItemEl(id){
+    return document.getElementById(id);
+  }
+
+  // Show initial 3 items in sequence
+  async function showInitial(){
+    for(let i = 0; i < feedItems.length; i++){
+      await new Promise(r => setTimeout(r, 400));
+      getFeedItemEl(feedItems[i].id).classList.add('show');
+    }
+  }
+
+  function renderItem(el, item){
+    // Reset state then update content
+    el.classList.remove('eld','maint','mci','broker');
+    el.classList.add(item.kind);
+    el.querySelector('.feed-item-src').textContent = item.src;
+    el.querySelector('.feed-item-msg').innerHTML = item.msg;
+  }
+
+  async function cycleNext(){
+    // Pick oldest item (top), fade it, replace with new content, fade back in
+    // Visually: top item drops, others shift up, new item appears at bottom
+    const oldest = feedItems.shift();
+    const newItem = pool[poolIdx % pool.length];
+    poolIdx++;
+
+    const oldEl = getFeedItemEl(oldest.id);
+    oldEl.classList.remove('show');
+    await new Promise(r => setTimeout(r, 400));
+
+    // Update its content with new item data
+    renderItem(oldEl, newItem);
+
+    // Move it to bottom of DOM order so it becomes the newest
+    oldEl.parentNode.appendChild(oldEl);
+
+    // Add back to tracking array with the new content
+    feedItems.push({ id: oldest.id, ...newItem });
+
+    // Update meta counter (a small visible tick)
+    const meta = document.getElementById('hero-feed-meta');
+    if (meta) meta.textContent = `Watching · ${375} trucks`;
+
+    await new Promise(r => setTimeout(r, 100));
+    oldEl.classList.add('show');
+  }
+
+  async function run(){
+    await showInitial();
+    // Start cycling after initial display
+    await new Promise(r => setTimeout(r, 3500));
+    while(true){
+      await cycleNext();
+      await new Promise(r => setTimeout(r, 4200 + Math.random()*1500));
+    }
+  }
+
+  setTimeout(run, 800);
+})();
 </script>
 </body>
 </html>
