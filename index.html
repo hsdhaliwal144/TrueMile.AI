@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>TrueMile — Agentic optimization for mid-market trucking</title>
 
-<!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -13,7 +12,6 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#E8501E">
 
-<!-- Open Graph / iMessage / Slack link previews -->
 <meta property="og:title" content="TrueMile">
 <meta property="og:description" content="Agentic optimization infrastructure for mid-market trucking. AI agents that plan the week, adapt in real time, and turn idle time into revenue.">
 <meta property="og:url" content="https://truemile.ai">
@@ -23,300 +21,337 @@
 <meta name="twitter:description" content="Agentic optimization infrastructure for mid-market trucking.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Brand colors — locked */
   --charcoal:#1A1A1A;
   --charcoal-soft:#232323;
-  --charcoal-line:rgba(255,255,255,.08);
   --orange:#E8501E;
-  --orange-soft:rgba(232,80,30,.12);
+  --orange-soft:rgba(232,80,30,.10);
+  --orange-soft-2:rgba(232,80,30,.06);
   --orange-deep:#C9420E;
+  --teal:#0E8378;
+  --teal-soft:rgba(14,131,120,.10);
+  --amber:#D9A441;
+  --amber-soft:rgba(217,164,65,.12);
+  --blue:#5577A0;
+  --blue-soft:rgba(85,119,160,.10);
+  --red:#B85A52;
+  --red-soft:rgba(184,90,82,.10);
   --paper:#FAFAF9;
   --paper-warm:#F3F1ED;
   --paper-line:rgba(0,0,0,.08);
+  --paper-line-soft:rgba(0,0,0,.05);
   --ink:#0A0A0A;
-  --ink-dim:#6B6B6B;
-  --ink-mute:#9A9A9A;
+  --ink-dim:#5B5B5B;
+  --ink-mute:#8A8A8A;
   --white:#FFFFFF;
-
   --sans:'Inter',system-ui,-apple-system,sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{font-family:var(--sans);background:var(--charcoal);color:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(26,26,26,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--charcoal-line);}
-.nb{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;color:var(--white);letter-spacing:-.01em;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(250,250,249,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--paper-line-soft);}
+.nb{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px;color:var(--ink);letter-spacing:-.01em;}
 .nr{display:flex;gap:32px;align-items:center;}
-.nl{font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s;font-weight:500;}
-.nl:hover{color:var(--white);}
-.nc{font-size:13px;font-weight:500;color:var(--white);background:var(--orange);padding:10px 20px;border-radius:6px;text-decoration:none;transition:background .2s,transform .15s;}
-.nc:hover{background:var(--orange-deep);transform:translateY(-1px);}
+.nl{font-size:13px;color:var(--ink-dim);text-decoration:none;transition:color .2s;font-weight:500;}
+.nl:hover{color:var(--ink);}
+.nc{font-size:13px;font-weight:500;color:var(--white);background:var(--charcoal);padding:10px 20px;border-radius:6px;text-decoration:none;transition:background .2s,transform .15s;}
+.nc:hover{background:var(--orange);transform:translateY(-1px);}
 
 /* HERO */
-.hero-wrap{
-  min-height:100vh;
-  position:relative;
-  background:var(--charcoal);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:120px 48px 80px;
-  gap:96px;
-  overflow:hidden;
-}
-.hero-wrap::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 55% 65% at 78% 50%,rgba(232,80,30,.18) 0%,transparent 65%);
-  pointer-events:none;
-}
-
-/* LEFT */
-.hero-left{
-  position:relative;
-  z-index:2;
-  flex:1 1 auto;
-  max-width:620px;
-}
-
-.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fup .7s .2s ease forwards;}
+.hero-wrap{position:relative;background:var(--paper);padding:120px 48px 56px;overflow:hidden;}
+.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 40%,rgba(232,80,30,.08) 0%,transparent 65%);pointer-events:none;}
+.hero-inner{display:flex;align-items:center;justify-content:center;gap:96px;max-width:1200px;margin:0 auto;}
+.hero-left{position:relative;z-index:2;flex:1 1 auto;max-width:620px;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;padding:8px 14px;background:var(--orange-soft);border:1px solid rgba(232,80,30,.18);border-radius:100px;opacity:0;animation:fup .7s .2s ease forwards;}
 .ed{width:5px;height:5px;border-radius:50%;background:var(--orange);}
-.et{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);}
-
-.hero-left h1{
-  font-family:var(--sans);
-  font-size:clamp(56px,7vw,96px);
-  font-weight:600;
-  line-height:1.02;
-  letter-spacing:-.04em;
-  margin-bottom:28px;
-  color:var(--white);
-  opacity:0;
-  animation:fup .8s .4s ease forwards;
-}
-.hero-left h1 em{
-  font-style:normal;
-  font-weight:600;
-  color:var(--orange);
-}
-
-.hero-sub{font-size:18px;color:rgba(255,255,255,.78);line-height:1.65;max-width:54ch;font-weight:400;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
-
+.et{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep);}
+.hero-left h1{font-family:var(--sans);font-size:clamp(56px,7vw,96px);font-weight:600;line-height:1.02;letter-spacing:-.04em;margin-bottom:28px;color:var(--ink);opacity:0;animation:fup .8s .4s ease forwards;}
+.hero-left h1 em{font-style:normal;font-weight:600;color:var(--orange);}
+.hero-sub{font-size:18px;color:var(--ink-dim);line-height:1.65;max-width:54ch;font-weight:400;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
 .hbtns{display:flex;gap:14px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
-.bp{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--orange);color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;transition:background .2s,transform .15s;}
-.bp:hover{background:var(--orange-deep);transform:translateY(-1px);}
-.bs{display:inline-flex;align-items:center;padding:14px 24px;background:transparent;color:rgba(255,255,255,.85);font-size:14px;font-weight:500;border:1px solid rgba(255,255,255,.15);border-radius:6px;text-decoration:none;transition:border-color .2s,color .2s;}
-.bs:hover{border-color:rgba(255,255,255,.3);color:var(--white);}
+.bp{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--charcoal);color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;transition:background .2s,transform .15s;cursor:pointer;border:none;font-family:var(--sans);}
+.bp:hover{background:var(--orange);transform:translateY(-1px);}
+.bs{display:inline-flex;align-items:center;padding:14px 24px;background:transparent;color:var(--ink-dim);font-size:14px;font-weight:500;border:1px solid var(--paper-line);border-radius:6px;text-decoration:none;transition:border-color .2s,color .2s;}
+.bs:hover{border-color:var(--charcoal);color:var(--ink);}
 
-/* RIGHT */
-.hero-right{
-  flex:0 0 auto;
-  width:540px;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  opacity:0;
-  animation:fup 1s .4s ease forwards;
-}
-.hero-glow{
-  position:absolute;top:50%;left:50%;
-  width:500px;height:500px;
-  transform:translate(-50%,-50%);
-  background:radial-gradient(circle,rgba(232,80,30,.18) 0%,transparent 65%);
-  pointer-events:none;filter:blur(60px);z-index:0;
-}
-.hero-window{
-  position:relative;z-index:1;
-  width:100%;
-  max-width:490px;
-  background:#0f0f0f;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:12px;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 30px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04);
-}
-.hero-window-bar{
-  display:flex;align-items:center;gap:8px;
-  padding:11px 16px;
-  background:rgba(10,10,10,.95);
-  border-bottom:1px solid rgba(255,255,255,.07);
-  flex-shrink:0;
-}
-.hero-window-dots{display:flex;gap:6px;}
-.hero-window-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12);}
-.hero-window-url{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.28);margin-left:6px;}
-.hero-window-body{
-  position:relative;
-  background:radial-gradient(ellipse 130% 90% at 55% 25%, rgba(60,30,15,.6) 0%, rgba(30,15,10,.85) 45%, rgba(10,8,6,1) 100%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:28px 24px;
-  min-height:340px;
-}
-.hero-window-body::before{
-  content:'';position:absolute;inset:0;
-  background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);
-  background-size:40px 40px;
-  pointer-events:none;
-}
-.hero-metrics-card{
-  position:relative;z-index:1;
-  width:100%;
-  background:rgba(15,12,10,.92);
-  border:1px solid rgba(232,80,30,.3);
-  border-radius:8px;
-  overflow:hidden;
-  box-shadow:0 0 0 1px rgba(232,80,30,.1),0 16px 48px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.05);
-}
-.hmc-bar{padding:11px 14px;background:rgba(232,80,30,.08);border-bottom:1px solid rgba(232,80,30,.18);display:flex;align-items:center;gap:8px;}
-.hmc-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite;}
-.hmc-title{font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.55);letter-spacing:.06em;text-transform:uppercase;}
-.hmc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.06);}
-.hm{background:rgba(15,12,10,.95);padding:26px 22px;transition:background .2s;}
-.hm:hover{background:rgba(232,80,30,.08);}
-.hm-tag{display:inline-block;margin-bottom:10px;padding:3px 9px;background:var(--orange-soft);color:var(--orange);border-radius:20px;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono);}
-.hm-val{font-family:var(--sans);font-size:38px;font-weight:600;line-height:1;letter-spacing:-.03em;color:var(--white);margin-bottom:6px;}
-.hm-label{font-size:11px;color:rgba(255,255,255,.45);font-weight:400;}
+.hero-right{flex:0 0 auto;width:540px;position:relative;display:flex;align-items:center;justify-content:center;opacity:0;animation:fup 1s .4s ease forwards;}
+.hero-glow{position:absolute;top:50%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(232,80,30,.10) 0%,transparent 65%);pointer-events:none;filter:blur(60px);z-index:0;}
 
-/* SECTION BAND HEADERS — light sections */
+.agent-feed-card{position:relative;z-index:1;width:100%;max-width:490px;background:var(--white);border:1px solid var(--paper-line);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(26,26,26,.10),0 8px 24px rgba(26,26,26,.04);}
+.agent-feed-head{padding:13px 18px;border-bottom:1px solid var(--paper-line);display:flex;align-items:center;justify-content:space-between;}
+.agent-feed-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink);}
+.agent-pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(14,131,120,.18);animation:agentPulse 1.8s ease-in-out infinite;}
+@keyframes agentPulse{0%,100%{box-shadow:0 0 0 4px rgba(14,131,120,.18);}50%{box-shadow:0 0 0 8px rgba(14,131,120,.04);}}
+.agent-feed-meta{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.06em;text-transform:uppercase;}
+.agent-feed-body{max-height:440px;overflow:hidden;}
+.alert{padding:14px 18px 14px 38px;border-bottom:1px solid var(--paper-line-soft);position:relative;opacity:0;transform:translateY(-8px);animation:alertIn .5s ease forwards;}
+.alert::before{content:'';position:absolute;left:18px;top:18px;width:8px;height:8px;border-radius:50%;}
+.alert.eld::before{background:var(--amber);box-shadow:0 0 0 3px var(--amber-soft);}
+.alert.tms::before{background:var(--blue);box-shadow:0 0 0 3px var(--blue-soft);}
+.alert.mci::before{background:var(--teal);box-shadow:0 0 0 3px var(--teal-soft);}
+.alert.maint::before{background:var(--red);box-shadow:0 0 0 3px var(--red-soft);}
+.alert.broker::before{background:var(--orange);box-shadow:0 0 0 3px var(--orange-soft);}
+.alert-src{font-family:var(--mono);font-size:9px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;font-weight:600;}
+.alert-msg{font-size:12.5px;color:var(--ink);line-height:1.45;}
+.alert-msg strong{font-weight:600;}
+.alert-meta{font-family:var(--mono);font-size:10px;color:var(--ink-mute);margin-top:5px;line-height:1.4;}
+@keyframes alertIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
+.alert:nth-child(1){animation-delay:1.2s;}
+.alert:nth-child(2){animation-delay:1.9s;}
+.alert:nth-child(3){animation-delay:2.6s;}
+.alert:nth-child(4){animation-delay:3.3s;}
+
+/* METRICS BANNER */
+.metrics-band{background:var(--paper);padding:0 48px 96px;max-width:1200px;margin:0 auto;}
+.metrics-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:12px;overflow:hidden;}
+.metric{background:var(--white);padding:28px 24px;display:flex;flex-direction:column;gap:6px;}
+.metric-label{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;font-weight:600;}
+.metric-value{font-size:34px;font-weight:600;color:var(--ink);letter-spacing:-.03em;line-height:1;}
+.metric-value em{font-style:normal;color:var(--orange);}
+.metric-desc{font-size:12.5px;color:var(--ink-dim);line-height:1.4;margin-top:2px;}
+
+/* SECTION BANDS */
 .fx-section{padding:0;}
 .fx-band{padding:96px 64px 56px;max-width:1160px;margin:0 auto;}
-.fx-band-label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.fx-band-label{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
 .fx-band-head{font-family:var(--sans);font-size:clamp(38px,4.2vw,60px);font-weight:600;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;color:var(--ink);}
 .fx-band-head em{font-style:normal;color:var(--orange);}
 .fx-band-body{font-size:17px;color:var(--ink-dim);line-height:1.65;max-width:54ch;font-weight:400;}
 .fx-card-wrap{padding:0 64px 104px;max-width:1160px;margin:0 auto;}
 
-/* MOCK UI CARDS */
-.ui-card{background:var(--white);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.04);overflow:hidden;width:100%;position:relative;z-index:1;border:1px solid var(--paper-line);}
+.ui-card{background:var(--white);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.03);overflow:hidden;width:100%;position:relative;z-index:1;border:1px solid var(--paper-line);}
 .ui-bar{display:flex;align-items:center;gap:8px;padding:11px 16px;background:var(--paper-warm);border-bottom:1px solid var(--paper-line);}
 .ui-dots{display:flex;gap:5px;}
 .ui-dot{width:8px;height:8px;border-radius:50%;background:#d4d0c8;}
 .ui-url{font-family:var(--mono);font-size:10px;color:var(--ink-dim);margin-left:6px;}
 
-/* LOAD BOARD */
+.section-warm{background:var(--paper-warm);}
+.section-paper{background:var(--paper);}
+
+/* ===========================================
+   HOW IT WORKS — moved up, comes right after metrics
+   =========================================== */
+.how{background:var(--paper);color:var(--ink);padding:112px 48px;}
+.how-top{margin-bottom:64px;}
+.how-eyebrow{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.how-h{font-family:var(--sans);font-size:clamp(36px,4.2vw,56px);font-weight:600;line-height:1.05;letter-spacing:-.03em;max-width:24ch;margin-bottom:20px;color:var(--ink);}
+.how-h em{font-style:normal;color:var(--orange);}
+.how-d{font-size:17px;color:var(--ink-dim);line-height:1.65;max-width:54ch;font-weight:400;}
+
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:12px;overflow:hidden;}
+.agent-tile{background:var(--white);padding:32px 28px;display:flex;flex-direction:column;gap:18px;}
+.agent-tile-header{display:flex;align-items:center;justify-content:space-between;}
+.agent-tile-num{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--orange);letter-spacing:.1em;}
+.agent-tile-status{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9px;font-weight:600;color:var(--teal);letter-spacing:.08em;text-transform:uppercase;}
+.agent-tile-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:agentPulse 1.8s ease-in-out infinite;}
+.agent-tile-icon{width:36px;height:36px;border-radius:8px;background:var(--orange-soft);display:flex;align-items:center;justify-content:center;color:var(--orange);}
+.agent-tile-name{font-size:16px;font-weight:600;color:var(--ink);letter-spacing:-.01em;line-height:1.2;}
+.agent-tile-desc{font-size:13px;color:var(--ink-dim);line-height:1.55;flex:1;}
+.agent-tile-io{display:flex;flex-direction:column;gap:4px;padding-top:12px;border-top:1px solid var(--paper-line);}
+.agent-tile-io-line{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.04em;}
+.agent-tile-io-line.in::before{content:'IN';color:var(--blue);font-weight:700;background:var(--blue-soft);padding:1px 5px;border-radius:3px;font-size:9px;}
+.agent-tile-io-line.out::before{content:'OUT';color:var(--orange);font-weight:700;background:var(--orange-soft);padding:1px 5px;border-radius:3px;font-size:9px;}
+
+/* ===========================================
+   PLAN THE WEEK — timeline
+   =========================================== */
+.timeline-card{padding:0;}
+.timeline-head{padding:16px 20px;border-bottom:1px solid var(--paper-line);display:flex;justify-content:space-between;align-items:center;}
+.timeline-title{font-size:13px;font-weight:600;color:var(--ink);}
+.timeline-status{font-family:var(--mono);font-size:10px;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:6px;}
+.timeline-body{padding:20px;}
+.timeline-row{display:grid;grid-template-columns:130px 1fr;gap:14px;margin-bottom:10px;align-items:center;}
+.timeline-row:last-child{margin-bottom:0;}
+.timeline-truck{display:flex;flex-direction:column;}
+.timeline-truck-name{font-family:var(--mono);font-size:11px;color:var(--ink);font-weight:600;}
+.timeline-truck-driver{font-size:11px;color:var(--ink-dim);margin-top:2px;}
+.timeline-bar{height:28px;background:var(--paper-warm);border-radius:5px;position:relative;display:flex;overflow:hidden;}
+.timeline-seg{height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9px;font-weight:600;color:white;letter-spacing:.04em;position:relative;border-right:1px solid rgba(255,255,255,.4);}
+.timeline-seg:last-child{border-right:none;}
+.timeline-seg.load{background:var(--orange);}
+.timeline-seg.load-light{background:rgba(232,80,30,.45);color:var(--orange-deep);}
+.timeline-seg.empty{background:transparent;color:var(--ink-mute);}
+.timeline-seg.home{background:var(--teal);color:white;}
+.timeline-seg.maint{background:var(--red);color:white;}
+.timeline-days{display:grid;grid-template-columns:repeat(7,1fr);font-family:var(--mono);font-size:9px;color:var(--ink-mute);letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding-bottom:8px;margin-left:144px;}
+.timeline-days div{text-align:center;}
+
+.agent-thought{margin:0 20px 20px;padding:14px 16px;background:var(--paper-warm);border-left:3px solid var(--teal);border-radius:6px;font-size:12.5px;color:var(--ink);line-height:1.55;}
+.agent-thought-head{font-family:var(--mono);font-size:10px;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;font-weight:600;display:flex;align-items:center;gap:6px;}
+.agent-thought-head::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:agentPulse 1.8s ease-in-out infinite;}
+
+/* ===========================================
+   ADAPT IN REAL TIME — slip + broker modal
+   =========================================== */
+.slip-card{padding:0;}
+.slip-event{padding:16px 20px;background:var(--red-soft);border-bottom:1px solid var(--paper-line);display:flex;align-items:flex-start;gap:12px;}
+.slip-event-icon{width:32px;height:32px;border-radius:50%;background:var(--red);color:white;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;}
+.slip-event-content{flex:1;}
+.slip-event-src{font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+.slip-event-msg{font-size:13px;color:var(--ink);line-height:1.5;}
+.slip-event-msg strong{font-weight:600;}
+.slip-event-meta{font-family:var(--mono);font-size:10.5px;color:var(--ink-dim);margin-top:4px;}
+
+.agent-steps{padding:18px 20px;}
+.agent-step{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--paper-line-soft);}
+.agent-step:last-child{border-bottom:none;}
+.agent-step-mark{width:22px;height:22px;border-radius:50%;background:var(--teal-soft);color:var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.agent-step-content{flex:1;}
+.agent-step-action{font-size:13px;color:var(--ink);font-weight:500;line-height:1.4;}
+.agent-step-detail{font-family:var(--mono);font-size:10.5px;color:var(--ink-dim);margin-top:3px;line-height:1.5;}
+.agent-step-detail strong{color:var(--ink);font-weight:600;}
+
+.slip-actions{padding:12px 20px;background:var(--paper-warm);border-top:1px solid var(--paper-line);display:flex;gap:10px;}
+.slip-action-btn{flex:1;padding:11px;background:var(--orange);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background .15s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.slip-action-btn:hover{background:var(--orange-deep);}
+.slip-action-btn.secondary{background:var(--white);color:var(--ink);border:1px solid var(--paper-line);}
+.slip-action-btn.secondary:hover{background:var(--paper);border-color:var(--charcoal);}
+
+.resolved-footer{padding:13px 20px;background:var(--teal-soft);border-top:1px solid rgba(14,131,120,.18);display:flex;align-items:center;justify-content:space-between;}
+.resolved-label{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+.resolved-time{font-family:var(--mono);font-size:11px;color:var(--teal);font-weight:600;}
+
+/* BROKER MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(10,10,10,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .25s ease;}
+.modal-overlay.active{display:flex;opacity:1;}
+.modal-window{width:100%;max-width:560px;background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.3);transform:translateY(20px);transition:transform .3s ease;}
+.modal-overlay.active .modal-window{transform:translateY(0);}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--paper-line);display:flex;align-items:center;justify-content:space-between;}
+.modal-head-title{font-size:14px;font-weight:600;color:var(--ink);}
+.modal-head-meta{font-family:var(--mono);font-size:10px;color:var(--ink-mute);letter-spacing:.06em;text-transform:uppercase;font-weight:600;}
+.modal-close{background:transparent;border:none;cursor:pointer;color:var(--ink-dim);font-size:20px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:background .15s;}
+.modal-close:hover{background:var(--paper-warm);color:var(--ink);}
+
+.modal-broker-meta{padding:14px 20px;background:var(--paper-warm);border-bottom:1px solid var(--paper-line);}
+.modal-broker-row{display:flex;gap:12px;margin-bottom:6px;font-family:var(--mono);font-size:11px;}
+.modal-broker-row:last-child{margin-bottom:0;}
+.modal-broker-label{color:var(--ink-mute);min-width:60px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
+.modal-broker-val{color:var(--ink);font-weight:500;}
+
+.modal-email-body{padding:20px;font-size:13px;line-height:1.7;color:var(--ink);font-family:var(--sans);white-space:pre-wrap;}
+.modal-email-body strong{font-weight:600;}
+
+.modal-actions{padding:14px 20px;background:var(--paper-warm);border-top:1px solid var(--paper-line);display:flex;gap:10px;}
+.modal-action-btn{flex:1;padding:11px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background .15s;border:none;}
+.modal-action-btn.primary{background:var(--orange);color:white;}
+.modal-action-btn.primary:hover{background:var(--orange-deep);}
+.modal-action-btn.secondary{background:var(--white);color:var(--ink);border:1px solid var(--paper-line);}
+.modal-action-btn.secondary:hover{background:var(--paper);border-color:var(--charcoal);}
+
+/* ===========================================
+   FILL IDLE TIME WITH REVENUE (load fit)
+   =========================================== */
 .lb-header{padding:14px 18px;border-bottom:1px solid var(--paper-line);display:flex;align-items:center;justify-content:space-between;}
 .lb-title{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-.01em;}
-.lb-scanning{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--orange);font-weight:500;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;}
-.scan-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 1.4s infinite;}
-.lb-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:14px 18px;border-bottom:1px solid var(--paper-line);align-items:center;opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease,background .3s,border-color .3s;}
-.lb-row.show{opacity:1;transform:translateY(0);}
-.lb-row.winner{background:var(--orange-soft);border-left:3px solid var(--orange);padding-left:15px;}
+.lb-scanning{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--teal);font-weight:600;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;}
+.lb-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:14px 18px;border-bottom:1px solid var(--paper-line);align-items:center;}
+.lb-row.winner{background:var(--orange-soft-2);border-left:3px solid var(--orange);padding-left:15px;}
 .lb-row.winner .lb-rate{color:var(--orange-deep);}
 .lb-row-route{font-size:12.5px;font-weight:500;color:var(--ink);line-height:1.4;}
 .lb-row-meta{font-size:11px;color:var(--ink-dim);margin-top:2px;font-family:var(--mono);}
 .lb-rate{font-size:15px;font-weight:600;color:var(--ink);text-align:right;letter-spacing:-.01em;}
 .lb-rpm{font-size:10px;color:var(--ink-dim);text-align:right;font-family:var(--mono);margin-top:2px;}
-.lb-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:var(--orange);color:var(--white);border-radius:20px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .4s .2s;font-family:var(--mono);}
-.lb-badge.show{opacity:1;}
-.score-bar{padding:13px 18px;border-top:1px solid var(--paper-line);display:flex;align-items:center;justify-content:space-between;opacity:0;transition:opacity .5s;background:var(--paper-warm);}
-.score-bar.show{opacity:1;}
-.score-label{font-size:11px;color:var(--ink-dim);font-weight:500;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;}
-.score-val{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--orange);}
-.score-track{height:4px;background:rgba(0,0,0,.08);border-radius:2px;flex:1;margin:0 12px;overflow:hidden;}
-.score-fill{height:100%;background:var(--orange);border-radius:2px;width:0%;transition:width 1.2s ease;}
+.lb-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:var(--orange);color:var(--white);border-radius:20px;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;font-family:var(--mono);}
+.fit-reasoning{padding:16px 18px;background:var(--paper-warm);border-top:1px solid var(--paper-line);}
+.fit-reasoning-head{font-family:var(--mono);font-size:10px;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:6px;}
+.fit-reasoning-head::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:agentPulse 1.8s ease-in-out infinite;}
+.fit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--paper-line-soft);border-radius:6px;overflow:hidden;}
+.fit-cell{background:var(--white);padding:10px 12px;}
+.fit-cell-label{font-family:var(--mono);font-size:9px;color:var(--ink-mute);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;font-weight:600;}
+.fit-cell-value{font-size:12px;color:var(--ink);font-weight:600;line-height:1.35;}
+.fit-cell-value.good{color:var(--teal);}
 
-.email-preview{padding:16px 18px;background:var(--paper-warm);border-top:1px solid var(--paper-line);opacity:0;transition:opacity .5s .3s;}
-.email-preview.show{opacity:1;}
-.ep-tag{font-family:var(--mono);font-size:10px;font-weight:600;color:var(--orange);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;}
-.ep-body{font-size:12px;line-height:1.65;color:var(--ink);}
-.ep-body strong{color:var(--ink);font-weight:600;}
-.ep-btn{margin-top:12px;width:100%;padding:10px;background:var(--orange);color:var(--white);border:none;border-radius:5px;font-size:12.5px;font-weight:600;font-family:var(--sans);cursor:pointer;opacity:0;transition:opacity .4s .6s,background .2s;}
-.ep-btn.show{opacity:1;animation:subtlePulse 2s 1s ease-in-out infinite;}
-.ep-btn:hover{background:var(--orange-deep);}
-
-/* HOW IT WORKS — light section */
-.how{background:var(--paper);color:var(--ink);padding:112px 48px;}
-.how-top{margin-bottom:64px;}
-.how-eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
-.how-h{font-family:var(--sans);font-size:clamp(36px,4.2vw,56px);font-weight:600;line-height:1.05;letter-spacing:-.03em;max-width:24ch;margin-bottom:20px;color:var(--ink);}
-.how-h em{font-style:normal;color:var(--orange);}
-.how-d{font-size:17px;color:var(--ink-dim);line-height:1.65;max-width:54ch;font-weight:400;}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:8px;overflow:hidden;}
-.step{background:var(--white);padding:36px 28px;transition:background .2s;}
-.step:hover{background:var(--paper-warm);}
-.sn{font-family:var(--mono);font-size:11px;color:var(--orange);letter-spacing:.1em;margin-bottom:28px;font-weight:600;}
-.st{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.3;letter-spacing:-.01em;}
-.sb{font-size:13.5px;color:var(--ink-dim);line-height:1.7;font-weight:400;}
+/* Idle gap indicator above load board */
+.idle-callout{
+  padding:14px 18px;
+  background:var(--amber-soft);
+  border-bottom:1px solid var(--paper-line);
+  display:flex;align-items:center;gap:12px;
+}
+.idle-callout-icon{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--amber);color:white;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;flex-shrink:0;
+}
+.idle-callout-content{flex:1;}
+.idle-callout-label{font-family:var(--mono);font-size:9px;color:#9c7a2e;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin-bottom:2px;}
+.idle-callout-msg{font-size:12.5px;color:var(--ink);font-weight:500;line-height:1.4;}
+.idle-callout-msg strong{font-weight:600;}
 
 /* FEATURES */
 .features{background:var(--paper-warm);color:var(--ink);padding:112px 48px;}
 .fh{margin-bottom:64px;}
-.fl{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.fl{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
 .fhh{font-family:var(--sans);font-size:clamp(36px,4.2vw,56px);font-weight:600;line-height:1.05;letter-spacing:-.03em;max-width:22ch;color:var(--ink);}
 .fhh em{font-style:normal;color:var(--orange);}
-.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:8px;overflow:hidden;}
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-radius:10px;overflow:hidden;}
 .fc{background:var(--white);padding:40px 32px;transition:background .2s;}
-.fc:hover{background:var(--paper-warm);}
+.fc:hover{background:var(--paper);}
 .fn{font-family:var(--mono);font-size:11px;color:var(--orange);letter-spacing:.1em;margin-bottom:28px;font-weight:600;}
 .ftt{font-size:18px;font-weight:600;color:var(--ink);margin-bottom:14px;line-height:1.3;letter-spacing:-.01em;}
 .fb{font-size:14px;color:var(--ink-dim);line-height:1.7;font-weight:400;}
 
-/* CTA — dark section */
+/* CTA */
 .cta{background:var(--charcoal);padding:112px 48px;position:relative;overflow:hidden;}
-.cta::before{
-  content:'';position:absolute;top:50%;left:75%;transform:translate(-50%,-50%);
-  width:800px;height:800px;
-  background:radial-gradient(circle,rgba(232,80,30,.12) 0%,transparent 65%);
-  pointer-events:none;filter:blur(60px);
-}
+.cta::before{content:'';position:absolute;top:50%;left:75%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(232,80,30,.16) 0%,transparent 65%);pointer-events:none;filter:blur(60px);}
 .cta-i{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1160px;margin:0 auto;position:relative;z-index:1;}
-.cl{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
+.cl{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:18px;}
 .ch{font-family:var(--sans);font-size:clamp(36px,4vw,52px);font-weight:600;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;color:var(--white);}
 .ch em{font-style:normal;color:var(--orange);}
-.cd{font-size:16px;color:rgba(255,255,255,.6);line-height:1.65;font-weight:400;}
+.cd{font-size:16px;color:rgba(255,255,255,.65);line-height:1.65;font-weight:400;}
 .cf{display:flex;flex-direction:column;gap:12px;}
-.fi,.fs{width:100%;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:var(--white);font-size:14px;font-family:var(--sans);font-weight:400;transition:border-color .18s;appearance:none;}
-.fi::placeholder{color:rgba(255,255,255,.35);}
-.fs{color:rgba(255,255,255,.35);}
+.fi,.fs{width:100%;padding:14px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:6px;color:var(--white);font-size:14px;font-family:var(--sans);font-weight:400;transition:border-color .18s;appearance:none;}
+.fi::placeholder{color:rgba(255,255,255,.4);}
+.fs{color:rgba(255,255,255,.4);}
 .fs option{background:var(--charcoal-soft);color:white;}
 .fi:focus,.fs:focus{outline:none;border-color:var(--orange);}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .fsb{padding:15px;background:var(--orange);color:var(--white);font-size:14px;font-weight:600;border:none;border-radius:6px;cursor:pointer;transition:background .18s,transform .15s;margin-top:6px;font-family:var(--sans);}
 .fsb:hover{background:var(--orange-deep);transform:translateY(-1px);}
-.fno{font-size:12px;color:rgba(255,255,255,.35);text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;}
+.fno{font-size:12px;color:rgba(255,255,255,.4);text-align:center;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;margin-top:4px;}
 
-/* FOOTER */
-footer{background:var(--charcoal);border-top:1px solid var(--charcoal-line);padding:48px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
-.ftb{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:rgba(255,255,255,.85);}
-.ftc{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.06em;}
-.ftm{font-size:13px;color:rgba(255,255,255,.4);max-width:42ch;text-align:center;line-height:1.65;font-weight:400;}
+footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);padding:48px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+.ftb{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--ink);}
+.ftc{font-family:var(--mono);font-size:11px;color:var(--ink-mute);letter-spacing:.06em;}
+.ftm{font-size:13px;color:var(--ink-dim);max-width:42ch;text-align:center;line-height:1.65;font-weight:400;}
 
 .container{max-width:1160px;margin:0 auto;}
 
 @keyframes fup{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.5;transform:scale(.8);}}
-@keyframes subtlePulse{0%,100%{box-shadow:0 0 0 0 rgba(232,80,30,.4);}50%{box-shadow:0 0 0 6px rgba(232,80,30,0);}}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
 @media(max-width:1000px){
-  .hero-wrap{flex-direction:column;justify-content:flex-start;padding:120px 32px 64px;gap:64px;}
-  .hero-left{flex:none;max-width:100%;}
-  .hero-right{flex:none;width:100%;max-width:490px;}
+  .hero-wrap{padding:120px 32px 48px;}
+  .hero-inner{flex-direction:column;gap:64px;}
+  .hero-left{max-width:100%;}
+  .hero-right{width:100%;max-width:490px;}
+  .metrics-band{padding:0 32px 80px;}
+  .metrics-strip{grid-template-columns:repeat(2,1fr);}
   .how,.features,.cta{padding:80px 32px;}
   .fx-band{padding:64px 32px 40px;}
   .fx-card-wrap{padding:0 32px 72px;}
-  .steps{grid-template-columns:repeat(2,1fr);}
+  .agents-grid{grid-template-columns:repeat(2,1fr);}
   .fg{grid-template-columns:1fr;}
   .cta-i{grid-template-columns:1fr;gap:48px;}
   footer{flex-direction:column;gap:20px;text-align:center;padding:36px 24px;}
+  .timeline-row{grid-template-columns:100px 1fr;}
+  .timeline-days{margin-left:114px;}
+  .fit-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:640px){
   nav{padding:0 24px;}
   .hero-left h1{font-size:44px;}
-  .steps{grid-template-columns:1fr;}
+  .metrics-strip{grid-template-columns:1fr;}
+  .agents-grid{grid-template-columns:1fr;}
   .nr .nl{display:none;}
   .fr{grid-template-columns:1fr;}
-  .hero-wrap{padding:100px 20px 60px;}
+  .hero-wrap{padding:100px 20px 40px;}
 }
 </style>
 </head>
@@ -332,61 +367,55 @@ footer{background:var(--charcoal);border-top:1px solid var(--charcoal-line);padd
     TrueMile
   </div>
   <div class="nr">
+    <a href="#how" class="nl">Agents</a>
     <a href="#features" class="nl">Product</a>
-    <a href="#how" class="nl">How it works</a>
     <a href="#contact" class="nc">Book demo</a>
   </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero-wrap">
-  <div class="hero-left">
-    <div class="eyebrow"><div class="ed"></div><span class="et">Agentic optimization infrastructure</span></div>
-    <h1>Every mile.<br><em>Decided.</em></h1>
-    <p class="hero-sub">AI agents that plan the week, adapt in real time, and turn idle time into revenue.</p>
-    <div class="hbtns">
-      <a href="#contact" class="bp">Book demo →</a>
-      <a href="#how" class="bs">See how it works</a>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <div class="hero-glow"></div>
-    <div class="hero-window">
-      <div class="hero-window-bar">
-        <div class="hero-window-dots">
-          <div class="hero-window-dot"></div>
-          <div class="hero-window-dot"></div>
-          <div class="hero-window-dot"></div>
-        </div>
-        <span class="hero-window-url">truemile.ai/dashboard</span>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="eyebrow"><div class="ed"></div><span class="et">Agentic optimization infrastructure</span></div>
+      <h1>Every mile.<br><em>Decided.</em></h1>
+      <p class="hero-sub">AI agents that plan the week, adapt in real time, and turn idle time into revenue.</p>
+      <div class="hbtns">
+        <a href="#contact" class="bp">Book demo →</a>
+        <a href="#how" class="bs">See how it works</a>
       </div>
-      <div class="hero-window-body">
-        <div class="hero-metrics-card">
-          <div class="hmc-bar">
-            <div class="hmc-dot"></div>
-            <span class="hmc-title">Fleet performance · Live</span>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-glow"></div>
+      <div class="agent-feed-card">
+        <div class="agent-feed-head">
+          <div class="agent-feed-title">
+            <span class="agent-pulse"></span>
+            Live agent feed
           </div>
-          <div class="hmc-grid">
-            <div class="hm">
-              <div class="hm-tag">Avg across fleet</div>
-              <div class="hm-val">1.3×</div>
-              <div class="hm-label">Revenue per truck</div>
-            </div>
-            <div class="hm">
-              <div class="hm-tag">Trucks loaded</div>
-              <div class="hm-val">+15%</div>
-              <div class="hm-label">Utilization gain</div>
-            </div>
-            <div class="hm">
-              <div class="hm-tag">Rate per mile</div>
-              <div class="hm-val">+10%</div>
-              <div class="hm-label">RPM improvement</div>
-            </div>
-            <div class="hm">
-              <div class="hm-tag">Per dispatcher</div>
-              <div class="hm-val">−50%</div>
-              <div class="hm-label">Time dispatching</div>
-            </div>
+          <span class="agent-feed-meta">4 actions · last 12 min</span>
+        </div>
+        <div class="agent-feed-body">
+          <div class="alert eld">
+            <div class="alert-src">ELD · Hours of service</div>
+            <div class="alert-msg"><strong>G. Sandhu (Truck #1042)</strong> running low on hours.</div>
+            <div class="alert-meta">Will need a forced 10-hr break Wednesday. Plan re-solved.</div>
+          </div>
+          <div class="alert maint">
+            <div class="alert-src">Telematics · Truck health</div>
+            <div class="alert-msg"><strong>Truck #1213</strong> engine warning detected.</div>
+            <div class="alert-meta">Pull truck Tuesday for 2-day repair. Loads reassigned to #2154.</div>
+          </div>
+          <div class="alert mci">
+            <div class="alert-src">Market intelligence</div>
+            <div class="alert-msg">Lane upgrade: <strong>Dallas → Phoenix</strong> spot rates 14% above average.</div>
+            <div class="alert-meta">T. Bauer is in Dallas Tuesday morning. Offer drafted.</div>
+          </div>
+          <div class="alert broker">
+            <div class="alert-src">Broker · Outreach</div>
+            <div class="alert-msg"><strong>Mike Reilly</strong> (CH Robinson) countered $785 on KC → Tulsa.</div>
+            <div class="alert-meta">Agent recommends accepting. Net cycle profit: +$340.</div>
           </div>
         </div>
       </div>
@@ -394,102 +423,389 @@ footer{background:var(--charcoal);border-top:1px solid var(--charcoal-line);padd
   </div>
 </div>
 
-<!-- LOAD OPTIMIZER -->
-<div class="fx-section" id="features" style="background:var(--paper);">
-  <div class="fx-band reveal">
-    <div class="fx-band-label">01 · Plan the week</div>
-    <div class="fx-band-head">Scans every load.<br><em>Surfaces the one.</em></div>
-    <div class="fx-band-body">TrueMile reads every available load against your fleet schedule, driver cycles, and cost structure — simultaneously, every minute. The highest cycle-profit load rises to the top automatically.</div>
-  </div>
-  <div class="fx-card-wrap reveal">
-    <div class="ui-card" id="lbCard" style="max-width:720px;margin:0 auto;">
-      <div class="ui-bar">
-        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
-        <span class="ui-url">truemile.ai/loads</span>
-      </div>
-      <div class="lb-header">
-        <span class="lb-title">Load board</span>
-        <span class="lb-scanning" id="scanStatus"><span class="scan-dot"></span> Scanning...</span>
-      </div>
-      <div class="lb-row" id="row1">
-        <div></div>
-        <div><div class="lb-row-route">Dallas, TX → Portland, OR</div><div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div></div>
-        <div><div class="lb-rate">$3,600</div><div class="lb-rpm">$1.69/mi</div></div>
-      </div>
-      <div class="lb-row" id="row2">
-        <div></div>
-        <div><div class="lb-row-route">Tyler, TX → Sparks, NV</div><div class="lb-row-meta">1,752 mi · Van · 42k lbs</div></div>
-        <div><div class="lb-rate">$3,750</div><div class="lb-rpm">$2.14/mi</div></div>
-      </div>
-      <div class="lb-row" id="row3">
-        <div></div>
-        <div><div class="lb-row-route">Dallas, TX → Hartford, CT</div><div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div></div>
-        <div><div class="lb-rate">$4,300</div><div class="lb-rpm">$2.58/mi</div></div>
-      </div>
-      <div class="lb-row" id="rowWinner">
-        <div><span class="lb-badge" id="winBadge">✓ Best</span></div>
-        <div><div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div><div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div></div>
-        <div><div class="lb-rate" id="winRate">$4,501</div><div class="lb-rpm">$2.93/mi</div></div>
-      </div>
-      <div class="score-bar" id="scoreBar">
-        <span class="score-label">Cycle profit score</span>
-        <div class="score-track"><div class="score-fill" id="scoreFill"></div></div>
-        <span class="score-val">88 / 100</span>
-      </div>
-      <div class="email-preview" id="emailPreview">
-        <div class="ep-tag">AI-generated outreach · Ready to send</div>
-        <div class="ep-body">Hi Team, I'd like to book your load: <strong>Wichita Falls, TX → Philadelphia, PA</strong> · $4,501 · MC: 048737. Please send the carrier packet. — TrueMile Logistics</div>
-        <button class="ep-btn" id="epBtn">Email broker now →</button>
-      </div>
+<!-- METRICS BAND -->
+<div class="metrics-band">
+  <div class="metrics-strip">
+    <div class="metric">
+      <div class="metric-label">Revenue per truck</div>
+      <div class="metric-value"><em>+30%</em></div>
+      <div class="metric-desc">Average lift across pilot fleets</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Utilization</div>
+      <div class="metric-value"><em>+15%</em></div>
+      <div class="metric-desc">More trucks loaded, fewer idle days</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Rate per mile</div>
+      <div class="metric-value"><em>+10%</em></div>
+      <div class="metric-desc">Smarter load selection, not faster</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Dispatcher time</div>
+      <div class="metric-value"><em>−50%</em></div>
+      <div class="metric-desc">Routine decisions handled by agents</div>
     </div>
   </div>
 </div>
 
-<!-- ADAPT IN REAL TIME -->
-<div style="background:var(--paper-warm);">
-  <div class="fx-band reveal">
-    <div class="fx-band-label">02 · Adapt in real time</div>
-    <div class="fx-band-head">A load cancels.<br><em>The week re-solves.</em></div>
-    <div class="fx-band-body">Reality breaks the plan every week. A broker cancels, a driver goes down, weather hits, dwell stretches. TrueMile re-plans the entire week the instant something changes — without your dispatchers losing a step.</div>
-  </div>
-  <div class="fx-card-wrap reveal">
-    <div class="ui-card" id="emailCard" style="max-width:720px;margin:0 auto;">
-      <div class="ui-bar">
-        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
-        <span class="ui-url">truemile.ai/outreach</span>
-      </div>
-      <div style="padding:22px 20px;border-bottom:1px solid var(--paper-line);">
-        <div style="font-family:var(--mono);font-size:10px;font-weight:600;color:var(--orange);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">AI-generated outreach</div>
-        <div style="font-size:13px;line-height:1.85;color:var(--ink);" id="emailText"></div>
-      </div>
-      <div style="padding:16px 20px;display:flex;gap:10px;background:var(--paper-warm);">
-        <button style="flex:1;padding:11px;background:var(--white);color:var(--ink);border:1px solid var(--paper-line);border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);transition:background .2s;">Edit draft</button>
-        <button style="flex:2;padding:11px;background:var(--orange);color:white;border:none;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:background .2s;" id="sendBtn">Send email →</button>
-      </div>
-      <div style="padding:11px 20px;background:var(--white);border-top:1px solid var(--paper-line);display:flex;align-items:center;gap:8px;">
-        <span style="font-family:var(--mono);font-size:10px;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase;">Status:</span>
-        <span style="font-size:11.5px;font-weight:600;color:var(--orange);font-family:var(--mono);" id="statusText">Awaiting approval</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- HOW IT WORKS -->
+<!-- HOW IT WORKS — moved up -->
 <section class="how" id="how">
   <div class="container">
     <div class="how-top reveal">
       <div class="how-eyebrow">How it works</div>
-      <div class="how-h">From billions of options <em>to one.</em></div>
-      <div class="how-d">TrueMile evaluates every available load against your fleet schedule, cost structure, driver cycle, and destination market — then surfaces the single best move. When reality changes, the plan changes with it.</div>
+      <div class="how-h">Four agents. <em>One fleet.</em></div>
+      <div class="how-d">Each agent owns a piece of the dispatcher's job. They read live data from your ELD and TMS, talk to each other, and route only the decisions a human needs to make.</div>
     </div>
-    <div class="steps reveal">
-      <div class="step"><div class="sn">01</div><div class="st">Set fleet profile</div><div class="sb">Cost structure, driver schedules, home-time windows, RPM floors. One-time setup, never repeated.</div></div>
-      <div class="step"><div class="sn">02</div><div class="st">Scan every load</div><div class="sb">Pulls major load boards and broker networks continuously — every available load evaluated.</div></div>
-      <div class="step"><div class="sn">03</div><div class="st">Rank by cycle profit</div><div class="sb">Scored by projected profit across the full driver cycle — deadhead, dwell, and continuation lanes included.</div></div>
-      <div class="step"><div class="sn">04</div><div class="st">Contact broker</div><div class="sb">One click generates professional outreach. You approve, TrueMile executes and tracks the reply.</div></div>
+    <div class="agents-grid reveal">
+      <div class="agent-tile">
+        <div class="agent-tile-header">
+          <span class="agent-tile-num">01</span>
+          <span class="agent-tile-status">Active</span>
+        </div>
+        <div class="agent-tile-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div>
+          <div class="agent-tile-name">Planner</div>
+          <div class="agent-tile-desc" style="margin-top:8px;">Solves the full week as one system. Locks loads against HOS, home-time, and cost constraints.</div>
+        </div>
+        <div class="agent-tile-io">
+          <div class="agent-tile-io-line in">ELD · TMS · Customer commits</div>
+          <div class="agent-tile-io-line out">Weekly plan · Idle gaps</div>
+        </div>
+      </div>
+
+      <div class="agent-tile">
+        <div class="agent-tile-header">
+          <span class="agent-tile-num">02</span>
+          <span class="agent-tile-status">Active</span>
+        </div>
+        <div class="agent-tile-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        </div>
+        <div>
+          <div class="agent-tile-name">Sentinel</div>
+          <div class="agent-tile-desc" style="margin-top:8px;">Watches live signals. Driver hours, truck health, weather, detention. Triggers re-plans before problems become fires.</div>
+        </div>
+        <div class="agent-tile-io">
+          <div class="agent-tile-io-line in">Live ELD · Telematics</div>
+          <div class="agent-tile-io-line out">Re-plan triggers</div>
+        </div>
+      </div>
+
+      <div class="agent-tile">
+        <div class="agent-tile-header">
+          <span class="agent-tile-num">03</span>
+          <span class="agent-tile-status">Active</span>
+        </div>
+        <div class="agent-tile-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div>
+          <div class="agent-tile-name">Find &amp; Fill</div>
+          <div class="agent-tile-desc" style="margin-top:8px;">Scans every load board and broker network. Ranks by fleet fit — home-time, pickup timing, empty-mile, market position.</div>
+        </div>
+        <div class="agent-tile-io">
+          <div class="agent-tile-io-line in">Idle gaps · Load boards</div>
+          <div class="agent-tile-io-line out">Ranked load candidates</div>
+        </div>
+      </div>
+
+      <div class="agent-tile">
+        <div class="agent-tile-header">
+          <span class="agent-tile-num">04</span>
+          <span class="agent-tile-status">Active</span>
+        </div>
+        <div class="agent-tile-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="agent-tile-name">Outreach</div>
+          <div class="agent-tile-desc" style="margin-top:8px;">Negotiates with brokers. Notifies drivers. Drafts the message, predicts the counter, awaits your approval — then executes.</div>
+        </div>
+        <div class="agent-tile-io">
+          <div class="agent-tile-io-line in">Load picks · Driver assignments</div>
+          <div class="agent-tile-io-line out">Booked loads · Notified drivers</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- ============================================
+     01 — PLAN THE WEEK
+     ============================================ -->
+<div class="fx-section section-warm">
+  <div class="fx-band reveal">
+    <div class="fx-band-label">01 · Plan the week</div>
+    <div class="fx-band-head">Reads your data<br><em>Plans the week.</em></div>
+    <div class="fx-band-body">Every Sunday night, Planner reads live data from your ELD and TMS — driver hours, truck positions, customer commitments. Then solves the full week as one system. Every truck, every driver, every load.</div>
+  </div>
+  <div class="fx-card-wrap reveal">
+    <div class="ui-card" style="max-width:720px;margin:0 auto;">
+      <div class="ui-bar">
+        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+        <span class="ui-url">truemile.ai/plan/week-of-may-19</span>
+      </div>
+      <div class="timeline-card">
+        <div class="timeline-head">
+          <div class="timeline-title">Weekly plan · 67 trucks</div>
+          <div class="timeline-status"><span class="agent-pulse"></span> Solved 3.7s · 893 assignments</div>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-days">
+            <div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div><div>Sun</div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-truck">
+              <div class="timeline-truck-name">#1042</div>
+              <div class="timeline-truck-driver">G. Sandhu</div>
+            </div>
+            <div class="timeline-bar">
+              <div class="timeline-seg load" style="flex:2;">DAL→PHX</div>
+              <div class="timeline-seg load-light" style="flex:1;">PHX→KC</div>
+              <div class="timeline-seg load" style="flex:1.5;">KC→ATL</div>
+              <div class="timeline-seg home" style="flex:1;">HOME</div>
+              <div class="timeline-seg home" style="flex:1.5;">HOME</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-truck">
+              <div class="timeline-truck-name">#2154</div>
+              <div class="timeline-truck-driver">D. Castro</div>
+            </div>
+            <div class="timeline-bar">
+              <div class="timeline-seg load" style="flex:1.5;">TUC→PHX</div>
+              <div class="timeline-seg load-light" style="flex:2;">PHX→DAL</div>
+              <div class="timeline-seg load" style="flex:1.5;">DAL→OKC</div>
+              <div class="timeline-seg home" style="flex:2;">HOME</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-truck">
+              <div class="timeline-truck-name">#1213</div>
+              <div class="timeline-truck-driver">J. Anderson</div>
+            </div>
+            <div class="timeline-bar">
+              <div class="timeline-seg load" style="flex:1.5;">SEA→PDX</div>
+              <div class="timeline-seg maint" style="flex:2;">MAINT</div>
+              <div class="timeline-seg load" style="flex:1.5;">PDX→SLC</div>
+              <div class="timeline-seg load-light" style="flex:1;">SLC→DEN</div>
+              <div class="timeline-seg home" style="flex:1;">HOME</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-truck">
+              <div class="timeline-truck-name">#3024</div>
+              <div class="timeline-truck-driver">A. Singh</div>
+            </div>
+            <div class="timeline-bar">
+              <div class="timeline-seg load" style="flex:2;">CHI→NYC</div>
+              <div class="timeline-seg load-light" style="flex:1.5;">NYC→BOS</div>
+              <div class="timeline-seg load" style="flex:2;">BOS→ATL</div>
+              <div class="timeline-seg home" style="flex:1.5;">HOME</div>
+            </div>
+          </div>
+          <div class="timeline-row">
+            <div class="timeline-truck">
+              <div class="timeline-truck-name">#4083</div>
+              <div class="timeline-truck-driver">T. Jackson</div>
+            </div>
+            <div class="timeline-bar">
+              <div class="timeline-seg load" style="flex:1.5;">CLT→JAX</div>
+              <div class="timeline-seg load" style="flex:1.5;">JAX→MIA</div>
+              <div class="timeline-seg load-light" style="flex:1.5;">MIA→ATL</div>
+              <div class="timeline-seg load" style="flex:1.5;">ATL→CLT</div>
+              <div class="timeline-seg home" style="flex:1;">HOME</div>
+            </div>
+          </div>
+        </div>
+        <div class="agent-thought">
+          <div class="agent-thought-head">Planner reasoning</div>
+          <strong>Locked 745 loads against driver cycles and HOS constraints.</strong> Found 8 idle truck-days across Tuesday and Thursday — opportunity surface forwarded to Find &amp; Fill agent. Honored 12 home-time requests. Routed Truck #1213 around Tuesday maintenance window.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     02 — ADAPT IN REAL TIME (with broker modal)
+     ============================================ -->
+<div class="section-paper">
+  <div class="fx-band reveal">
+    <div class="fx-band-label">02 · Adapt in real time</div>
+    <div class="fx-band-head">A driver calls in sick.<br><em>The week re-solves.</em></div>
+    <div class="fx-band-body">A driver goes down. A broker cancels. A truck breaks. Detention exceeds threshold. TrueMile sees it through ELD and TMS feeds — and re-plans the entire week before your dispatcher sees the alert. No fire drill.</div>
+  </div>
+  <div class="fx-card-wrap reveal">
+    <div class="ui-card" style="max-width:720px;margin:0 auto;">
+      <div class="ui-bar">
+        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+        <span class="ui-url">truemile.ai/events/live</span>
+      </div>
+      <div class="slip-card">
+        <div class="slip-event">
+          <div class="slip-event-icon">!</div>
+          <div class="slip-event-content">
+            <div class="slip-event-src">ELD · Driver status</div>
+            <div class="slip-event-msg"><strong>D. Castro (Truck #2154)</strong> marked off-duty · sick.</div>
+            <div class="slip-event-meta">2 loads at risk · Tucson pickup in 4h 12m</div>
+          </div>
+        </div>
+        <div class="agent-steps">
+          <div class="agent-step">
+            <div class="agent-step-mark">1</div>
+            <div class="agent-step-content">
+              <div class="agent-step-action">Identified affected loads and pickup windows.</div>
+              <div class="agent-step-detail"><strong>Load #2491042</strong> (Tucson → Phoenix, 4h 12m to pickup) · <strong>Load #2491203</strong> (Phoenix → Dallas, Wed 6 AM)</div>
+            </div>
+          </div>
+          <div class="agent-step">
+            <div class="agent-step-mark">2</div>
+            <div class="agent-step-content">
+              <div class="agent-step-action">Solved coverage across remaining fleet.</div>
+              <div class="agent-step-detail"><strong>A. Singh (Truck #1042)</strong> arrives Tucson 9:30 AM Wed · 38 min HOS slack · fits home-time window</div>
+            </div>
+          </div>
+          <div class="agent-step">
+            <div class="agent-step-mark">3</div>
+            <div class="agent-step-content">
+              <div class="agent-step-action">Drafted broker notification for driver swap.</div>
+              <div class="agent-step-detail"><strong>To:</strong> Tom Henderson · JB Hunt · <strong>Status:</strong> awaiting dispatcher approval</div>
+            </div>
+          </div>
+          <div class="agent-step">
+            <div class="agent-step-mark">4</div>
+            <div class="agent-step-content">
+              <div class="agent-step-action">Notified Singh via WhatsApp with new route + ETAs.</div>
+              <div class="agent-step-detail">Message delivered · driver acknowledged · ETAs synced to TMS</div>
+            </div>
+          </div>
+        </div>
+        <div class="slip-actions">
+          <button class="slip-action-btn secondary">View full plan</button>
+          <button class="slip-action-btn" onclick="document.getElementById('brokerModal').classList.add('active')">Contact broker →</button>
+        </div>
+        <div class="resolved-footer">
+          <div class="resolved-label"><span class="agent-pulse"></span> Week re-solved</div>
+          <div class="resolved-time">2.4s · 0 revenue loss</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BROKER MODAL -->
+<div class="modal-overlay" id="brokerModal">
+  <div class="modal-window">
+    <div class="modal-head">
+      <div class="modal-head-title">Broker notification · Driver swap</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="modal-head-meta">Ready to send</span>
+        <button class="modal-close" onclick="document.getElementById('brokerModal').classList.remove('active')">×</button>
+      </div>
+    </div>
+    <div class="modal-broker-meta">
+      <div class="modal-broker-row">
+        <span class="modal-broker-label">To</span>
+        <span class="modal-broker-val">Tom Henderson · JB Hunt · MC 252323</span>
+      </div>
+      <div class="modal-broker-row">
+        <span class="modal-broker-label">Load</span>
+        <span class="modal-broker-val">#2491042 · Tucson → Phoenix · Wed pickup</span>
+      </div>
+      <div class="modal-broker-row">
+        <span class="modal-broker-label">Subject</span>
+        <span class="modal-broker-val">Truck #2154 · Load #2491042 · driver swap</span>
+      </div>
+    </div>
+    <div class="modal-email-body">Tom,
+
+Truck #2154 · Tucson → Phoenix · Load #2491042 · driver swap to Truck #1042.
+Pickup window holds.
+
+Please advise.
+
+— Dispatch · TrueMile</div>
+    <div class="modal-actions">
+      <button class="modal-action-btn secondary" onclick="document.getElementById('brokerModal').classList.remove('active')">Edit draft</button>
+      <button class="modal-action-btn primary" onclick="document.getElementById('brokerModal').classList.remove('active')">Send email →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     03 — FILL IDLE TIME WITH REVENUE
+     ============================================ -->
+<div class="fx-section section-warm" id="features">
+  <div class="fx-band reveal">
+    <div class="fx-band-label">03 · Fill idle time with revenue</div>
+    <div class="fx-band-head">Idle truck-days.<br><em>Filled with the right load.</em></div>
+    <div class="fx-band-body">Every gap the Planner finds gets handed to Find &amp; Fill. It scans every load board and broker network — then ranks loads by fit, not just rate. Home-time windows, market positioning, pickup timing, empty-mile recovery, driver preferences. The right load surfaces automatically.</div>
+  </div>
+  <div class="fx-card-wrap reveal">
+    <div class="ui-card" style="max-width:720px;margin:0 auto;">
+      <div class="ui-bar">
+        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
+        <span class="ui-url">truemile.ai/idle-gaps</span>
+      </div>
+      <div class="idle-callout">
+        <div class="idle-callout-icon">⚡</div>
+        <div class="idle-callout-content">
+          <div class="idle-callout-label">Idle gap detected · Forwarded by Planner</div>
+          <div class="idle-callout-msg"><strong>Truck #2154 (D. Castro)</strong> · Wed 6 AM empty in Wichita Falls, TX · home-time window Sunday</div>
+        </div>
+      </div>
+      <div class="lb-header">
+        <span class="lb-title">Load candidates · ranked by fleet fit</span>
+        <span class="lb-scanning"><span class="agent-pulse"></span> Best fit found</span>
+      </div>
+      <div class="lb-row">
+        <div></div>
+        <div><div class="lb-row-route">Dallas, TX → Portland, OR</div><div class="lb-row-meta">2,134 mi · Reefer · 40k lbs</div></div>
+        <div><div class="lb-rate">$3,600</div><div class="lb-rpm">$1.69/mi</div></div>
+      </div>
+      <div class="lb-row">
+        <div></div>
+        <div><div class="lb-row-route">Tyler, TX → Sparks, NV</div><div class="lb-row-meta">1,752 mi · Van · 42k lbs</div></div>
+        <div><div class="lb-rate">$3,750</div><div class="lb-rpm">$2.14/mi</div></div>
+      </div>
+      <div class="lb-row">
+        <div></div>
+        <div><div class="lb-row-route">Dallas, TX → Hartford, CT</div><div class="lb-row-meta">1,664 mi · Reefer · 35k lbs</div></div>
+        <div><div class="lb-rate">$4,300</div><div class="lb-rpm">$2.58/mi</div></div>
+      </div>
+      <div class="lb-row winner">
+        <div><span class="lb-badge">✓ Best fit</span></div>
+        <div><div class="lb-row-route" style="font-weight:600;">Wichita Falls, TX → Philadelphia, PA</div><div class="lb-row-meta">1,536 mi · Reefer · 40k lbs</div></div>
+        <div><div class="lb-rate">$4,501</div><div class="lb-rpm">$2.93/mi</div></div>
+      </div>
+      <div class="fit-reasoning">
+        <div class="fit-reasoning-head">Why this load · Find &amp; Fill reasoning</div>
+        <div class="fit-grid">
+          <div class="fit-cell">
+            <div class="fit-cell-label">Home-time</div>
+            <div class="fit-cell-value good">Honors Sun deadline</div>
+          </div>
+          <div class="fit-cell">
+            <div class="fit-cell-label">Pickup</div>
+            <div class="fit-cell-value good">2.1 hrs · zero rush</div>
+          </div>
+          <div class="fit-cell">
+            <div class="fit-cell-label">Empty mile</div>
+            <div class="fit-cell-value good">Continuation lane available</div>
+          </div>
+          <div class="fit-cell">
+            <div class="fit-cell-label">Market position</div>
+            <div class="fit-cell-value good">PHL outbound · strong</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- FEATURES -->
 <section class="features">
@@ -501,9 +817,9 @@ footer{background:var(--charcoal);border-top:1px solid var(--charcoal-line);padd
     <div class="fg reveal">
       <div class="fc"><div class="fn">01</div><div class="ftt">Weekly plan engine</div><div class="fb">Generates a full-week optimal plan — every truck, every driver, every load — solved as one system, not load-by-load.</div></div>
       <div class="fc"><div class="fn">02</div><div class="ftt">Real-time re-solver</div><div class="fb">When a load cancels or a driver goes down, the entire week re-solves in seconds. Your dispatchers see the new plan before the next call comes in.</div></div>
-      <div class="fc"><div class="fn">03</div><div class="ftt">Cycle-based ranking</div><div class="fb">Projects profit across the full driver cycle — remaining OTR days, continuation lanes, and home deadline. Beyond single-load RPM.</div></div>
+      <div class="fc"><div class="fn">03</div><div class="ftt">Fleet-fit load ranking</div><div class="fb">Ranks loads by what actually fits your fleet — home-time windows, market positioning, pickup timing, driver preferences. Beyond rate-per-mile.</div></div>
       <div class="fc"><div class="fn">04</div><div class="ftt">Idle time recovery</div><div class="fb">Finds the revenue hiding in idle truck-days, idle trailer-positioning windows, and empty-mile recovery loads you'd otherwise miss.</div></div>
-      <div class="fc"><div class="fn">05</div><div class="ftt">Automated outreach</div><div class="fb">Generates carrier-ready broker emails in one click. You approve — TrueMile sends, tracks, and follows up automatically.</div></div>
+      <div class="fc"><div class="fn">05</div><div class="ftt">Broker negotiation</div><div class="fb">Drafts carrier-ready outreach. Predicts the counter before it comes back. You approve — TrueMile sends, tracks, and follows up.</div></div>
       <div class="fc"><div class="fn">06</div><div class="ftt">TMS-native</div><div class="fb">Sits on top of your existing TMS. McLeod, PCS, Aljex, Tailwind — full read/write where supported, read-only fallback elsewhere.</div></div>
     </div>
   </div>
@@ -554,49 +870,16 @@ footer{background:var(--charcoal);border-top:1px solid var(--charcoal-line);padd
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-let lbAnimated=false;
-const lbObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!lbAnimated){lbAnimated=true;runLBAnimation();}});},{threshold:.3});
-const lbCard=document.getElementById('lbCard');
-if(lbCard)lbObs.observe(lbCard);
-
-function runLBAnimation(){
-  ['row1','row2','row3','rowWinner'].forEach((id,i)=>{
-    setTimeout(()=>{const el=document.getElementById(id);if(el)el.classList.add('show');},{0:400,1:900,2:1400,3:2100}[i]);
-  });
-  setTimeout(()=>{const wb=document.getElementById('winBadge'),wr=document.getElementById('rowWinner');if(wb)wb.classList.add('show');if(wr)wr.classList.add('winner');},2500);
-  setTimeout(()=>{
-    const sb=document.getElementById('scoreBar');if(sb)sb.classList.add('show');
-    setTimeout(()=>{const sf=document.getElementById('scoreFill');if(sf)sf.style.width='88%';},100);
-    const ss=document.getElementById('scanStatus');
-    if(ss)ss.innerHTML='<span style="width:6px;height:6px;border-radius:50%;background:#E8501E;display:inline-block;margin-right:6px;"></span> Best load found';
-  },3000);
-  setTimeout(()=>{const ep=document.getElementById('emailPreview'),btn=document.getElementById('epBtn');if(ep)ep.classList.add('show');if(btn)btn.classList.add('show');},3600);
-}
-
-const emailLines=`Hi Team,\n\nI'd like to book your load posting.\n\nPlease send the carrier packet and we'll get it filled out shortly.\n\n<strong>LOAD DETAILS:</strong>\nMC: 048737 · Ref: 2491042\nWichita Falls, TX → Philadelphia, PA\n1,536 miles · $4,501 ($2.93/mi)\nReefer · 40,000 lbs · 53 ft\n\n<strong>EQUIPMENT:</strong>\nTruck: 2023 Freightliner Cascadia 126 #107\nTrailer: 2022 Great Dane 53ft S-700 TK\n\n— Sarah Mitchell, TrueMile Logistics`;
-let emailAnimated=false;
-const emailObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!emailAnimated){emailAnimated=true;typeEmail();}});},{threshold:.3});
-const emailCard=document.getElementById('emailCard');
-if(emailCard)emailObs.observe(emailCard);
-function typeEmail(){
-  const el=document.getElementById('emailText');if(!el)return;
-  const lines=emailLines.split('\n');let lineIdx=0,charIdx=0,html='';
-  const iv=setInterval(()=>{
-    if(lineIdx>=lines.length){clearInterval(iv);return;}
-    const line=lines[lineIdx];
-    if(charIdx<line.length){html+=line[charIdx];charIdx++;}
-    else{html+='<br>';lineIdx++;charIdx=0;}
-    el.innerHTML=html+'<span style="opacity:.6;color:#E8501E;">|</span>';
-  },18);
-}
-
-document.getElementById('sendBtn')?.addEventListener('click',function(){
-  this.textContent='Sent ✓';this.style.background='#155c3d';
-  const st=document.getElementById('statusText');if(st)st.textContent='Email delivered · Awaiting broker response';
+document.getElementById('brokerModal')?.addEventListener('click',function(e){
+  if(e.target===this){this.classList.remove('active');}
 });
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){document.getElementById('brokerModal')?.classList.remove('active');}
+});
+
 document.getElementById('submitBtn')?.addEventListener('click',function(e){
   e.preventDefault();this.textContent='Submitted ✓';
-  this.style.cssText+=';background:#155c3d;color:white;';
+  this.style.cssText+=';background:#1A1A1A;color:white;';
   setTimeout(()=>{this.textContent='Book demo →';this.style.cssText='';},3000);
 });
 </script>
