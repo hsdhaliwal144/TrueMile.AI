@@ -61,32 +61,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .nc{font-size:13px;font-weight:500;color:var(--white);background:var(--charcoal);padding:10px 20px;border-radius:6px;text-decoration:none;transition:background .2s,transform .15s;}
 .nc:hover{background:var(--orange);transform:translateY(-1px);}
 
-/* HERO */
-.hero-wrap{position:relative;background:var(--paper);padding:120px 48px 56px;overflow:hidden;}
-.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 40%,rgba(232,80,30,.08) 0%,transparent 65%);pointer-events:none;}
-.hero-inner{display:flex;align-items:center;justify-content:center;gap:72px;max-width:1280px;margin:0 auto;}
-.hero-left{position:relative;z-index:2;flex:1 1 auto;max-width:600px;}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;padding:8px 14px;background:var(--orange-soft);border:1px solid rgba(232,80,30,.18);border-radius:100px;opacity:0;animation:fup .7s .2s ease forwards;}
+/* HERO — centered, no side card */
+.hero-wrap{position:relative;background:var(--paper);padding:140px 48px 72px;overflow:hidden;}
+.hero-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 40%,rgba(232,80,30,.08) 0%,transparent 65%);pointer-events:none;}
+.hero-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;max-width:900px;margin:0 auto;position:relative;z-index:2;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:32px;padding:8px 16px;background:var(--orange-soft);border:1px solid rgba(232,80,30,.18);border-radius:100px;opacity:0;animation:fup .7s .2s ease forwards;}
 .ed{width:5px;height:5px;border-radius:50%;background:var(--orange);}
 .et{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep);}
-.hero-left h1{font-family:var(--sans);font-size:clamp(56px,7vw,96px);font-weight:600;line-height:1.02;letter-spacing:-.04em;margin-bottom:28px;color:var(--ink);opacity:0;animation:fup .8s .4s ease forwards;}
-.hero-left h1 em{font-style:normal;font-weight:600;color:var(--orange);}
-.hero-sub{font-size:18px;color:var(--ink-dim);line-height:1.65;max-width:54ch;font-weight:400;margin-bottom:40px;opacity:0;animation:fup .8s .6s ease forwards;}
-.hbtns{display:flex;gap:14px;align-items:center;opacity:0;animation:fup .8s .8s ease forwards;}
+.hero-inner h1{font-family:var(--sans);font-size:clamp(64px,9vw,128px);font-weight:600;line-height:1.0;letter-spacing:-.045em;margin-bottom:32px;color:var(--ink);opacity:0;animation:fup .8s .4s ease forwards;text-align:center;}
+.hero-inner h1 em{font-style:normal;font-weight:600;color:var(--orange);}
+.hero-sub{font-size:20px;color:var(--ink-dim);line-height:1.6;max-width:62ch;font-weight:400;margin:0 auto 44px;opacity:0;animation:fup .8s .6s ease forwards;text-align:center;}
+.hbtns{display:flex;gap:14px;align-items:center;justify-content:center;opacity:0;animation:fup .8s .8s ease forwards;}
 .bp{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--charcoal);color:var(--white);font-size:14px;font-weight:500;border-radius:6px;text-decoration:none;transition:background .2s,transform .15s;cursor:pointer;border:none;font-family:var(--sans);}
 .bp:hover{background:var(--orange);transform:translateY(-1px);}
 .bs{display:inline-flex;align-items:center;padding:14px 24px;background:transparent;color:var(--ink-dim);font-size:14px;font-weight:500;border:1px solid var(--paper-line);border-radius:6px;text-decoration:none;transition:border-color .2s,color .2s;}
 .bs:hover{border-color:var(--charcoal);color:var(--ink);}
 
 /* ===========================================
-   HERO — DISPATCHER WORKFLOW ANIMATION (LOOPS)
-   Fixed-height card. Stages cross-fade in place.
+   AGENT DEMO SECTION — pulled out of hero,
+   positioned after metrics, scroll-triggered
    =========================================== */
-.hero-right{flex:0 0 auto;width:580px;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;animation:fup 1s .4s ease forwards;min-height:560px;}
-.hero-glow{position:absolute;top:30%;left:50%;width:500px;height:500px;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(232,80,30,.10) 0%,transparent 65%);pointer-events:none;filter:blur(60px);z-index:0;}
+.agent-demo-section{padding:96px 48px 120px;background:var(--paper);position:relative;overflow:hidden;}
+.agent-demo-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 30%,rgba(232,80,30,.06) 0%,transparent 65%);pointer-events:none;}
+.agent-demo-inner{max-width:780px;margin:0 auto;position:relative;z-index:1;}
+.agent-demo-head{text-align:center;margin-bottom:48px;}
+.agent-demo-label{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;}
+.agent-demo-title{font-family:var(--sans);font-size:clamp(40px,5vw,64px);font-weight:600;line-height:1.05;letter-spacing:-.035em;margin-bottom:20px;color:var(--ink);}
+.agent-demo-title em{font-style:normal;font-weight:600;color:var(--orange);}
+.agent-demo-desc{font-size:17px;color:var(--ink-dim);line-height:1.65;max-width:54ch;margin:0 auto;font-weight:400;}
 
+/* The card itself — now wider in its own section */
+.agent-card-wrap{display:flex;justify-content:center;}
 .agent-card{
-  position:relative;z-index:1;width:100%;max-width:560px;
+  position:relative;z-index:1;width:100%;max-width:680px;
   background:var(--white);
   border:1px solid var(--paper-line);
   border-radius:14px;overflow:hidden;
@@ -101,7 +108,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 }
 .agent-card-body{
   position:relative;overflow:hidden;
-  height:200px;
+  height:240px;
   flex-shrink:0;
 }
 .agent-card-body > div{
@@ -585,10 +592,8 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   .metric-value{font-size:28px;}
 }
 @media(max-width:1000px){
-  .hero-wrap{padding:120px 32px 48px;}
-  .hero-inner{flex-direction:column;gap:64px;}
-  .hero-left{max-width:100%;}
-  .hero-right{width:100%;max-width:560px;}
+  .hero-wrap{padding:120px 32px 64px;}
+  .agent-demo-section{padding:80px 32px 96px;}
   .metrics-band{padding:0 32px 80px;}
   .metrics-strip{grid-template-columns:repeat(3,1fr);}
   .metric:nth-child(4),.metric:nth-child(5){grid-column:span 1;}
@@ -605,12 +610,15 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
 }
 @media(max-width:640px){
   nav{padding:0 24px;}
-  .hero-left h1{font-size:44px;}
+  .hero-inner h1{font-size:52px;}
+  .agent-demo-title{font-size:38px;}
   .metrics-strip{grid-template-columns:1fr;}
   .agents-grid{grid-template-columns:1fr;}
   .nr .nl{display:none;}
   .fr{grid-template-columns:1fr;}
-  .hero-wrap{padding:100px 20px 40px;}
+  .hero-wrap{padding:100px 20px 48px;}
+  .hbtns{flex-direction:column;width:100%;}
+  .hbtns a{width:100%;justify-content:center;}
 }
 </style>
 </head>
@@ -632,21 +640,59 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   </div>
 </nav>
 
-<!-- HERO with animated agentic flow -->
+<!-- HERO — centered, no card -->
 <div class="hero-wrap">
   <div class="hero-inner">
-    <div class="hero-left">
-      <div class="eyebrow"><div class="ed"></div><span class="et">Agentic optimization infrastructure</span></div>
-      <h1>Every mile.<br><em>Decided.</em></h1>
-      <p class="hero-sub">AI agents that plan the week, adapt in real time, and turn idle time into revenue.</p>
-      <div class="hbtns">
-        <a href="#contact" class="bp">Book demo →</a>
-        <a href="#how" class="bs">See how it works</a>
-      </div>
+    <div class="eyebrow"><div class="ed"></div><span class="et">Agentic optimization for mid-market trucking carriers</span></div>
+    <h1>Every mile.<br><em>Decided.</em></h1>
+    <p class="hero-sub">AI agents that plan the week, adapt in real time, and turn idle time into revenue.</p>
+    <div class="hbtns">
+      <a href="#contact" class="bp">Book demo →</a>
+      <a href="#demo" class="bs">See how it works</a>
     </div>
+  </div>
+</div>
 
-    <div class="hero-right">
-      <div class="hero-glow"></div>
+<!-- METRICS BAND -->
+<div class="metrics-band">
+  <div class="metrics-strip">
+    <div class="metric">
+      <div class="metric-label">Revenue per truck</div>
+      <div class="metric-value"><em>+15%</em></div>
+      <div class="metric-desc">Average lift across pilot fleets</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Utilization</div>
+      <div class="metric-value"><em>+12%</em></div>
+      <div class="metric-desc">More trucks loaded, fewer idle days</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Rate per mile</div>
+      <div class="metric-value"><em>+9%</em></div>
+      <div class="metric-desc">Smarter load selection</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Driver retention</div>
+      <div class="metric-value"><em>+20%</em></div>
+      <div class="metric-desc">Home time &amp; preferences priced in</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Dispatcher time</div>
+      <div class="metric-value"><em>−50%</em></div>
+      <div class="metric-desc">Routine decisions handled by agents</div>
+    </div>
+  </div>
+</div>
+
+<!-- AGENT DEMO — moved out of hero, now its own section -->
+<section class="agent-demo-section" id="demo">
+  <div class="agent-demo-inner">
+    <div class="agent-demo-head reveal">
+      <div class="agent-demo-label">Watch the agent work</div>
+      <div class="agent-demo-title">A driver calls in sick.<br><em>The week re-solves.</em></div>
+      <div class="agent-demo-desc">Tell the agent what changed. It re-optimizes the entire week — driver swaps, broker notifications, load coverage — in seconds.</div>
+    </div>
+    <div class="agent-card-wrap reveal">
       <div class="agent-card">
         <div class="agent-card-head">
           <div class="agent-card-title">
@@ -718,7 +764,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
           </div>
         </div>
 
-        <!-- Divider between workflow and live feed (inside the same card) -->
+        <!-- Divider between workflow and live feed -->
         <div class="agent-card-divider">
           <div class="agent-card-divider-title">
             <span class="agent-pulse"></span>
@@ -744,38 +790,7 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
       </div>
     </div>
   </div>
-</div>
-
-<!-- METRICS BAND -->
-<div class="metrics-band">
-  <div class="metrics-strip">
-    <div class="metric">
-      <div class="metric-label">Revenue per truck</div>
-      <div class="metric-value"><em>+15%</em></div>
-      <div class="metric-desc">Average lift across pilot fleets</div>
-    </div>
-    <div class="metric">
-      <div class="metric-label">Utilization</div>
-      <div class="metric-value"><em>+12%</em></div>
-      <div class="metric-desc">More trucks loaded, fewer idle days</div>
-    </div>
-    <div class="metric">
-      <div class="metric-label">Rate per mile</div>
-      <div class="metric-value"><em>+9%</em></div>
-      <div class="metric-desc">Smarter load selection</div>
-    </div>
-    <div class="metric">
-      <div class="metric-label">Driver retention</div>
-      <div class="metric-value"><em>+20%</em></div>
-      <div class="metric-desc">Home time &amp; preferences priced in</div>
-    </div>
-    <div class="metric">
-      <div class="metric-label">Dispatcher time</div>
-      <div class="metric-value"><em>−50%</em></div>
-      <div class="metric-desc">Routine decisions handled by agents</div>
-    </div>
-  </div>
-</div>
+</section>
 
 <!-- HOW IT WORKS -->
 <section class="how" id="how">
@@ -941,105 +956,10 @@ footer{background:var(--paper);border-top:1px solid var(--paper-line-soft);paddi
   </div>
 </div>
 
-<!-- 02 ADAPT IN REAL TIME -->
-<div class="section-paper">
-  <div class="fx-band reveal">
-    <div class="fx-band-label">02 · Adapt in real time</div>
-    <div class="fx-band-head">A driver calls in sick.<br><em>The week re-solves.</em></div>
-    <div class="fx-band-body">A driver goes down. A broker cancels. A truck breaks. Detention exceeds threshold. TrueMile sees it through ELD and TMS feeds — and re-plans the entire week before your dispatcher sees the alert. No fire drill.</div>
-  </div>
-  <div class="fx-card-wrap reveal">
-    <div class="ui-card" style="max-width:720px;margin:0 auto;">
-      <div class="ui-bar">
-        <div class="ui-dots"><div class="ui-dot"></div><div class="ui-dot"></div><div class="ui-dot"></div></div>
-        <span class="ui-url">truemile.ai/events/live</span>
-      </div>
-      <div class="slip-card">
-        <div class="slip-event">
-          <div class="slip-event-icon">!</div>
-          <div class="slip-event-content">
-            <div class="slip-event-src">ELD · Driver status</div>
-            <div class="slip-event-msg"><strong>D. Castro (Truck #2154)</strong> marked off-duty · sick.</div>
-            <div class="slip-event-meta">2 loads at risk · Tucson pickup in 4h 12m</div>
-          </div>
-        </div>
-        <div class="agent-steps">
-          <div class="agent-step">
-            <div class="agent-step-mark">1</div>
-            <div class="agent-step-content">
-              <div class="agent-step-action">Identified affected loads and pickup windows.</div>
-              <div class="agent-step-detail"><strong>Load #2491042</strong> (Tucson → Phoenix, 4h 12m to pickup) · <strong>Load #2491203</strong> (Phoenix → Dallas, Wed 6 AM)</div>
-            </div>
-          </div>
-          <div class="agent-step">
-            <div class="agent-step-mark">2</div>
-            <div class="agent-step-content">
-              <div class="agent-step-action">Solved coverage across remaining fleet.</div>
-              <div class="agent-step-detail"><strong>A. Singh (Truck #1042)</strong> arrives Tucson 9:30 AM Wed · 38 min HOS slack · fits home-time window</div>
-            </div>
-          </div>
-          <div class="agent-step">
-            <div class="agent-step-mark">3</div>
-            <div class="agent-step-content">
-              <div class="agent-step-action">Drafted broker notification for driver swap.</div>
-              <div class="agent-step-detail"><strong>To:</strong> Tom Henderson · JB Hunt · <strong>Status:</strong> awaiting dispatcher approval</div>
-            </div>
-          </div>
-          <div class="agent-step">
-            <div class="agent-step-mark">4</div>
-            <div class="agent-step-content">
-              <div class="agent-step-action">Notified Singh via WhatsApp with new route + ETAs.</div>
-              <div class="agent-step-detail">Message delivered · driver acknowledged · ETAs synced to TMS</div>
-            </div>
-          </div>
-        </div>
-        <div class="slip-actions">
-          <button class="slip-action-btn secondary">View full plan</button>
-          <button class="slip-action-btn" onclick="document.getElementById('brokerModal').classList.add('active')">Contact broker →</button>
-        </div>
-        <div class="resolved-footer">
-          <div class="resolved-label"><span class="agent-pulse"></span> Week re-solved</div>
-          <div class="resolved-time">2.4s · 0 revenue loss</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- BROKER MODAL -->
-<div class="modal-overlay" id="brokerModal">
-  <div class="modal-window">
-    <div class="modal-head">
-      <div class="modal-head-title">Broker notification · Driver swap</div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="modal-head-meta">Ready to send</span>
-        <button class="modal-close" onclick="document.getElementById('brokerModal').classList.remove('active')">×</button>
-      </div>
-    </div>
-    <div class="modal-broker-meta">
-      <div class="modal-broker-row"><span class="modal-broker-label">To</span><span class="modal-broker-val">Tom Henderson · JB Hunt · MC 252323</span></div>
-      <div class="modal-broker-row"><span class="modal-broker-label">Load</span><span class="modal-broker-val">#2491042 · Tucson → Phoenix · Wed pickup</span></div>
-      <div class="modal-broker-row"><span class="modal-broker-label">Subject</span><span class="modal-broker-val">Truck #2154 · Load #2491042 · driver swap</span></div>
-    </div>
-    <div class="modal-email-body">Tom,
-
-Truck #2154 · Tucson → Phoenix · Load #2491042 · driver swap to Truck #1042.
-Pickup window holds.
-
-Please advise.
-
-— Dispatch · TrueMile</div>
-    <div class="modal-actions">
-      <button class="modal-action-btn secondary" onclick="document.getElementById('brokerModal').classList.remove('active')">Edit draft</button>
-      <button class="modal-action-btn primary" onclick="document.getElementById('brokerModal').classList.remove('active')">Send email →</button>
-    </div>
-  </div>
-</div>
-
-<!-- 03 FILL IDLE TIME -->
+<!-- 02 FILL IDLE TIME (renumbered from 03) -->
 <div class="fx-section section-warm" id="features">
   <div class="fx-band reveal">
-    <div class="fx-band-label">03 · Fill idle time with revenue</div>
+    <div class="fx-band-label">02 · Fill idle time with revenue</div>
     <div class="fx-band-head">Idle truck-days.<br><em>Filled with the right load.</em></div>
     <div class="fx-band-body">Every gap the Planner finds gets handed to Find &amp; Fill. It scans every load board and broker network — then ranks loads by fit, not just rate. Home-time windows, market positioning, pickup timing, empty-mile recovery, driver preferences. The right load surfaces automatically.</div>
   </div>
@@ -1140,13 +1060,6 @@ Please advise.
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -32px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-document.getElementById('brokerModal')?.addEventListener('click',function(e){
-  if(e.target===this){this.classList.remove('active');}
-});
-document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){document.getElementById('brokerModal')?.classList.remove('active');}
-});
-
 document.getElementById('submitBtn')?.addEventListener('click',function(e){
   e.preventDefault();this.textContent='Submitted ✓';
   this.style.cssText+=';background:#1A1A1A;color:white;';
@@ -1154,8 +1067,8 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
 });
 
 // ============================================
-// HERO ANIMATION — full dispatcher workflow
-// Loops continuously every ~14s
+// AGENT DEMO ANIMATION — scroll-triggered
+// Loops continuously once section is in view
 // ============================================
 (function(){
   const stage1 = document.getElementById('hero-stage-1');
@@ -1187,12 +1100,12 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
   ];
 
   const placeholder = 'e.g. "Max called in sick"';
-  inputText.textContent = placeholder;
+  if(inputText) inputText.textContent = placeholder;
 
   function sleep(ms){ return new Promise(r => setTimeout(r, ms)); }
 
   function showStage(target){
-    [stage1, stage2, stage3, stage4].forEach(s => s.classList.remove('active'));
+    [stage1, stage2, stage3, stage4].forEach(s => s && s.classList.remove('active'));
     if(target) target.classList.add('active');
   }
 
@@ -1221,15 +1134,17 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
     stateMeta.textContent = '375 trucks · monitoring';
   }
 
+  let running = false;
+
   async function runFlow(){
     resetState();
     showStage(stage1);
 
-    await sleep(3800);
+    await sleep(1800);
 
     // Stage 1a: focus input
     inputWrap.classList.add('focused');
-    await sleep(700);
+    await sleep(500);
 
     // Stage 1b: type the message
     await typeText('Max called in sick');
@@ -1257,7 +1172,7 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
     // Stage 3: replanning
     showStage(stage3);
     stateLabel.textContent = 'Re-planning';
-    stateMeta.textContent = '1,000,000,000 scenarios';
+    stateMeta.textContent = 'CP-SAT · LNS · 8,000 scenarios';
 
     const duration = 2600;
     const stepMs = 60;
@@ -1296,12 +1211,25 @@ document.getElementById('submitBtn')?.addEventListener('click',function(e){
   }
 
   async function loop(){
-    while(true){
+    running = true;
+    while(running){
       await runFlow();
     }
   }
 
-  setTimeout(loop, 500);
+  // Trigger animation when demo section scrolls into view
+  const demoSection = document.getElementById('demo');
+  if(demoSection && stage1){
+    const startObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting && !running){
+          loop();
+          startObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.25 });
+    startObs.observe(demoSection);
+  }
 })();
 
 // ============================================
